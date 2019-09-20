@@ -2,6 +2,25 @@
 layout: default
 ---
 
+This page is created by Trong-Thuc Hoang from the University of Electro-Communications (UEC), Tokyo, Japan.
+
+First is for my self-study, second is for helping newcomers to understand RISC-V.
+
+The guide in this tutorial has the following contents:
+
+* Setting things up:
+
+- [Initial setup](#) *(guide for setting up a new Ubuntu machine & install the tools)*
+
+* Keystone demo on FPGA:
+
+- [Keystone](#) *(guide for 'make' the Keystone project)*
+- [Freedom on VC707](#) *(guide for implementing SiFive Freedom on VC707 FPGA board with/without Keystone)*
+
+* Study Chisel:
+
+- []
+
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 [Link to another page](./sec1/1.md).
