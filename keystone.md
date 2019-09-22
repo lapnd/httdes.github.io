@@ -23,13 +23,13 @@ KEYSTONE GUIDE
 
 	$ git clone https://github.com/keystone-enclave/keystone.git
 	$ cd keystone/
-	$ git checkout dev	#commit 44acf9bf on 10-Aug-2019
+	$ git checkout dev		#commit 44acf9bf on 10-Aug-2019
 
-	$ echo ${PATH}		#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ . source.sh
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ ./fast-setup.sh	#this will download the prebuilt toolchain (gcc-7.2) and set things up
+	$ ./fast-setup.sh		#this will download the prebuilt toolchain (gcc-7.2) and set things up
 	$ make -j`nproc`
 	
 	$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
@@ -39,24 +39,24 @@ KEYSTONE GUIDE
 	$ ./tests/tests/vault.sh
 	$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 
-To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-turn-on-usb--ethernet-drivers).
+To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-usb--ethernet-drivers).
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 ## I. b) Keystone-demo
 
-	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ cd <your keystone folder>		#go to your keystone folder
 	$ . source.sh
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ cd ../	#go back outside
+	$ cd ../			#go back outside
 	$ git clone https://github.com/keystone-enclave/keystone-demo.git
 	(branch master commit 64009889 on 17-Jul-2019)
 	
 	$ cd keystone-demo/
 	$ . source.sh
-	$ ./quick-start.sh	#type Y when asked
+	$ ./quick-start.sh		#type Y when asked
 	after this step, a new app is generated and coppied to the keystone directory
 	
 	However, it will be a false attestation. To update the new hash value, do the followings:
@@ -87,17 +87,17 @@ TODO: in the future, upgrade the build scripts of keystone & keystone-demo from 
 
 There are two ways of doing this, the 'formal' way, and the shortcut.
 
-### First, check the PATH things
+**First, check the PATH things:**
 
-        $ echo ${PATH}                          #and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-        $ cd <your keystone folder>             #go to your keystone folder
+        $ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+        $ cd <your keystone folder>		#go to your keystone folder
         $ . source.sh
         $ export KEYSTONE_DIR=`pwd`
 
-        $ cd <your keystone-demo folder>        #go to your keystone-demo folder
+        $ cd <your keystone-demo folder>	#go to your keystone-demo folder
         $ . source.sh
 
-### The 'formal' way
+**The 'formal' way:**
 
 The proper way to modify drivers in Linux kernel is open the kernel, select or diselect some drivers, apply the changes, and remake everything.
 
@@ -119,49 +119,49 @@ The proper way to modify drivers in Linux kernel is open the kernel, select or d
         $ make -j`nproc`
         $ make image -j`nproc`
 
-## The shortcut
+**The shortcut:**
 
 So, the bottom line of the 'formal' way above is just to creating a new **linux_cma_conf** file under the *hifive-conf/* directory.
 
-Then, on this tutorial repo, THE FILE is just provided, so you know what to do:
+Then, I give you THE FILE, you know what to do:
 
-        copy the **linux_cma_conf** file provied in this tutorial repo to your <keystone folder>/hifive-conf/linux_cma_conf
+        after copy the **linux_cma_conf** file to your <keystone folder>/hifive-conf/linux_cma_conf:
         $ make clean
         $ make -j`nproc`
         $ make image -j`nproc`
 
-## Aftermath
+**Aftermath:**
 
 After your changes on the kernel, the hash value of the **bbl.bin** file is different now.
 
 So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo) or [II. b)](#ii-b-keystone-demo)), you have to do the followings to reapply the hashes to the image file of **bbl.bin**:
 
-        $ cd <your keystone-demo folder>        #go to your keystone-demo folder
+        $ cd <your keystone-demo folder>	#go to your keystone-demo folder
         $ make getandsethash
         $ rm trusted_client.riscv
         $ make trusted_client.riscv
         $ make copybins
 
-        $ cd <your keystone folder>             #go to your keystone folder
-        $ make image -j`nproc`                  #and update the bbl.bin there
+        $ cd <your keystone folder>		#go to your keystone folder
+        $ make image -j`nproc`			#and update the bbl.bin there
 
 * * *
 
 # IV. Run Test on QEMU
 
-        $ cd <keystone folder>          #go to your keystone folder
+        $ cd <keystone folder>		#go to your keystone folder
         $ ./scripts/run-qemu.sh
         Login by the id of 'root' and the password of 'sifive'.
 
-        $ insmod keystone-driver.ko     #install driver
+        $ insmod keystone-driver.ko	#install driver
 
         To do the initial test:
-        $ time ./tests/tests.ke         #okay if the 'Attestation report SIGNATURE is valid' is printed
+        $ time ./tests/tests.ke		#okay if the 'Attestation report SIGNATURE is valid' is printed
 
         To do the keystone-demo test:
-        $ cd keystone-demo/                     #go to the keystone-demo test
-        $ ./enclave-host.riscv &                #run host in localhost
-        $ ./trusted_client.riscv localhost      #connect to localhost and test
+        $ cd keystone-demo/			#go to the keystone-demo test
+        $ ./enclave-host.riscv &		#run host in localhost
+        $ ./trusted_client.riscv localhost	#connect to localhost and test
         okay if the 'Attestation signature and enclave hash are valid' is printed
         exit the Security Monitor by:   $ q
 

@@ -123,7 +123,7 @@ Some tips for using Github:
         to patch file
         $ git diff > patch-file							#export current changes into a patch-file
         $ git format-patch <src branch or commit>..<des branch or commit> --stdout > patch-file
-        (export a patch-file from <src branch or commit> to <des branch or commit>
+        (export a patch-file from <src branch or commit> to <des branch or commit>)
         $ patch -p1 < patch-file						#update your folder with the patch-file
 
         to see the status of repo
@@ -179,7 +179,7 @@ To install the RISC-V QEMU:
 
 (because the VC707 project now can compatible only with the 2016.4 version of Vivado)
 
-**Check your eth0 interface**
+**Check your eth0 interface:**
 
 Type "$ ifconfig -a" to make sure that the network interface name is 'eth0'. If not, the Vivado cannot recognize the license from the NAT interface. Then, the network interface name must be rename by:
 
@@ -193,18 +193,16 @@ Type "$ ifconfig -a" to make sure that the network interface name is 'eth0'. If 
 
 Finally, reboot again for the computer to update the new ethernet interface.
 
-**Download and Install**
+**Download and Install:**
 
-First, download the Vivado 2016.4 from Xilinx [website](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/archive.html): (linux .bin file self extract):
-
-Then, cd to the downloaded .bin file and run:
+First, download the Vivado 2016.4 from Xilinx [website](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/archive.html) (linux .bin file self extract). Then, cd to the downloaded .bin file and run:
 
         $ chmod +x Xilinx_....bin
         $ sudo ./Xilinx_....bin
 
 The GUI for installation will be load. Choose to install the Vivado HL Design Edition and wait for the installer to complete.
 
-Install cable driver:
+**Install cable driver:**
 
         cd to Vivado installed folder:
         $ cd ...Xilinx/Vivado/2016.4/data/xicom/cable_drivers/lin64/install_script/install_drivers/
