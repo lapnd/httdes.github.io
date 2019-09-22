@@ -2,6 +2,8 @@
 layout : default
 ---
 
+<p style="text-align:center">Index</p>
+
 - [I. Init setup for new machine](#i-init-setup-for-new-machine)
 - [II. Install tools](./init2.md)
   * II. a) Scala & sbt
@@ -21,10 +23,10 @@ To make **vi** more comfortable:
 	
 	$ sudo apt install vim
 	$ vi ~/.vimrc
-	
-	Then add this two lines below:
-		set nocompatible
-		syntax on
+
+Then add this two lines below:
+	set nocompatible
+	syntax on
 
 Update & upgrade everything:
 	
