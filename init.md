@@ -243,7 +243,7 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 # BOTTOM PAGE
 
-| Back | Next |
-| :--- | ---: |
-| [Top Index](./) | [Keystone Guide](./keystone.md) |
+| Next |
+| ---: |
+| [Keystone Guide](./keystone.md) |
 
