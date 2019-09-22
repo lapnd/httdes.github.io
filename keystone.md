@@ -2,18 +2,22 @@
 layout : default
 ---
 
-- [I. Using prebuilt toolchain](#i-using-prebuilt-toolchain)
-  * [I. a) Keystone](#i-a-keystone)
-  * [I. b) Keystone-demo](#i-b-keystone-demo)
-- [II. Using native toolchain](#ii-using-native-toolchain)
-  * [II. a) Keystone](#ii-a-keystone)
-  * [II. b) Keystone-demo](#ii-b-keystone-demo)
-- [III. Turn on USB & Ethernet drivers](#iii-turn-on-usb--ethernet-drivers)
-- [IV. Run test on QEMU](#iv-run-test-on-qemu)
+KEYSTONE GUIDE
 
 * * *
 
-# I. Using prebuilt toolchain
+- [I. Use Prebuilt Toolchain](#i-use-prebuilt-toolchain)
+  * [I. a) Keystone](#i-a-keystone)
+  * [I. b) Keystone-demo](#i-b-keystone-demo)
+- [II. Use Native Toolchain](#ii-use-native-toolchain)
+  * [II. a) Keystone](#ii-a-keystone)
+  * [II. b) Keystone-demo](#ii-b-keystone-demo)
+- [III. USB & Ethernet Drivers](#iii-usb--ethernet-drivers)
+- [IV. Run Test on QEMU](#iv-run-test-on-qemu)
+
+* * *
+
+# I. Use Prebuilt Toolchain
 
 ## I. a) Keystone
 
@@ -69,7 +73,7 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 * * *
 
-# II. Using native toolchain
+# II. Use Native Toolchain
 
 TODO: in the future, upgrade the build scripts of keystone & keystone-demo from using the prebuilt toolchain (kernel=4.13.x & gcc=7.2) to the current mainstream of riscv-gnu-toolchain (kernel=5.0.x & gcc=9.2).
 
@@ -79,7 +83,7 @@ TODO: in the future, upgrade the build scripts of keystone & keystone-demo from 
 
 * * *
 
-# III. Turn on USB & Ethernet drivers
+# III. USB & Ethernet Drivers
 
 There are two ways of doing this, the 'formal' way, and the shortcut.
 
@@ -143,7 +147,7 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo) or [II. b)]
 
 * * *
 
-# IV. Run test on QEMU
+# IV. Run Test on QEMU
 
         $ cd <keystone folder>          #go to your keystone folder
         $ ./scripts/run-qemu.sh
