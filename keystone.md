@@ -161,5 +161,5 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo) or [II. b)]
 
 | Back | Next |
 | :--- | ---: |
-| [Initial Setup](./init.md) | [Freedom on VC707](./freedom.md) |
+| [Initial Setup](./init.md) | [Freedom on VC707](./vc707.md) |
 
