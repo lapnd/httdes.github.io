@@ -257,7 +257,7 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 * * *
 
-| **Back** | **Next** |
-| ---: | ---: |
-| [**Top Index**](./) | [**Keystone**](./keystone.md) |
+| Back | Next |
+| :--- | ---: |
+| [<div class="text-blue">**Top Index**</div>](./) | [<div class="text-blue">Keystone</div>](./keystone.md) |
 
