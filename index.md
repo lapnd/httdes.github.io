@@ -10,15 +10,22 @@ The guide in this tutorial has the following contents:
 
 <p style="text-align:center">**Setting things up**</p>
 
-- [Initial setup](./init1.md) *(guide for setting up a new Ubuntu machine & install the tools)*
+- [Initial setup](./init.md)
+
+*(guide for setting up a new Ubuntu machine & install the tools)*
 
 <p style="text-align:center">**Keystone demo on FPGA**</p>
 
-- [Keystone](./keystone1.md) *(guide for 'make' the Keystone project)*
-- [Freedom on VC707](./vc7071.md) *(guide for implementing SiFive Freedom on VC707 FPGA board with/without Keystone)*
+- [Keystone](./keystone.md)
+
+*(guide for 'make' the Keystone project)*
+
+- [Freedom on VC707](./vc707.md)
+
+*(guide for implementing SiFive Freedom on VC707 FPGA board with/without Keystone)*
 
 <p style="text-align:center">**Chisel study**</p>
 
-- [Scala](./scala1.md)          : General-purpose Programming Language
-- [Chisel](./chisel1.md)         : Hardware Constructor Language
-- [SiFive Freedom](freedom1.md) : Code Structure
+- [Scala](./scala.md)		: General-purpose Programming Language
+- [Chisel](./chisel.md)		: Hardware Constructor Language
+- [SiFive Freedom](freedom.md)	: Code Structure
