@@ -112,7 +112,7 @@ The proper way to modify drivers in Linux kernel is open the kernel, select or d
 
 So, the bottom line of the 'formal' way above is just to creating a new **linux_cma_conf** file under the *hifive-conf/* directory.
 
-Then, I give you THE FILE, you know what to do:
+Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
 
         after copy the **linux_cma_conf** file to your <keystone folder>/hifive-conf/linux_cma_conf:
         $ make clean
