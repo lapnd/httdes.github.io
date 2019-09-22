@@ -76,7 +76,7 @@ TODO: in the future, upgrade the build scripts of keystone & keystone-demo from 
 
 There are two ways of doing this, the 'formal' way, and the shortcut.
 
-**First, check the PATH things:**
+### (i) First, check the PATH things
 
         $ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
         $ cd <your keystone folder>			#go to your keystone folder
@@ -86,7 +86,7 @@ There are two ways of doing this, the 'formal' way, and the shortcut.
         $ cd <your keystone-demo folder>	#go to your keystone-demo folder
         $ . source.sh
 
-**The 'formal' way:**
+### (ii) Make the 'formal' way
 
 The proper way to modify drivers in Linux kernel is open the kernel, select or diselect some drivers, apply the changes, and remake everything.
 
@@ -108,7 +108,7 @@ The proper way to modify drivers in Linux kernel is open the kernel, select or d
         $ make -j`nproc`
         $ make image -j`nproc`
 
-**The shortcut:**
+### (iii) Make by the 'shortcut' way
 
 So, the bottom line of the 'formal' way above is just to creating a new **linux_cma_conf** file under the *hifive-conf/* directory.
 
@@ -119,7 +119,7 @@ Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
         $ make -j`nproc`
         $ make image -j`nproc`
 
-**Aftermath:**
+### (iv) Aftermath
 
 After your changes on the kernel, the hash value of the **bbl.bin** file is different now.
 
