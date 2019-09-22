@@ -2,10 +2,11 @@
 layout : default
 ---
 
-# SiFive Freedom: Code Structure
+# SIFIVE FREEDOM CODE STRUCTURE
 
 * * *
 
-| [back](./chisel.md) |
+| Back |
 | :--- |
-||
+| [Chisel Study Notes](./chisel.md) |
+

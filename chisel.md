@@ -2,10 +2,13 @@
 layout : default
 ---
 
-# Chisel: Hardware Constructor Language
+# CHISEL STUDY NOTES
+
+Chisel is a hardware constructor language
 
 * * *
 
-| [back](./scala.md) | [next  ](./freedom.md) |
+| Back | Next |
 | :--- | ---: |
-||
+| [Scala Study Notes](./scala.md) | [SiFive Freedom Code Structure](./freedom.md) |
+

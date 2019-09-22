@@ -243,5 +243,5 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 | Back | Next |
 | :--- | ---: |
-| [Top Index](./) | [Keystone](./keystone.md) |
+| [Top Index](./) | [Keystone Guide](./keystone.md) |
 

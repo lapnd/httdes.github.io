@@ -2,10 +2,13 @@
 layout: default
 ---
 
-# Scala: General-Purpose Programming Language
+# SCALA STUDY NOTES
+
+Scala is a general-purpose programming language
 
 * * *
 
-| [back](./vc707.md) | [next  ](./chisel.md) |
+| Back | Next |
 | :--- | ---: |
-||
+| [SiFive Freedom on VC707](./vc707.md) | [Chisel Study Notes](./chisel.md) |
+
