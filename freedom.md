@@ -2,12 +2,10 @@
 layout : default
 ---
 
-# III. SiFive Freedom Code Structure
-
-section III
+# SiFive Freedom: Code Structure
 
 * * *
 
-| [back](../sec2/2.md) |
+| [back](./chisel.md) |
 | :--- |
 ||

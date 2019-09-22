@@ -8,24 +8,18 @@ First is for my self-study, second is for helping newcomers to understand RISC-V
 
 The guide in this tutorial has the following contents:
 
-<p style="text-align:center">**Setting things up**</p>
+<p style="text-align:center">** SET THINGS UP **</p>
 
-- [Initial setup](./init.md)
+- [Initial setup](./init.md) : *set up a new Ubuntu machine & install tools*
 
-*(guide for setting up a new Ubuntu machine & install the tools)*
+<p style="text-align:center">** KEYSTONE DEMO ON FPGA **</p>
 
-<p style="text-align:center">**Keystone demo on FPGA**</p>
+- [Keystone](./keystone.md): *guide to 'make' the Keystone project*
 
-- [Keystone](./keystone.md)
+- [Freedom on VC707](./vc707.md): *implement SiFive Freedom on VC707 with/without Keystone*
 
-*(guide for 'make' the Keystone project)*
+<p style="text-align:center">** CHISEL STUDY **</p>
 
-- [Freedom on VC707](./vc707.md)
-
-*(guide for implementing SiFive Freedom on VC707 FPGA board with/without Keystone)*
-
-<p style="text-align:center">**Chisel study**</p>
-
-- [Scala](./scala.md)		: General-purpose Programming Language
-- [Chisel](./chisel.md)		: Hardware Constructor Language
-- [SiFive Freedom](freedom.md)	: Code Structure
+- [Scala](./scala.md): General-purpose Programming Language
+- [Chisel](./chisel.md): Hardware Constructor Language
+- [SiFive Freedom](freedom.md): Code Structure

@@ -2,12 +2,10 @@
 layout: default
 ---
 
-# I. Scala: General-Purpose Programming Language
-
-Section I
+# Scala: General-Purpose Programming Language
 
 * * *
 
-| [back](../) | [next  ](../sec2/2.md) |
+| [back](./vc707.md) | [next  ](./chisel.md) |
 | :--- | ---: |
 ||

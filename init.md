@@ -5,15 +5,15 @@ layout : default
 <p style="text-align:center">Index</p>
 
 - [I. Init setup for new machine](#i-init-setup-for-new-machine)
-- [II. Install tools](./init2.md)
-  * II. a) Scala & sbt
-  * II. b) Verilator
-  * II. c) QEMU
-  * II. d) Vivado 2016.4
-- [III. RISC-V Toolchain](./init3.md)
-  * III. a) Git clone
-  * III. b) Configurations
-  * III. c) Make
+- [II. Install tools](#ii-install-tools)
+  * [II. a) Scala & sbt](#ii-a-scala--sbt)
+  * [II. b) Verilator](#ii-b-verilator)
+  * [II. c) QEMU](#ii-c-qemu)
+  * [II. d) Vivado 2016.4](#ii-d-vivado-20164)
+- [III. RISC-V Toolchain](#iii-risc-v-toolchain)
+  * [III. a) Git clone](#iii-a-git-clone)
+  * [III. b) Configurations](#iii-b-configurations)
+  * [III. c) Make](#iii-c-make)
 
 * * *
 
@@ -25,6 +25,7 @@ To make **vi** more comfortable:
 	$ vi ~/.vimrc
 
 Then add this two lines below:
+	
 	set nocompatible
 	syntax on
 
@@ -176,7 +177,7 @@ To install the RISC-V QEMU:
 
 (because the VC707 project now can compatible only with the 2016.4 version of Vivado)
 
-### Check your eth0 interface
+**Check your eth0 interface**
 
 Type "$ ifconfig -a" to make sure that the network interface name is 'eth0'. If not, the Vivado cannot recognize the license from the NAT interface. Then, the network interface name must be rename by:
 
@@ -190,7 +191,7 @@ Type "$ ifconfig -a" to make sure that the network interface name is 'eth0'. If 
 
 Finally, reboot again for the computer to update the new ethernet interface.
 
-### Download and Install
+**Download and Install**
 
 First, download the Vivado 2016.4 from Xilinx [website](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/archive.html): (linux .bin file self extract):
 
@@ -254,7 +255,7 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 * * *
 
-| [*back: Index*](./index.md) | [*next: II. Install tools*](./init2.md) |
-| :--- | :--- |
+| [*next: Keystone*](./keystone.md) |
+| ---: |
 ||
 

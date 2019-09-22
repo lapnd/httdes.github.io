@@ -2,12 +2,10 @@
 layout : default
 ---
 
-# II. Chisel: Hardware Constructor Language
-
-section II
+# Chisel: Hardware Constructor Language
 
 * * *
 
-| [back](../sec1/1.md) | [next  ](../sec3/3.md) |
+| [back](./scala.md) | [next  ](./freedom.md) |
 | :--- | ---: |
 ||

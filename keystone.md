@@ -3,13 +3,13 @@ layout : default
 ---
 
 - [I. Using prebuilt toolchain](#i-using-prebuilt-toolchain)
-  * I. a) Keystone](#i-a-keystone)
-  * I. b) Keystone-demo](#i-b-keystone-demo)
-- [II. Using native toolchain](./keystone2.md)
-  * II. a) Keystone
-  * II. b) Keystone-demo
-- [III. Turn on USB & Ethernet drivers](./keystone3.md)
-- [IV. Run test on QEMU](./keystone4.md)
+  * [I. a) Keystone](#i-a-keystone)
+  * [I. b) Keystone-demo](#i-b-keystone-demo)
+- [II. Using native toolchain](#ii-using-native-toolchain)
+  * [II. a) Keystone](#ii-a-keystone)
+  * [II. b) Keystone-demo](#ii-b-keystone-demo)
+- [III. Turn on USB & Ethernet drivers](#iii-turn-on-usb--ethernet-drivers)
+- [IV. Run test on QEMU](#iv-run-test-on-qemu)
 
 * * *
 
@@ -35,7 +35,7 @@ layout : default
 	$ ./tests/tests/vault.sh
 	$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 
-To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-turn-on-usb--ethernet-drivers-in-linux-kernel).
+To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-turn-on-usb--ethernet-drivers).
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
@@ -166,7 +166,7 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo) or [II. b)]
 
 * * *
 
-| [*back: Initial Setup guide*](./init1.md) | [*next: II. Using native toolchain*](./keystone2.md) |
-| :--- | :--- |
+| [*back: Initial setup*](./init.md) | [*next: Freedom on VC707*](./freedom.md) |
+| :--- | ---: |
 ||
 
