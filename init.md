@@ -2,14 +2,17 @@
 layout : default
 ---
 
-<p style="text-align:center">Index</p>
+# INITIAL SETUP
 
-- [I. Init setup for new machine](#i-init-setup-for-new-machine)
-- [II. Install tools](#ii-install-tools)
-  * [II. a) Scala & sbt](#ii-a-scala--sbt)
-  * [II. b) Verilator](#ii-b-verilator)
-  * [II. c) QEMU](#ii-c-qemu)
-  * [II. d) Vivado 2016.4](#ii-d-vivado-20164)
+* * *
+
+- [I. A Few Things & Dependencies](#i-a-few-things--dependencies)
+- [II. RISC-V Tools](#ii-risc-v-tools)
+  * [II. a) Github](#ii-a-github)
+  * [II. b) Scala & sbt](#ii-b-scala--sbt)
+  * [II. c) Verilator](#ii-c-verilator)
+  * [II. d) QEMU](#ii-d-qemu)
+  * [II. e) Vivado 2016.4](#ii-e-vivado-20164)
 - [III. RISC-V Toolchain](#iii-risc-v-toolchain)
   * [III. a) Git clone](#iii-a-git-clone)
   * [III. b) Configurations](#iii-b-configurations)
@@ -17,7 +20,7 @@ layout : default
 
 * * *
 
-# I. Init setup for new machine
+# I. A Few Things & Dependencies
 
 To make **vi** more comfortable:
 	
@@ -84,64 +87,63 @@ Finally, reboot the machine.
 
 * * *
 
-# II. Install tools
+# II. RISC-V Tools
+
+## II. a) Github
 
 Some tips for using Github:
 
         to git clone
-        $ git clone <link>                              #clone and keep the original name for the cloned folder
-        $ git clone <link> <name>                       #clone and change the name for the cloned folder
+        $ git clone <link>				#clone and keep the original name for the cloned folder
+        $ git clone <link> <name>			#clone and change the name for the cloned folder
 
         to track your changes
-        $ git diff                                      #list the differences of your folder
-        $ git diff <branch-name>                        #list the differences of your folder compare to another branch
-        $ git diff <src-branch>..<des-branch>           #list the differences between two branches
-        $ git diff <commit-hash>                        #list the differences of your folder compare to the old commit
-        $ git diff <src-commit-hash>..<des-commit-hash> #list the differences between two commits
+        $ git diff					#list the differences of your folder
+        $ git diff <branch-name>			#list the differences of your folder compare to another branch
+        $ git diff <src-branch>..<des-branch>		#list the differences between two branches
+        $ git diff <commit-hash>			#list the differences of your folder compare to the old commit
+        $ git diff <src-commit-hash>..<des-commit-hash>	#list the differences between two commits
 
         to update your folder FROM github
-        $ git pull                                      #pull from the current branch
-        $ git pull <branch-name>                        #pull from another branch
+        $ git pull					#pull from the current branch
+        $ git pull <branch-name>			#pull from another branch
 
         to update your folder TO github
-        $ git status                                    #to see changes for commit
-        $ git add <file-name> <folder-name>             #first, add every changes of yours
-        $ git commit -m "<some message>"                #make a commit with <some message> attached
-        $ git push                                      #this one will push to the current branch, OR
-        $ git push <branch-name>                        #       push to another branch
+        $ git status					#to see changes for commit
+        $ git add <file-name> <folder-name>		#first, add every changes of yours
+        $ git commit -m "<some message>"		#make a commit with <some message> attached
+        $ git push					#this one will push to the current branch, OR
+        $ git push <branch-name>			#       push to another branch
 
         to switch to another branch and commit
-        $ git checkout <branch-name>                    #switch to another branch
-        $ git checkout <commit-hash>                    #rollback to the old commit in the same branch
-        $ git checkout -b <branch-name> <commit-hash>   #switch to another branch and rollback to the old commit of that branch
+        $ git checkout <branch-name>			#switch to another branch
+        $ git checkout <commit-hash>			#rollback to the old commit in the same branch
+        $ git checkout -b <branch-name> <commit-hash>	#switch to another branch and rollback to the old commit of that branch
 
         to patch file
-        $ git diff > patch-file                         #export current changes into a patch-file
+        $ git diff > patch-file				#export current changes into a patch-file
         $ git format-patch <src branch or commit>..<des branch or commit> --stdout > patch-file
         (export a patch-file from <src branch or commit> to <des branch or commit>
-        $ patch -p1 < patch-file                        #update your folder with the patch-file
+        $ patch -p1 < patch-file			#update your folder with the patch-file
 
         to see the status of repo
         $ git log
         $ git log --oneline
         $ git log --all --decorate --oneline --graph
 
-## II. a) Scala & sbt:
+## II. b) Scala & sbt:
 
-The source code for hardware is called the ChiSel coding. And it is written in Scala embedded language.
+The source code for hardware is written in scala language by using the Chisel library. The sbt is the tool to compile the scala codes. Sbt is used to generate java codes from the scala codes, then later on, java generates firrtl codes from the java codes, and finally, from firrtl codes to the actual verilog codes.
 
-The sbt is the library & tool for Scala. Sbt is used to generate from the Scala codes to the actual Verilog codes.
+First, we need to install the scala. You can follow the [website](https://www.scala-lang.org/download/) to download the [deb file](https://downloads.lightbend.com/scala/2.12.9/scala-2.12.9.deb) (version 2.12.9) and install. (You can choose another version to install at your own risk :))
 
-First, we need to install the Scala embedded language following the [website](https://www.scala-lang.org/download/). Download the [Deb file](https://downloads.lightbend.com/scala/2.12.9/scala-2.12.9.deb) (version 2.12.9) and install. You can choose another upgraded version of scala at your own risk :)
+Then download the sbt tool according to the [website](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html). Download the [deb file](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html) (version 1.2.8) and install.
 
-Then download sbt according to the [website](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html). Download the [Deb file](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html) (version 1.2.8) and install.
-
-Finally:
+Finally from a terminal: (this is just for download the library for the first time, then type "exit" close the terminal)
 
         $ sbt
-        this is just for downloading the sbt library for the first time, then type "exit" to exit the sbt terminal
 
-## II. b) Verilator
+## II. c) Verilator
 
 Verilator is a cycle-accurate behavioral model, and it is used to simulate the Verilog codes at cycle level (like ModelSim).
 
@@ -157,7 +159,7 @@ To install the Verilator:
         $ make test     #might skip
         $ sudo make install
 
-## II. c) QEMU
+## II. d) QEMU
 
 QEMU is an emulation tool, not a simulation tool. It does not simulate anything (.v codes, .scala codes, or .c codes, etc.). It emulates the behavioral that a correct CPU should behave. Ref [link](https://github.com/riscv/riscv-qemu/tree/riscv-qemu-4.0.0).
 
@@ -173,7 +175,7 @@ To install the RISC-V QEMU:
         $ ../configure
         $ make -j`nproc`
 
-## II. d) Vivado 2016.4
+## II. e) Vivado 2016.4
 
 (because the VC707 project now can compatible only with the 2016.4 version of Vivado)
 
@@ -255,7 +257,7 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 * * *
 
-| [*next: Keystone*](./keystone.md) |
-| ---: |
-||
+| **Back** | **Next** |
+| ---: | ---: |
+| [**Top Index**](./) | [**Keystone**](./keystone.md) |
 
