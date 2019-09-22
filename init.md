@@ -6,20 +6,6 @@ layout : default
 
 * * *
 
-- [I. A Few Things & Dependencies](#i-a-few-things--dependencies)
-- [II. RISC-V Tools](#ii-risc-v-tools)
-  * [II. a) Github](#ii-a-github)
-  * [II. b) Scala & sbt](#ii-b-scala--sbt)
-  * [II. c) Verilator](#ii-c-verilator)
-  * [II. d) QEMU](#ii-d-qemu)
-  * [II. e) Vivado 2016.4](#ii-e-vivado-20164)
-- [III. RISC-V Toolchain](#iii-risc-v-toolchain)
-  * [III. a) Git clone](#iii-a-git-clone)
-  * [III. b) Configurations](#iii-b-configurations)
-  * [III. c) Make](#iii-c-make)
-
-* * *
-
 # I. A Few Things & Dependencies
 
 To make **vi** more comfortable:

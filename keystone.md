@@ -2,18 +2,7 @@
 layout : default
 ---
 
-KEYSTONE GUIDE
-
-* * *
-
-- [I. Use Prebuilt Toolchain](#i-use-prebuilt-toolchain)
-  * [I. a) Keystone](#i-a-keystone)
-  * [I. b) Keystone-demo](#i-b-keystone-demo)
-- [II. Use Native Toolchain](#ii-use-native-toolchain)
-  * [II. a) Keystone](#ii-a-keystone)
-  * [II. b) Keystone-demo](#ii-b-keystone-demo)
-- [III. USB & Ethernet Drivers](#iii-usb--ethernet-drivers)
-- [IV. Run Test on QEMU](#iv-run-test-on-qemu)
+# KEYSTONE GUIDE
 
 * * *
 
@@ -23,13 +12,13 @@ KEYSTONE GUIDE
 
 	$ git clone https://github.com/keystone-enclave/keystone.git
 	$ cd keystone/
-	$ git checkout dev		#commit 44acf9bf on 10-Aug-2019
+	$ git checkout dev			#commit 44acf9bf on 10-Aug-2019
 
 	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ . source.sh
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ ./fast-setup.sh		#this will download the prebuilt toolchain (gcc-7.2) and set things up
+	$ ./fast-setup.sh			#this will download the prebuilt toolchain (gcc-7.2) and set things up
 	$ make -j`nproc`
 	
 	$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
@@ -45,12 +34,12 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 ## I. b) Keystone-demo
 
-	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ cd <your keystone folder>		#go to your keystone folder
 	$ . source.sh
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ cd ../			#go back outside
+	$ cd ../				#go back outside
 	$ git clone https://github.com/keystone-enclave/keystone-demo.git
 	(branch master commit 64009889 on 17-Jul-2019)
 	
@@ -89,8 +78,8 @@ There are two ways of doing this, the 'formal' way, and the shortcut.
 
 **First, check the PATH things:**
 
-        $ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-        $ cd <your keystone folder>		#go to your keystone folder
+        $ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+        $ cd <your keystone folder>			#go to your keystone folder
         $ . source.sh
         $ export KEYSTONE_DIR=`pwd`
 
@@ -142,21 +131,21 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo) or [II. b)]
         $ make trusted_client.riscv
         $ make copybins
 
-        $ cd <your keystone folder>		#go to your keystone folder
+        $ cd <your keystone folder>			#go to your keystone folder
         $ make image -j`nproc`			#and update the bbl.bin there
 
 * * *
 
 # IV. Run Test on QEMU
 
-        $ cd <keystone folder>		#go to your keystone folder
+        $ cd <keystone folder>			#go to your keystone folder
         $ ./scripts/run-qemu.sh
         Login by the id of 'root' and the password of 'sifive'.
 
         $ insmod keystone-driver.ko	#install driver
 
         To do the initial test:
-        $ time ./tests/tests.ke		#okay if the 'Attestation report SIGNATURE is valid' is printed
+        $ time ./tests/tests.ke			#ok if 'Attestation report SIGNATURE is valid' is printed
 
         To do the keystone-demo test:
         $ cd keystone-demo/			#go to the keystone-demo test
@@ -170,7 +159,7 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo) or [II. b)]
 
 * * *
 
-| [*back: Initial setup*](./init.md) | [*next: Freedom on VC707*](./freedom.md) |
+| Back | Next |
 | :--- | ---: |
-||
+| [Initial Setup](./init.md) | [Freedom on VC707](./freedom.md) |
 
