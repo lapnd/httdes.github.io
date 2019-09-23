@@ -8,16 +8,16 @@ The guide in this tutorial has the following contents:
 
 <p style="text-align:center">** SET THINGS UP **</p>
 
-- [Initial setup](./init.md) : *set up a new Ubuntu machine & install tools*
+- [Initial Setup](./init.md) : *set up a new Ubuntu machine & install tools*
 
 <p style="text-align:center">** KEYSTONE DEMO ON FPGA (VC707) **</p>
 
-- [Keystone](./keystone.md): *guide to 'make' the Keystone project*
+- [Keystone Guide](./keystone.md): *guide to 'make' the Keystone project*
 
-- [Freedom on VC707](./vc707.md): *implement SiFive Freedom on VC707 with/without Keystone*
+- [SiFive Freedom on VC707](./vc707.md): *implement SiFive Freedom on VC707 with/without Keystone*
 
 <p style="text-align:center">** CHISEL STUDY **</p>
 
-- [Scala](./scala.md): *General-purpose Programming Language*
-- [Chisel](./chisel.md): *Hardware Constructor Language*
-- [SiFive Freedom](freedom.md): *Code Structure*
+- [Scala Study Notes](./scala.md): *Scala: General-purpose Programming Language*
+- [Chisel Study Notes](./chisel.md): *Chisel: Hardware Constructor Language*
+- [SiFive Freedom Code Structure](freedom.md): *Understanding the Freedom U540 Code Structure*
