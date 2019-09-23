@@ -4,7 +4,11 @@ layout : default
 
 # CHISEL STUDY NOTES
 
-Chisel is a hardware constructor language
+Chisel is a Hardware Constructor Language
+
+* * *
+
+*coming soon (maybe lol)*
 
 * * *
 

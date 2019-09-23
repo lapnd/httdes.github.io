@@ -4,7 +4,11 @@ layout: default
 
 # SCALA STUDY NOTES
 
-Scala is a general-purpose programming language
+Scala is a General-Purpose Programming Language
+
+* * *
+
+*coming soon (maybe lol)*
 
 * * *
 
