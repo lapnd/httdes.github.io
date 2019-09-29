@@ -70,11 +70,11 @@ where **$(FIRRTL_JAR)** is the path that point to **$(rocketchip_dir)/firrtl/uti
 
 ## I. c) Some concepts in SiFive codes
 
-### I. c)(i) Overlay
+### (i) Overlay
 
-### I. c)(ii) Source vs Sink
+### (ii) Source vs Sink
 
-### I. c)(iii) sbus vs mbus vs pbus
+### (iii) sbus vs mbus vs pbus
 
 * * *
 
