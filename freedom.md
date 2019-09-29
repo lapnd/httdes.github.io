@@ -41,7 +41,11 @@ They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc).
 
 ## I. b) Build procedure
 
+#### 1: Makefile -> sbt
+
 When 'make verilog' in the **freedom** top folder, the job of the Makefiles is just to pass the arguments into the **sbt** tool.
+
+#### 2: sbt: .scala -> .fir
 
 The **sbt** tool is a tool to compile the scala codes into java executable files. Then, subsequently, create the **.fir** files from those java executives.
 
@@ -55,6 +59,8 @@ where:
  - **$(MODEL)** is the name of the top *Shell* in scala codes
  - **$(CONFIG_PROJECT)** is the package that contains the *$(CONFIG)*
  - **$(CONFIG)** is the name of the top *Design* in scala codes
+
+#### 3: .fir -> .v
 
 After we have the **.fir** file, this is the command to create the verilog codes from the **.fir** file: (the verilog codes are generated into just one **.v** file)
 ```makefile
@@ -70,7 +76,9 @@ where **$(FIRRTL_JAR)** is the path that point to **$(rocketchip_dir)/firrtl/uti
 
 This file is like a top file with the main purpose of IOs declaration.
 
-SiFive Freedom codes are relied on extending the **LazyModule** which relied on **lazy val** declaration. Because of the **lazy** property, if a group of IOs isn't declared in the top Shell, the corresponding lazy module won't be instantiated, thus leading to the removal of the relevant modules in the actual implementation.
+This file doesn't call upon the *Design* or *Config* files.
+
+SiFive Freedom codes are relied on extending the ***LazyModule*** which relied on ***lazy val*** declaration. Because of the ***lazy*** property, if a group of IOs isn't declared in the top *Shell*, the corresponding *lazy module* won't be instantiated, thus leading to the removal of the relevant modules in the actual implementation.
 
 For example: in the *fpga-shells/src/main/scala/shell/xilinx/**VC707NewShell.scala***
 ```scala
@@ -100,11 +108,15 @@ Then the IOs of leds & switches won't be declared, thus the GPIOs module won't b
 
 This file is the configuration file for the CPUs and internal bus systems.
 
+This file is later called by the *Design* file.
+
 * * *
 
 # IV. Design File 
 
 This file carries out the actual implementation of the design, with all of the modules and how they are connected.
+
+This file calls and extends (or even overrides) the *Configs* file.
 
 * * *
 
