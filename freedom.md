@@ -20,22 +20,22 @@ They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc).
   <tr>
     <th>File</th>
     <th>Description</th>
-    <th>Example file</th>
+    <th>Example</th>
   </tr>
   <tr>
     <td><span style="font-weight:bold">Configs file</span></td>
     <td>Is used as a configuration file for the CPU, and it's usually fixed for multiple designs.</td>
-    <td></td>
+    <td>src/main/scala/unleashed/DevKitConfigs.scala</td>
   </tr>
   <tr>
     <td><span style="font-weight:bold">Design file</span></td>
     <td>Is an extension upon the *Configs* file. In the *Design* file, all of the modules are called and connected. The *Design* file is also usually fixed for multiple platforms.</td>
-    <td></td>
+    <td>src/main/scala/unleashed/DevKitFPGADesign.scala</td>
   </tr>
   <tr>
     <td><span style="font-weight:bold">Shell file</span></td>
     <td>Is like a top file where all of the IOs are declared. They usually have one *Shell* file for each platform.</td>
-    <td></td>
+    <td>fpga-shells/src/main/scala/shell/xilinx/VC707NewShell.scala</td>
   </tr>
 </table>
 
@@ -56,12 +56,11 @@ where:
  - **$(CONFIG_PROJECT)** is the package that contains the *$(CONFIG)*
  - **$(CONFIG)** is the name of the top *Design* in scala codes
 
-After we have the **.fir** file, this is the command to create the verilog code from the **.fir** file:
+After we have the **.fir** file, this is the command to create the verilog codes from the **.fir** file: (the verilog codes are generated into just one **.v** file)
 ```makefile
-FIRRTL_JAR = $(rocketchip_dir)/firrtl/utils/bin/firrtl.jar
 java -Xmx2G -Xss8M -XX:MaxPermSize=256M -cp $(FIRRTL_JAR) firrtl.Driver -i <path to .fir file> -o <path to .v file> -X verilog
 ```
-The verilog codes are generated into one **.v** file. 
+where **$(FIRRTL_JAR)** is the path that point to **$(rocketchip_dir)/firrtl/utils/bin/firrtl.jar**
 
 ## I. c) Some concepts
 
