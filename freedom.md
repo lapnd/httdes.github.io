@@ -16,10 +16,6 @@ Reference link for SiFive Freedom: https://github.com/sifive/freedom
 
 They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc). The way they structured them are similar. They used three kind of scala files, i.e., *Shell* file, *Configs* file, and *Design* file, to create a system.
 
- - **The *Configs* file** is used as a configuration file for the CPU, and it's usually fixed for multiple designs.
- - **The *Design* file** is an extension upon the *Configs* file. In the *Design* file, all of the modules are called and connected. The *Design* file is also usually fixed for multiple platforms.
- - **The *Shell* file** is like a top file where all of the IOs are declared. They usually have one *Shell* file for each platform.
-
 <table>
   <tr>
     <th>File</th>
@@ -27,20 +23,20 @@ They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc).
     <th>Example file</th>
   </tr>
   <tr>
-    <td><span style="font-weight:bold">Configs</span></td>
+    <td><span style="font-weight:bold">Configs file</span></td>
+    <td>Is used as a configuration file for the CPU, and it's usually fixed for multiple designs.</td>
     <td></td>
-		<td></td>
   </tr>
-	<tr>
-		<td><span style="font-weight:bold">Design</span></td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td><span style="font-weight:bold">Shell</span></td>
-		<td></td>
-		<td></td>
-	</tr>
+  <tr>
+    <td><span style="font-weight:bold">Design file</span></td>
+    <td>Is an extension upon the *Configs* file. In the *Design* file, all of the modules are called and connected. The *Design* file is also usually fixed for multiple platforms.</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><span style="font-weight:bold">Shell file</span></td>
+    <td>Is like a top file where all of the IOs are declared. They usually have one *Shell* file for each platform.</td>
+    <td></td>
+  </tr>
 </table>
 
 ## I. b) Build procedure
