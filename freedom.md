@@ -68,7 +68,13 @@ java -Xmx2G -Xss8M -XX:MaxPermSize=256M -cp $(FIRRTL_JAR) firrtl.Driver -i <path
 ```
 where **$(FIRRTL_JAR)** is the path that point to **$(rocketchip_dir)/firrtl/utils/bin/firrtl.jar**
 
-## I. c) Some concepts
+## I. c) Some concepts in SiFive codes
+
+### I. c)(i) Overlay
+
+### I. c)(ii) Source vs Sink
+
+### I. c)(iii) sbus vs mbus vs pbus
 
 * * *
 
