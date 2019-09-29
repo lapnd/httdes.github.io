@@ -14,6 +14,24 @@ Reference link for SiFive Freedom: https://github.com/sifive/freedom
 
 They have two main series of CPU called **E300** (*rv32gc:* 32bit RISC-V with **G**(*eneral*) and **C**(*ompressed*) extensions) and **U500** (*rv64gc:* 64bit RISC-V with **G**(*eneral*) and **C**(*ompressed*) extensions).
 
+## I. a) File list and its function:
+
+| **File** | **Description** |
+| :--- | :--- |
+| Shell(s) |  |
+
+<table>
+  <tr>
+    <td>One</td>
+    <td>Two</td>
+  </tr>
+  <tr>
+    <td colspan="2">Three</td>
+  </tr>
+</table>
+
+## I. b) Some concepts
+
 * * *
 
 # II. Shell
@@ -42,7 +60,7 @@ abstract class VC707Shell()(implicit p: Parameters) extends Series7Shell
   . . .
 }
 ```
-  Then the IOs of leds & switches won't be declared, thus the GPIOs module won't be instantiated in the design, and there will be no GPIOs module in the final verilog code.
+Then the IOs of leds & switches won't be declared, thus the GPIOs module won't be instantiated in the design, and there will be no GPIOs module in the final verilog code.
 
 * * *
 
