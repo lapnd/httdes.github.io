@@ -12,7 +12,7 @@ Understanding SiFive Freedom U540 Code Structure
 
 Reference link for SiFive Freedom: https://github.com/sifive/freedom
 
-# I. a) Important files
+## I. a) Important files
 
 They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc). The way they structured them are similar. They used three kind of scala files, i.e., *Shell* file, *Configs* file, and *Design* file, to create a system.
 
@@ -20,7 +20,7 @@ They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc).
   <tr>
     <th>File</th>
     <th>Description</th>
-    <th>Example</th>
+    <th>Example file</th>
   </tr>
   <tr>
     <td><span style="font-weight:bold">Configs file</span></td>
@@ -35,7 +35,7 @@ They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc).
   <tr>
     <td><span style="font-weight:bold">Shell file</span></td>
     <td>Is like a top file where all of the IOs are declared. They usually have one *Shell* file for each platform.</td>
-    <td>fpga-shells/src/main/scala/ shell/xilinx/VC707NewShell.scala</td>
+    <td>fpga-shells/src/main/ scala/shell/xilinx/ VC707NewShell.scala</td>
   </tr>
 </table>
 
