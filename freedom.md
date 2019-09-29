@@ -10,7 +10,7 @@ Understanding SiFive Freedom U540 Code Structure
 
 # I. Introduction
 
-Reference link for SiFive Freedom: https://github.com/sifive/freedom
+Reference link for SiFive Freedom: [https://github.com/sifive/freedom](https://github.com/sifive/freedom)
 
 ## I. a) Important files
 
@@ -41,11 +41,11 @@ They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc).
 
 ## I. b) Build procedure
 
-#### 1: Makefile -> sbt
+#### 1: from Makefile -> to sbt
 
 When 'make verilog' in the **freedom** top folder, the job of the Makefiles is just to pass the arguments into the **sbt** tool.
 
-#### 2: sbt: .scala -> .fir
+#### 2: sbt: from .scala -> to .fir
 
 The **sbt** tool is a tool to compile the scala codes into java executable files. Then, subsequently, create the **.fir** files from those java executives.
 
@@ -60,7 +60,7 @@ where:
  - **$(CONFIG_PROJECT)** is the package that contains the *$(CONFIG)*
  - **$(CONFIG)** is the name of the top *Design* in scala codes
 
-#### 3: .fir -> .v
+#### 3: from .fir -> to .v
 
 After we have the **.fir** file, this is the command to create the verilog codes from the **.fir** file: (the verilog codes are generated into just one **.v** file)
 ```makefile
