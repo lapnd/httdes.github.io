@@ -12,29 +12,66 @@ Understanding SiFive Freedom U540 Code Structure
 
 Reference link for SiFive Freedom: https://github.com/sifive/freedom
 
-They have two main series of CPU called **E300** (*rv32gc:* 32bit RISC-V with **G**(*eneral*) and **C**(*ompressed*) extensions) and **U500** (*rv64gc:* 64bit RISC-V with **G**(*eneral*) and **C**(*ompressed*) extensions).
+# I. a) Important files
 
-## I. a) File list and its function:
+They have two main series of CPU called **E300** (rv32gc) and **U500** (rv64gc). The way they structured them are similar. They used three kind of scala files, i.e., *Shell* file, *Configs* file, and *Design* file, to create a system.
 
-| **File** | **Description** |
-| :--- | :--- |
-| Shell(s) |  |
+ - **The *Configs* file** is used as a configuration file for the CPU, and it's usually fixed for multiple designs.
+ - **The *Design* file** is an extension upon the *Configs* file. In the *Design* file, all of the modules are called and connected. The *Design* file is also usually fixed for multiple platforms.
+ - **The *Shell* file** is like a top file where all of the IOs are declared. They usually have one *Shell* file for each platform.
 
 <table>
   <tr>
-    <td>One</td>
-    <td>Two</td>
+    <th>File</th>
+    <th>Description</th>
+    <th>Example file</th>
   </tr>
   <tr>
-    <td colspan="2">Three</td>
+    <td><span style="font-weight:bold">Configs</span></td>
+    <td></td>
+		<td></td>
   </tr>
+	<tr>
+		<td><span style="font-weight:bold">Design</span></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td><span style="font-weight:bold">Shell</span></td>
+		<td></td>
+		<td></td>
+	</tr>
 </table>
 
-## I. b) Some concepts
+## I. b) Build procedure
+
+When 'make verilog' in the **freedom** top folder, the job of the Makefiles is just to pass the arguments into the **sbt** tool.
+
+The **sbt** tool is a tool to compile the scala codes into java executable files. Then, subsequently, create the **.fir** files from those java executives.
+
+The actual command to create **.fir** file from scala codes:
+```makefile
+java -jar $(rocketchip_dir)/sbt-launch.jar ++2.12.4 "runMain freechips.rocketchip.system.Generator $(BUILD_DIR) $(PROJECT) $(MODEL) $(CONFIG_PROJECT) $(CONFIG)"
+```
+where:
+ - **$(BUILD_DIR)** is the folder that you want to generate your *.fir* file into
+ - **$(PROJECT)** is the package that contains the *$(MODEL)*
+ - **$(MODEL)** is the name of the top *Shell* in scala codes
+ - **$(CONFIG_PROJECT)** is the package that contains the *$(CONFIG)*
+ - **$(CONFIG)** is the name of the top *Design* in scala codes
+
+After we have the **.fir** file, this is the command to create the verilog code from the **.fir** file:
+```makefile
+FIRRTL_JAR = $(rocketchip_dir)/firrtl/utils/bin/firrtl.jar
+java -Xmx2G -Xss8M -XX:MaxPermSize=256M -cp $(FIRRTL_JAR) firrtl.Driver -i <path to .fir file> -o <path to .v file> -X verilog
+```
+The verilog codes are generated into one **.v** file. 
+
+## I. c) Some concepts
 
 * * *
 
-# II. Shell
+# II. Shell File
 
 This file is like a top file with the main purpose of IOs declaration.
 
@@ -64,13 +101,13 @@ Then the IOs of leds & switches won't be declared, thus the GPIOs module won't b
 
 * * *
 
-# III. DevKitConfigs
+# III. Configs File
 
 This file is the configuration file for the CPUs and internal bus systems.
 
 * * *
 
-# IV. DevKitFPGADesign: 
+# IV. Design File 
 
 This file carries out the actual implementation of the design, with all of the modules and how they are connected.
 
