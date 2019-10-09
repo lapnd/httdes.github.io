@@ -14,7 +14,7 @@ Scala is a General-Purpose Programming Language
 
 [https://docs.scala-lang.org/tour/tour-of-scala.html](https://docs.scala-lang.org/tour/tour-of-scala.html)
 
-[https://www.tutorialspoint.com/scala/scala_classes_objects.html](https://www.tutorialspoint.com/scala/scala_classes_objects.html)
+[https://www.tutorialspoint.com/scala/scala_classes_objects.htm](https://www.tutorialspoint.com/scala/scala_classes_objects.htm)
 
 * * *
 
