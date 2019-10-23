@@ -6,7 +6,7 @@ layout : default
 
 * * *
 
-# I. A Few Things & Dependencies
+# I. Dependencies & Proxy
 
 To make **vi** more comfortable:
 	
@@ -161,7 +161,21 @@ To install the RISC-V QEMU:
         $ ../configure
         $ make -j`nproc`
 
-## II. e) Vivado 2016.4
+## II. e) OpenOCD
+
+Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus allowing us to load a program, and run or debug that program. Ref [link](https://github.com/SpinalHDL/openocd_riscv).
+
+To install & make OpenOCD:
+
+	$ git clone https://github.com/SpinalHDL/openocd_riscv.git	#branch riscv_spinal commit 32adab6
+	$ cd openocd_riscv/
+	$ git submodule update --init --recursive
+	$ ./bootstrap
+	$ ./configure --enable-ftdi --enable-dummy
+	$ make
+	$ sudo make install
+
+## II. f) Vivado 2016.4
 
 (because the VC707 project now can compatible only with the 2016.4 version of Vivado)
 
@@ -193,6 +207,16 @@ The GUI for installation will be load. Choose to install the Vivado HL Design Ed
         cd to Vivado installed folder:
         $ cd ...Xilinx/Vivado/2016.4/data/xicom/cable_drivers/lin64/install_script/install_drivers/
         $ sudo ./install_drivers
+
+## II. g) Quartus
+
+Just download from the [website](http://fpgasoftware.intel.com/?edition=standard&platform=linux&download_manager=direct) and install.
+
+Choose the version you want to download, then from Ubuntu just click and install. (In this tutorial, the chosen Quartus version is Quartus Prime Standard 18.1)
+
+The Quartus execution file is located at **intelFPGA/18.1/quartus/bin/**
+
+Note: if running Quartus fail due to libpng12 error, then you need to install it manually (Just download & install): for [32-bit](https://packages.ubuntu.com/en/xenial/i386/libpng12-0/download), for [64-bit](https://packages.ubuntu.com/en/xenial/amd64/libpng12-0/download).
 
 * * *
 
