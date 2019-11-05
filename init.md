@@ -161,7 +161,15 @@ To install the RISC-V QEMU:
         $ ../configure
         $ make -j`nproc`
 
-## II. e) OpenOCD
+## II. e) Eclipse
+
+Eclipse is the tool for writing software codes (C/C++), to build, to run, and to debug the software.
+
+Download the gnu-mcu-eclipse (linux version) from the [website](https://github.com/gnu-mcu-eclipse/org.eclipse.epp.packages/releases).
+
+Then extract it and copy the folder to any place you want. The execution file is at: ***\[Eclipse folder\]/eclipse/eclipse***
+
+## II. f) OpenOCD
 
 Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus allowing us to load a program, and run or debug that program. Ref [link](https://github.com/SpinalHDL/openocd_riscv).
 
@@ -175,7 +183,7 @@ To install & make OpenOCD:
 	$ make
 	$ sudo make install
 
-## II. f) Vivado 2016.4
+## II. g) Vivado 2016.4
 
 (because the VC707 project now can compatible only with the 2016.4 version of Vivado)
 
@@ -208,7 +216,7 @@ The GUI for installation will be load. Choose to install the Vivado HL Design Ed
         $ cd ...Xilinx/Vivado/2016.4/data/xicom/cable_drivers/lin64/install_script/install_drivers/
         $ sudo ./install_drivers
 
-## II. g) Quartus
+## II. h) Quartus
 
 Just download from the [website](http://fpgasoftware.intel.com/?edition=standard&platform=linux&download_manager=direct) and install.
 
