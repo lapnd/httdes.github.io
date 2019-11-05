@@ -179,9 +179,9 @@ To install & make OpenOCD:
 	$ cd riscv-openocd/
 	$ git submodule update --init --recursive
 	$ ./bootstrap
-	$ ./configure --enable-ftdi --enable-ft232r --enable-ftdi-oscan1 --enable-jlink --enable-openjtag --enable-usb-blaster --enable-usb-blaster-2
-	$ make
-	$ sudo make install
+	$ ./configure --enable-ftdi --enable-dummy
+	$ make -j`nproc`
+	$ sudo make install -j`nproc`
 
 ## II. g) Vivado 2016.4
 
