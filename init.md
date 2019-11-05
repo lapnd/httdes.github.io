@@ -175,11 +175,11 @@ Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus
 
 To install & make OpenOCD:
 
-	$ git clone https://github.com/SpinalHDL/openocd_riscv.git	#branch riscv_spinal commit 32adab6
-	$ cd openocd_riscv/
+	$ git clone https://github.com/riscv/riscv-openocd.git		#branch riscv commit f93ede54
+	$ cd riscv-openocd/
 	$ git submodule update --init --recursive
 	$ ./bootstrap
-	$ ./configure --enable-ftdi --enable-dummy
+	$ ./configure --enable-ftdi --enable-ft232r --enable-ftdi-oscan1 --enable-jlink --enable-openjtag --enable-usb-blaster --enable-usb-blaster-2
 	$ make
 	$ sudo make install
 
