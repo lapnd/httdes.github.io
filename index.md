@@ -6,15 +6,19 @@ This page is created by Trong-Thuc Hoang from the University of Electro-Communic
 
 The guide in this tutorial has the following contents:
 
-<p style="text-align:center">** SET THINGS UP **</p>
+<p style="text-align:center">** INITIAL SETUP **</p>
 
 - [Initial Setup](./init.md) : *set up a new Ubuntu machine & install tools*
 
-<p style="text-align:center">** KEYSTONE DEMO ON FPGA (VC707) **</p>
+<p style="text-align:center">** KEYSTONE PROJECT **</p>
 
 - [Keystone Guide](./keystone.md): *guide to 'make' the Keystone project*
 
-- [SiFive Freedom on VC707](./vc707.md): *implement SiFive Freedom on VC707 with/without Keystone*
+*(Note: Keystone is a TEE framework)*
+
+<p style="text-align:center">** SIFIVE FREEDOM **</p>
+
+- [SiFive Freedom on VC707](./vc707.md): *implement SiFive Freedom on VC707 with/without the Keystone demo*
 
 <p style="text-align:center">** CHISEL STUDY **</p>
 
