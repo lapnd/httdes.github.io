@@ -226,6 +226,19 @@ The Quartus execution file is located at **intelFPGA/18.1/quartus/bin/**
 
 Note: if running Quartus fail due to libpng12 error, then you need to install it manually (Just download & install): for [32-bit](https://packages.ubuntu.com/en/xenial/i386/libpng12-0/download), for [64-bit](https://packages.ubuntu.com/en/xenial/amd64/libpng12-0/download).
 
+## II. i) Create Ubuntu Desktop Shorcut
+
+To install the tool:
+
+	$ sudo apt-get install --no-install-recommends gnome-panel
+
+To add a new item on the desktop:
+
+	$ gnome-desktop-item-edit ~/Desktop/ --create-new
+	Then fill in the name you wanted, browse to the execution file, and hit OK.
+
+Double-click on the new icon for the first time and click the "Trust and Launch" button.
+
 * * *
 
 # III. RISC-V Toolchain
