@@ -293,7 +293,7 @@ After install the dependencies, clone the toolchain-making folder, and set the c
         for linux-toolchain to run on the Linux that run on the CPU (like OS app)
         $ sudo make linux -j`nproc`
 	
-*Note*: to re-make again, it is better to **$ make clean** beforehand.
+*Note*: to re-make again, it is better to **$ sudo make clean** beforehand.
 
 * * *
 
