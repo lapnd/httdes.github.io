@@ -123,7 +123,7 @@ The source code for hardware is written in scala language by using the Chisel li
 
 First, we need to install the scala. You can follow the [website](https://www.scala-lang.org/download/) to download the [deb file](https://downloads.lightbend.com/scala/2.12.9/scala-2.12.9.deb) (version 2.12.9) and install. (You can choose another version to install at your own risk :))
 
-Then download the sbt tool according to the [website](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html). Download the [deb file](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html) (version 1.2.8) and install.
+Then download the sbt tool according to the [website](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html). Download the [deb file](http://dl.bintray.com/sbt/debian/sbt-1.2.8.deb) (version 1.2.8) and install.
 
 Finally from a terminal: (this is just for download the library for the first time, then type "exit" close the terminal)
 
