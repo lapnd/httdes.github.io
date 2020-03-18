@@ -274,6 +274,15 @@ Or for a general 32-bit RISC-V CPU:
 
         $ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc
 
+To adjust the using of soft-float or hard-float (default is hard-float), can specify the ABIs as follows:
+
+	$ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
+	
+ * **ilp32** is for using soft-float; **ilp32d** is for using hard-float; **ilp32f** is for using single-precision in register and double-precision in memory. The default is **ilp32d**
+ * **ilp64**, **ilp64d**, and **ilp64f** are similar but for 64-bit instructions.
+
+*Note*: RocketChip uses 32/64-bit **gc** with hard-float; and VexRiscv uses 32-bit **i**, **im**, or **ima** with soft-float.
+
 ## III. c) Make
 
 After install the dependencies, clone the toolchain-making folder, and set the configurations, now you can 'make' the toolchain by:
@@ -283,6 +292,8 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
         for linux-toolchain to run on the Linux that run on the CPU (like OS app)
         $ sudo make linux -j`nproc`
+	
+*Note*: to re-make again, it is better to **$ make clean** beforehand.
 
 * * *
 
