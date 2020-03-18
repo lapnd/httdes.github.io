@@ -14,7 +14,7 @@ The guide in this tutorial has the following contents:
 
 - [Keystone Guide](./keystone.md): *guide to 'make' the Keystone project*
 
-*(Note: Keystone is a TEE framework)*
+	*(Note: Keystone is a TEE framework)*
 
 <p style="text-align:center">** SIFIVE FREEDOM **</p>
 
