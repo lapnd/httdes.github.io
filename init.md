@@ -250,7 +250,7 @@ Toolchain for RISC-V CPU. Ref [link](https://github.com/riscv/riscv-gnu-toolchai
 Git clone the toolchain-making on github:
 
         $ git clone https://github.com/riscv/riscv-gnu-toolchain
-        $ cd riscv-gnu-toolchain        #brach master commit a03290ea (gcc 9.2) on 22-Aug-2019
+        $ cd riscv-gnu-toolchain        #brach master commit 6d2706f2 (gcc 9.2) on 19-Feb-2020
         $ git submodule update --init --recursive
 
 ## III. b) Configurations
