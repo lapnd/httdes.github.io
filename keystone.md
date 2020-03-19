@@ -122,7 +122,7 @@ Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
 
 After your changes on the kernel, the hash value of the **bbl.bin** file is different now.
 
-So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo), you have to do the followings to reapply the hashes to the image file of **bbl.bin**:
+So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have to do the followings to reapply the hashes to the image file of **bbl.bin**:
 
         $ cd <your keystone-demo folder>	#go to your keystone-demo folder
         $ make getandsethash
