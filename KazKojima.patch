@@ -1,0 +1,1156 @@
+diff --git a/.gdbinit b/.gdbinit
+index 64bbece..27d468c 100644
+--- a/.gdbinit
++++ b/.gdbinit
+@@ -1,2 +1,2 @@
+ set auto-load safe-path /
+-set riscv use_compressed_breakpoints no
++set riscv use-compressed-breakpoints on
+diff --git a/fast-setup.sh b/fast-setup.sh
+index 29115f1..f40e5a4 100755
+--- a/fast-setup.sh
++++ b/fast-setup.sh
+@@ -1,8 +1,8 @@
+ #!/bin/bash
+ 
+ echo "Starting..."
+-if ( $(command -v riscv64-unknown-linux-gnu-gcc > /dev/null) &&
+-  $(command -v riscv64-unknown-elf-gcc > /dev/null) )
++if ( $(command -v riscv32-unknown-linux-gnu-gcc > /dev/null) &&
++  $(command -v riscv32-unknown-elf-gcc > /dev/null) )
+ then
+   echo "RISCV tools are already installed"
+ else
+@@ -27,11 +27,11 @@ else
+   echo "Toolchain has been installed in $RISCV"
+ fi
+ 
+-git config --global submodule.riscv-gnu-toolchain.update none
++git config submodule.riscv-gnu-toolchain.update none
+ git submodule sync --recursive
+ git submodule update --init --recursive
+ 
+ # build tests in SDK
+-make -C sdk
+-./sdk/scripts/init.sh --runtime eyrie --force
+-./sdk/examples/tests/vault.sh
++#make -C sdk
++#./sdk/scripts/init.sh --runtime eyrie --force
++#./sdk/examples/tests/vault.sh
+diff --git a/hifive-conf/buildroot_initramfs_config b/hifive-conf/buildroot_initramfs_config
+index 31ca224..ca11d49 100644
+--- a/hifive-conf/buildroot_initramfs_config
++++ b/hifive-conf/buildroot_initramfs_config
+@@ -1,14 +1,14 @@
+ BR2_riscv=y
+ BR2_ARCH_IS_64=n
+ BR2_GCC_TARGET_ABI="ilp32d"
+ BR2_RISCV_32=y
+ BR2_RISCV_g=y
+ BR2_RISCV_ABI_ILP32D=y
+ BR2_JLEVEL=2
+ BR2_TOOLCHAIN_EXTERNAL=y
+ BR2_TOOLCHAIN_EXTERNAL_PATH="$(RISCV)"
+ BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX="$(ARCH)-unknown-linux-gnu"
+-BR2_TOOLCHAIN_EXTERNAL_GCC_7=y
++BR2_TOOLCHAIN_EXTERNAL_GCC_8=y
+ BR2_TOOLCHAIN_EXTERNAL_HEADERS_4_13=y
+ BR2_TOOLCHAIN_EXTERNAL_CUSTOM_GLIBC=y
+ BR2_TOOLCHAIN_EXTERNAL_INET_RPC=y
+diff --git a/hifive-conf/buildroot_rootfs_config b/hifive-conf/buildroot_rootfs_config
+index 0b1b5f9..3bd1636 100644
+--- a/hifive-conf/buildroot_rootfs_config
++++ b/hifive-conf/buildroot_rootfs_config
+@@ -3,7 +3,7 @@ BR2_JLEVEL=2
+ BR2_TOOLCHAIN_EXTERNAL=y
+ BR2_TOOLCHAIN_EXTERNAL_PATH="$(RISCV)"
+ BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX="$(ARCH)-unknown-linux-gnu"
+-BR2_TOOLCHAIN_EXTERNAL_GCC_7=y
++BR2_TOOLCHAIN_EXTERNAL_GCC_8=y
+ BR2_TOOLCHAIN_EXTERNAL_HEADERS_4_6=y
+ BR2_TOOLCHAIN_EXTERNAL_CUSTOM_GLIBC=y
+ BR2_TOOLCHAIN_EXTERNAL_INET_RPC=y
+diff --git a/hifive.mk b/hifive.mk
+index 56b1074..b671d57 100644
+--- a/hifive.mk
++++ b/hifive.mk
+@@ -2,8 +2,8 @@
+ # a toolchain install tree that was built via other means.
+ RISCV ?= $(CURDIR)/riscv
+ PATH := $(RISCV)/bin:$(PATH)
+ ISA ?= rv32imafdc
+ ABI ?= ilp32d
+ 
+ srcdir := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+ srcdir := $(srcdir:/=)
+@@ -115,7 +115,7 @@ ifeq (,$(filter rv%c,$(ISA)))
+ endif
+ ifeq ($(ISA),$(filter rv32%,$(ISA)))
+ 	sed 's/^.*CONFIG_ARCH_RV32I.*$$/CONFIG_ARCH_RV32I=y/' -i $@
+-	sed 's/^.*CONFIG_ARCH_RV32I.*$$/CONFIG_ARCH_RV32I=n/' -i $@
++	sed 's/^.*CONFIG_ARCH_RV64I.*$$/CONFIG_ARCH_RV64I=n/' -i $@
+ 	$(MAKE) -C $(linux_srcdir) O=$(linux_wrkdir) ARCH=riscv olddefconfig
+ endif
+ 
+diff --git a/patches/buildroot-multilib-toolchain.patch b/patches/buildroot-multilib-toolchain.patch
+new file mode 100644
+index 0000000..6d032a4
+--- /dev/null
++++ b/patches/buildroot-multilib-toolchain.patch
+@@ -0,0 +1,20 @@
++diff --git a/toolchain/helpers.mk b/toolchain/helpers.mk
++index 03355f56dd..a09d76a11b 100644
++--- a/toolchain/helpers.mk
+++++ b/toolchain/helpers.mk
++@@ -136,9 +136,12 @@ copy_toolchain_sysroot = \
++ 		done ; \
++ 	fi ; \
++ 	if [ ! -e $(STAGING_DIR)/lib/ld*.so.* ]; then \
++-		if [ -e $${ARCH_SYSROOT_DIR}/lib/ld*.so.* ]; then \
++-			cp -a $${ARCH_SYSROOT_DIR}/lib/ld*.so.* $(STAGING_DIR)/lib/ ; \
++-		fi ; \
+++		for linker in $${ARCH_SYSROOT_DIR}/lib/ld*.so.* ; do \
+++			if [[ `readlink $${linker}` =~ "$${ARCH_LIB_DIR}" ]]; then \
+++				cp -a $${linker} $(STAGING_DIR)/lib/ ; \
+++				echo "Copying symlink to dynamic linker $${linker} to /lib of staging directory" ; \
+++			fi ; \
+++		done ; \
++ 	fi ; \
++ 	if [ `readlink -f $${SYSROOT_DIR}` != `readlink -f $${ARCH_SYSROOT_DIR}` ] ; then \
++ 		if [ ! -d $${ARCH_SYSROOT_DIR}/usr/include ] ; then \
+diff --git a/patches/kernel-rv32-module.patch b/patches/kernel-rv32-module.patch
+new file mode 100644
+index 0000000..4249878
+--- /dev/null
++++ b/patches/kernel-rv32-module.patch
+@@ -0,0 +1,418 @@
++diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
++index fef920ebfdd7..9c87d3457ab9 100644
++--- a/arch/riscv/Kconfig
+++++ b/arch/riscv/Kconfig
++@@ -42,7 +42,8 @@ config RISCV
++ 	select RISCV_IRQ_INTC
++ 	select RISCV_TIMER
++ 	select GENERIC_IRQ_MULTI_HANDLER
++-
+++	select MODULE_SECTIONS
+++	
++ config MMU
++ 	def_bool y
++ 
++diff --git a/arch/riscv/include/asm/module.h b/arch/riscv/include/asm/module.h
++index 349df33808c4..46202dad365d 100644
++--- a/arch/riscv/include/asm/module.h
+++++ b/arch/riscv/include/asm/module.h
++@@ -8,12 +8,13 @@
++ 
++ #define MODULE_ARCH_VERMAGIC    "riscv"
++ 
++-u64 module_emit_got_entry(struct module *mod, u64 val);
++-u64 module_emit_plt_entry(struct module *mod, u64 val);
+++struct module;
+++unsigned long module_emit_got_entry(struct module *mod, unsigned long val);
+++unsigned long module_emit_plt_entry(struct module *mod, unsigned long val);
++ 
++ #ifdef CONFIG_MODULE_SECTIONS
++ struct mod_section {
++-	struct elf64_shdr *shdr;
+++	Elf_Shdr *shdr;
++ 	int num_entries;
++ 	int max_entries;
++ };
++@@ -25,18 +26,18 @@ struct mod_arch_specific {
++ };
++ 
++ struct got_entry {
++-	u64 symbol_addr;	/* the real variable address */
+++	unsigned long symbol_addr;	/* the real variable address */
++ };
++ 
++-static inline struct got_entry emit_got_entry(u64 val)
+++static inline struct got_entry emit_got_entry(unsigned long val)
++ {
++ 	return (struct got_entry) {val};
++ }
++ 
++-static inline struct got_entry *get_got_entry(u64 val,
+++static inline struct got_entry *get_got_entry(unsigned long val,
++ 					      const struct mod_section *sec)
++ {
++-	struct got_entry *got = (struct got_entry *)sec->shdr->sh_addr;
+++	struct got_entry *got = (struct got_entry *)(sec->shdr->sh_addr);
++ 	int i;
++ 	for (i = 0; i < sec->num_entries; i++) {
++ 		if (got[i].symbol_addr == val)
++@@ -61,7 +62,9 @@ struct plt_entry {
++ #define REG_T0     0x5
++ #define REG_T1     0x6
++ 
++-static inline struct plt_entry emit_plt_entry(u64 val, u64 plt, u64 got_plt)
+++static inline struct plt_entry emit_plt_entry(unsigned long val,
+++					      unsigned long plt,
+++					      unsigned long got_plt)
++ {
++ 	/*
++ 	 * U-Type encoding:
++@@ -75,7 +78,7 @@ static inline struct plt_entry emit_plt_entry(u64 val, u64 plt, u64 got_plt)
++ 	 * +------------+------------+--------+----------+----------+
++ 	 *
++ 	 */
++-	u64 offset = got_plt - plt;
+++	unsigned long offset = got_plt - plt;
++ 	u32 hi20 = (offset + 0x800) & 0xfffff000;
++ 	u32 lo12 = (offset - hi20);
++ 	return (struct plt_entry) {
++@@ -85,7 +88,7 @@ static inline struct plt_entry emit_plt_entry(u64 val, u64 plt, u64 got_plt)
++ 	};
++ }
++ 
++-static inline int get_got_plt_idx(u64 val, const struct mod_section *sec)
+++static inline int get_got_plt_idx(unsigned long val, const struct mod_section *sec)
++ {
++ 	struct got_entry *got_plt = (struct got_entry *)sec->shdr->sh_addr;
++ 	int i;
++@@ -96,9 +99,9 @@ static inline int get_got_plt_idx(u64 val, const struct mod_section *sec)
++ 	return -1;
++ }
++ 
++-static inline struct plt_entry *get_plt_entry(u64 val,
++-				      const struct mod_section *sec_plt,
++-				      const struct mod_section *sec_got_plt)
+++static inline struct plt_entry *get_plt_entry(unsigned long val,
+++					      const struct mod_section *sec_plt,
+++					      const struct mod_section *sec_got_plt)
++ {
++ 	struct plt_entry *plt = (struct plt_entry *)sec_plt->shdr->sh_addr;
++ 	int got_plt_idx = get_got_plt_idx(val, sec_got_plt);
++diff --git a/arch/riscv/include/uapi/asm/elf.h b/arch/riscv/include/uapi/asm/elf.h
++index 5cae4c30cd8e..b4f829a18c5f 100644
++--- a/arch/riscv/include/uapi/asm/elf.h
+++++ b/arch/riscv/include/uapi/asm/elf.h
++@@ -21,8 +21,13 @@ typedef struct user_regs_struct elf_gregset_t;
++ 
++ typedef union __riscv_fp_state elf_fpregset_t;
++ 
++-#define ELF_RISCV_R_SYM(r_info) ((r_info) >> 32)
++-#define ELF_RISCV_R_TYPE(r_info) ((r_info) & 0xffffffff)
+++#if __riscv_xlen == 64
+++#define ELF_RISCV_R_SYM(r_info)                ELF64_R_SYM(r_info)
+++#define ELF_RISCV_R_TYPE(r_info)       ELF64_R_TYPE(r_info)
+++#else
+++#define ELF_RISCV_R_SYM(r_info)                ELF32_R_SYM(r_info)
+++#define ELF_RISCV_R_TYPE(r_info)       ELF32_R_TYPE(r_info)
+++#endif
++ 
++ /*
++  * RISC-V relocation types
++@@ -85,6 +90,12 @@ typedef union __riscv_fp_state elf_fpregset_t;
++ #define R_RISCV_SET16		55
++ #define R_RISCV_SET32		56
++ #define R_RISCV_32_PCREL	57
+++#define R_RISCV_SUB6           52
+++#define R_RISCV_SET6           53
+++#define R_RISCV_SET8           54
+++#define R_RISCV_SET16          55
+++#define R_RISCV_SET32          56
+++#define R_RISCV_32_PCREL       57
++ 
++ 
++ #endif /* _UAPI_ASM_ELF_H */
++diff --git a/arch/riscv/kernel/module-sections.c b/arch/riscv/kernel/module-sections.c
++index bbbd26e19bfd..c9ae48333114 100644
++--- a/arch/riscv/kernel/module-sections.c
+++++ b/arch/riscv/kernel/module-sections.c
++@@ -9,14 +9,14 @@
++ #include <linux/kernel.h>
++ #include <linux/module.h>
++ 
++-u64 module_emit_got_entry(struct module *mod, u64 val)
+++unsigned long module_emit_got_entry(struct module *mod, unsigned long val)
++ {
++ 	struct mod_section *got_sec = &mod->arch.got;
++ 	int i = got_sec->num_entries;
++ 	struct got_entry *got = get_got_entry(val, got_sec);
++ 
++ 	if (got)
++-		return (u64)got;
+++		return (unsigned long)got;
++ 
++ 	/* There is no duplicate entry, create a new one */
++ 	got = (struct got_entry *)got_sec->shdr->sh_addr;
++@@ -25,10 +25,10 @@ u64 module_emit_got_entry(struct module *mod, u64 val)
++ 	got_sec->num_entries++;
++ 	BUG_ON(got_sec->num_entries > got_sec->max_entries);
++ 
++-	return (u64)&got[i];
+++	return (unsigned long)&got[i];
++ }
++ 
++-u64 module_emit_plt_entry(struct module *mod, u64 val)
+++unsigned long module_emit_plt_entry(struct module *mod, unsigned long val)
++ {
++ 	struct mod_section *got_plt_sec = &mod->arch.got_plt;
++ 	struct got_entry *got_plt;
++@@ -37,27 +37,29 @@ u64 module_emit_plt_entry(struct module *mod, u64 val)
++ 	int i = plt_sec->num_entries;
++ 
++ 	if (plt)
++-		return (u64)plt;
+++		return (unsigned long)plt;
++ 
++ 	/* There is no duplicate entry, create a new one */
++ 	got_plt = (struct got_entry *)got_plt_sec->shdr->sh_addr;
++ 	got_plt[i] = emit_got_entry(val);
++ 	plt = (struct plt_entry *)plt_sec->shdr->sh_addr;
++-	plt[i] = emit_plt_entry(val, (u64)&plt[i], (u64)&got_plt[i]);
+++	plt[i] = emit_plt_entry(val,
+++				(unsigned long)&plt[i],
+++				(unsigned long)&got_plt[i]);
++ 
++ 	plt_sec->num_entries++;
++ 	got_plt_sec->num_entries++;
++ 	BUG_ON(plt_sec->num_entries > plt_sec->max_entries);
++ 
++-	return (u64)&plt[i];
+++	return (unsigned long)&plt[i];
++ }
++ 
++-static int is_rela_equal(const Elf64_Rela *x, const Elf64_Rela *y)
+++static int is_rela_equal(const Elf_Rela *x, const Elf_Rela *y)
++ {
++ 	return x->r_info == y->r_info && x->r_addend == y->r_addend;
++ }
++ 
++-static bool duplicate_rela(const Elf64_Rela *rela, int idx)
+++static bool duplicate_rela(const Elf_Rela *rela, int idx)
++ {
++ 	int i;
++ 	for (i = 0; i < idx; i++) {
++@@ -67,13 +69,13 @@ static bool duplicate_rela(const Elf64_Rela *rela, int idx)
++ 	return false;
++ }
++ 
++-static void count_max_entries(Elf64_Rela *relas, int num,
+++static void count_max_entries(Elf_Rela *relas, int num,
++ 			      unsigned int *plts, unsigned int *gots)
++ {
++ 	unsigned int type, i;
++ 
++ 	for (i = 0; i < num; i++) {
++-		type = ELF64_R_TYPE(relas[i].r_info);
+++		type = ELF_RISCV_R_TYPE(relas[i].r_info);
++ 		if (type == R_RISCV_CALL_PLT) {
++ 			if (!duplicate_rela(relas, i))
++ 				(*plts)++;
++@@ -118,9 +120,9 @@ int module_frob_arch_sections(Elf_Ehdr *ehdr, Elf_Shdr *sechdrs,
++ 
++ 	/* Calculate the maxinum number of entries */
++ 	for (i = 0; i < ehdr->e_shnum; i++) {
++-		Elf64_Rela *relas = (void *)ehdr + sechdrs[i].sh_offset;
++-		int num_rela = sechdrs[i].sh_size / sizeof(Elf64_Rela);
++-		Elf64_Shdr *dst_sec = sechdrs + sechdrs[i].sh_info;
+++		Elf_Rela *relas = (void *)ehdr + sechdrs[i].sh_offset;
+++		int num_rela = sechdrs[i].sh_size / sizeof(Elf_Rela);
+++		Elf_Shdr *dst_sec = sechdrs + sechdrs[i].sh_info;
++ 
++ 		if (sechdrs[i].sh_type != SHT_RELA)
++ 			continue;
++diff --git a/arch/riscv/kernel/module.c b/arch/riscv/kernel/module.c
++index 1d5e9b934b8c..70bb94ae61c5 100644
++--- a/arch/riscv/kernel/module.c
+++++ b/arch/riscv/kernel/module.c
++@@ -1,13 +1,5 @@
+++// SPDX-License-Identifier: GPL-2.0-or-later
++ /*
++- *  This program is free software; you can redistribute it and/or modify
++- *  it under the terms of the GNU General Public License as published by
++- *  the Free Software Foundation; either version 2 of the License, or
++- *  (at your option) any later version.
++- *
++- *  This program is distributed in the hope that it will be useful,
++- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++- *  GNU General Public License for more details.
++  *
++  *  Copyright (C) 2017 Zihao Yu
++  */
++@@ -21,7 +13,7 @@ static int apply_r_riscv_32_rela(struct module *me, u32 *location, Elf_Addr v)
++ {
++ 	if (v != (u32)v) {
++ 		pr_err("%s: value %016llx out of range for 32-bit field\n",
++-		       me->name, v);
+++		       me->name, (long long)v);
++ 		return -EINVAL;
++ 	}
++ 	*location = v;
++@@ -37,7 +29,7 @@ static int apply_r_riscv_64_rela(struct module *me, u32 *location, Elf_Addr v)
++ static int apply_r_riscv_branch_rela(struct module *me, u32 *location,
++ 				     Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	u32 imm12 = (offset & 0x1000) << (31 - 12);
++ 	u32 imm11 = (offset & 0x800) >> (11 - 7);
++ 	u32 imm10_5 = (offset & 0x7e0) << (30 - 10);
++@@ -50,7 +42,7 @@ static int apply_r_riscv_branch_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_jal_rela(struct module *me, u32 *location,
++ 				  Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	u32 imm20 = (offset & 0x100000) << (31 - 20);
++ 	u32 imm19_12 = (offset & 0xff000);
++ 	u32 imm11 = (offset & 0x800) << (20 - 11);
++@@ -63,7 +55,7 @@ static int apply_r_riscv_jal_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_rcv_branch_rela(struct module *me, u32 *location,
++ 					 Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	u16 imm8 = (offset & 0x100) << (12 - 8);
++ 	u16 imm7_6 = (offset & 0xc0) >> (6 - 5);
++ 	u16 imm5 = (offset & 0x20) >> (5 - 2);
++@@ -78,7 +70,7 @@ static int apply_r_riscv_rcv_branch_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_rvc_jump_rela(struct module *me, u32 *location,
++ 				       Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	u16 imm11 = (offset & 0x800) << (12 - 11);
++ 	u16 imm10 = (offset & 0x400) >> (10 - 8);
++ 	u16 imm9_8 = (offset & 0x300) << (12 - 11);
++@@ -96,13 +88,13 @@ static int apply_r_riscv_rvc_jump_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_pcrel_hi20_rela(struct module *me, u32 *location,
++ 					 Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	s32 hi20;
++ 
++ 	if (offset != (s32)offset) {
++ 		pr_err(
++ 		  "%s: target %016llx can not be addressed by the 32-bit offset from PC = %p\n",
++-		  me->name, v, location);
+++		  me->name, (long long)v, location);
++ 		return -EINVAL;
++ 	}
++ 
++@@ -141,10 +133,10 @@ static int apply_r_riscv_hi20_rela(struct module *me, u32 *location,
++ {
++ 	s32 hi20;
++ 
++-	if (IS_ENABLED(CMODEL_MEDLOW)) {
+++	if (IS_ENABLED(CONFIG_CMODEL_MEDLOW)) {
++ 		pr_err(
++ 		  "%s: target %016llx can not be addressed by the 32-bit offset from PC = %p\n",
++-		  me->name, v, location);
+++		  me->name, (long long)v, location);
++ 		return -EINVAL;
++ 	}
++ 
++@@ -178,7 +170,7 @@ static int apply_r_riscv_lo12_s_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_got_hi20_rela(struct module *me, u32 *location,
++ 				       Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	s32 hi20;
++ 
++ 	/* Always emit the got entry */
++@@ -188,7 +180,7 @@ static int apply_r_riscv_got_hi20_rela(struct module *me, u32 *location,
++ 	} else {
++ 		pr_err(
++ 		  "%s: can not generate the GOT entry for symbol = %016llx from PC = %p\n",
++-		  me->name, v, location);
+++		  me->name, (long long)v, location);
++ 		return -EINVAL;
++ 	}
++ 
++@@ -200,7 +192,7 @@ static int apply_r_riscv_got_hi20_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_call_plt_rela(struct module *me, u32 *location,
++ 				       Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	s32 fill_v = offset;
++ 	u32 hi20, lo12;
++ 
++@@ -212,7 +204,7 @@ static int apply_r_riscv_call_plt_rela(struct module *me, u32 *location,
++ 		} else {
++ 			pr_err(
++ 			  "%s: target %016llx can not be addressed by the 32-bit offset from PC = %p\n",
++-			  me->name, v, location);
+++			  me->name, (long long)v, location);
++ 			return -EINVAL;
++ 		}
++ 	}
++@@ -227,14 +219,14 @@ static int apply_r_riscv_call_plt_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_call_rela(struct module *me, u32 *location,
++ 				   Elf_Addr v)
++ {
++-	s64 offset = (void *)v - (void *)location;
+++	ptrdiff_t offset = (void *)v - (void *)location;
++ 	s32 fill_v = offset;
++ 	u32 hi20, lo12;
++ 
++ 	if (offset != fill_v) {
++ 		pr_err(
++ 		  "%s: target %016llx can not be addressed by the 32-bit offset from PC = %p\n",
++-		  me->name, v, location);
+++		  me->name, (long long)v, location);
++ 		return -EINVAL;
++ 	}
++ 
++@@ -263,14 +255,14 @@ static int apply_r_riscv_align_rela(struct module *me, u32 *location,
++ static int apply_r_riscv_add32_rela(struct module *me, u32 *location,
++ 				    Elf_Addr v)
++ {
++-	*(u32 *)location += (*(u32 *)v);
+++	*(u32 *)location += (u32)v;
++ 	return 0;
++ }
++ 
++ static int apply_r_riscv_sub32_rela(struct module *me, u32 *location,
++ 				    Elf_Addr v)
++ {
++-	*(u32 *)location -= (*(u32 *)v);
+++	*(u32 *)location -= (u32)v;
++ 	return 0;
++ }
++ 
++@@ -347,7 +339,7 @@ int apply_relocate_add(Elf_Shdr *sechdrs, const char *strtab,
++ 			unsigned int j;
++ 
++ 			for (j = 0; j < sechdrs[relsec].sh_size / sizeof(*rel); j++) {
++-				u64 hi20_loc =
+++				unsigned long hi20_loc =
++ 					sechdrs[sechdrs[relsec].sh_info].sh_addr
++ 					+ rel[j].r_offset;
++ 				u32 hi20_type = ELF_RISCV_R_TYPE(rel[j].r_info);
++@@ -360,12 +352,12 @@ int apply_relocate_add(Elf_Shdr *sechdrs, const char *strtab,
++ 					Elf_Sym *hi20_sym =
++ 						(Elf_Sym *)sechdrs[symindex].sh_addr
++ 						+ ELF_RISCV_R_SYM(rel[j].r_info);
++-					u64 hi20_sym_val =
+++					unsigned long hi20_sym_val =
++ 						hi20_sym->st_value
++ 						+ rel[j].r_addend;
++ 
++ 					/* Calculate lo12 */
++-					u64 offset = hi20_sym_val - hi20_loc;
+++					size_t offset = hi20_sym_val - hi20_loc;
++ 					if (IS_ENABLED(CONFIG_MODULE_SECTIONS)
++ 					    && hi20_type == R_RISCV_GOT_HI20) {
++ 						offset = module_emit_got_entry(
+diff --git a/patches/linux-keystone-driver-rv32.patch b/patches/linux-keystone-driver-rv32.patch
+new file mode 100644
+index 0000000..eda21ca
+--- /dev/null
++++ b/patches/linux-keystone-driver-rv32.patch
+@@ -0,0 +1,101 @@
++diff --git a/keystone_user.h b/keystone_user.h
++index 7da2d90..827731d 100644
++--- a/keystone_user.h
+++++ b/keystone_user.h
++@@ -38,45 +38,45 @@
++ 
++ 
++ struct runtime_params_t {
++-  __u64 runtime_entry;
++-  __u64 user_entry;
++-  __u64 untrusted_ptr;
++-  __u64 untrusted_size;
+++  unsigned long runtime_entry;
+++  unsigned long user_entry;
+++  unsigned long untrusted_ptr;
+++  unsigned long untrusted_size;
++ };
++ 
++ struct keystone_ioctl_create_enclave {
++-  __u64 eid;
+++  unsigned long eid;
++ 
++   //Min pages required
++-  __u64 min_pages;
+++  unsigned long min_pages;
++ 
++   // virtual addresses
++-  __u64 runtime_vaddr;
++-  __u64 user_vaddr;
+++  unsigned long runtime_vaddr;
+++  unsigned long user_vaddr;
++ 
++   // Runtime Parameters
++   struct runtime_params_t params;
++ };
++ 
++ struct keystone_ioctl_run_enclave {
++-  __u64 eid;
++-  __u64 entry;
++-  __u64 args_ptr;
++-  __u64 args_size;
++-  __u64 ret;
+++  unsigned long eid;
+++  unsigned long entry;
+++  unsigned long args_ptr;
+++  unsigned long args_size;
+++  unsigned long ret;
++ };
++ 
++ struct addr_packed {
++-  __u64 va;
++-  __u64 copied;
++-  __u64 eid;
++-  __u64 mode;
+++  unsigned long va;
+++  unsigned long copied;
+++  unsigned long eid;
+++  unsigned long mode;
++ };
++ 
++ struct keystone_ioctl_alloc_vspace {
++-  __u64 eid;
++-  __u64 vaddr;
++-  __u64 size;
+++  unsigned long eid;
+++  unsigned long vaddr;
+++  unsigned long size;
++ };
++ 
++ #endif
++diff --git a/riscv64.h b/riscv64.h
++index cbbdf42..df27481 100644
++--- a/riscv64.h
+++++ b/riscv64.h
++@@ -42,16 +42,24 @@
++ 
++ #define PTE_TABLE(PTE) (((PTE) & (PTE_V | PTE_R | PTE_W | PTE_X)) == PTE_V)
++ 
+++#if __riscv_xlen == 64
++ #define MSTATUS_SD MSTATUS64_SD
++ #define SSTATUS_SD SSTATUS64_SD
++ #define RISCV_PGLEVEL_BITS 9
+++#define SATP_MODE_CHOICE INSERT_FIELD(0, SATP64_MODE, SATP_MODE_SV39)
+++#define VA_BITS 39
+++#else
+++#define MSTATUS_SD MSTATUS32_SD
+++#define SSTATUS_SD SSTATUS32_SD
+++#define RISCV_PGLEVEL_BITS 10
+++#define SATP_MODE_CHOICE INSERT_FIELD(0, SATP32_MODE, SATP_MODE_SV32)
+++#define VA_BITS 32
+++#endif
++ 
++ #define RISCV_PGSHIFT 12
++ #define RISCV_PGSIZE (1 << RISCV_PGSHIFT)
++ 
++ #define MEGAPAGE_SIZE ((uintptr_t)(RISCV_PGSIZE << RISCV_PGLEVEL_BITS))
++-#define SATP_MODE_CHOICE INSERT_FIELD(0, SATP64_MODE, SATP_MODE_SV39)
++-#define VA_BITS 39
++ #define GIGAPAGE_SIZE (MEGAPAGE_SIZE << RISCV_PGLEVEL_BITS)
++ 
++ //extern pte_t* root_page_table;
+diff --git a/patches/linux-sdk-rv32.patch b/patches/linux-sdk-rv32.patch
+new file mode 100644
+index 0000000..8ee3260
+--- /dev/null
++++ b/patches/linux-sdk-rv32.patch
+@@ -0,0 +1,428 @@
++diff --git a/examples/hello/eapp/Makefile b/examples/hello/eapp/Makefile
++index f5ddcfe..284c148 100644
++--- a/examples/hello/eapp/Makefile
+++++ b/examples/hello/eapp/Makefile
++@@ -1,5 +1,5 @@
++ CC=/home/ubuntu/riscv-musl/install/bin/musl-gcc
++-#CC = riscv64-unknown-linux-gnu-gcc
+++#CC = riscv32-unknown-linux-gnu-gcc
++ 
++ all:
++ 	$(CC) hello.c -o hello
++diff --git a/examples/hello/host/Makefile b/examples/hello/host/Makefile
++index fcc2c25..ea4e075 100644
++--- a/examples/hello/host/Makefile
+++++ b/examples/hello/host/Makefile
++@@ -1,4 +1,4 @@
++-CC=riscv64-unknown-linux-gnu-g++
+++CC=riscv32-unknown-linux-gnu-g++
++ 
++ all:
++ 	$(CC) -o runner \
++diff --git a/examples/hello/vault.sh b/examples/hello/vault.sh
++index 054d7f7..dbe5845 100755
++--- a/examples/hello/vault.sh
+++++ b/examples/hello/vault.sh
++@@ -33,10 +33,10 @@ fi
++ 
++ # check if riscv tools are in PATH
++ if ! (
++-  $(command -v riscv64-unknown-elf-g++ > /dev/null) &&
++-  $(command -v riscv64-unknown-linux-gnu-g++ > /dev/null) &&
++-  $(command -v riscv64-unknown-elf-gcc > /dev/null) &&
++-  $(command -v riscv64-unknown-linux-gnu-gcc > /dev/null)
+++  $(command -v riscv32-unknown-elf-g++ > /dev/null) &&
+++  $(command -v riscv32-unknown-linux-gnu-g++ > /dev/null) &&
+++  $(command -v riscv32-unknown-elf-gcc > /dev/null) &&
+++  $(command -v riscv32-unknown-linux-gnu-gcc > /dev/null)
++   ); then
++   echo "riscv tools are not in PATH"
++   exit 1
++diff --git a/examples/tests/Makefile b/examples/tests/Makefile
++index ac12cd9..ac10a13 100644
++--- a/examples/tests/Makefile
+++++ b/examples/tests/Makefile
++@@ -1,5 +1,5 @@
++-CC = riscv64-unknown-linux-gnu-g++
++-OBJCOPY = riscv64-unknown-linux-gnu-objcopy
+++CC = riscv32-unknown-linux-gnu-g++
+++OBJCOPY = riscv32-unknown-linux-gnu-objcopy
++ 
++ SDK_LIB_DIR =$(KEYSTONE_SDK_DIR)/lib
++ SDK_HOST_LIB = $(SDK_LIB_DIR)/libkeystone-host.a
++diff --git a/examples/tests/app.mk b/examples/tests/app.mk
++index dddf989..e9d2539 100644
++--- a/examples/tests/app.mk
+++++ b/examples/tests/app.mk
++@@ -1,7 +1,7 @@
++-CC = riscv64-unknown-linux-gnu-gcc
+++CC = riscv32-unknown-linux-gnu-gcc
++ CFLAGS = -Wall -Werror
++-LINK = riscv64-unknown-linux-gnu-ld
++-AS = riscv64-unknown-linux-gnu-as
+++LINK = riscv32-unknown-linux-gnu-ld
+++AS = riscv32-unknown-linux-gnu-as
++ 
++ SDK_LIB_DIR = $(KEYSTONE_SDK_DIR)/lib
++ SDK_APP_LIB = $(SDK_LIB_DIR)/libkeystone-eapp.a
++diff --git a/examples/tests/attestation/Makefile b/examples/tests/attestation/Makefile
++index 5635b37..b9f35cb 100644
++--- a/examples/tests/attestation/Makefile
+++++ b/examples/tests/attestation/Makefile
++@@ -1,10 +1,10 @@
++ APP = attestation
++ APP_C_SRCS= attestation.c edge_wrapper.c
++ 
++-CC = riscv64-unknown-linux-gnu-gcc
+++CC = riscv32-unknown-linux-gnu-gcc
++ CFLAGS = -Wall -Werror
++-LINK = riscv64-unknown-linux-gnu-ld
++-AS = riscv64-unknown-linux-gnu-as
+++LINK = riscv32-unknown-linux-gnu-ld
+++AS = riscv32-unknown-linux-gnu-as
++ 
++ SDK_LIB_DIR = $(KEYSTONE_SDK_DIR)/lib
++ SDK_APP_LIB = $(SDK_LIB_DIR)/libkeystone-eapp.a
++diff --git a/examples/tests/long-nop/add_long.s b/examples/tests/long-nop/add_long.s
++index a0800b6..8c3b47d 100644
++--- a/examples/tests/long-nop/add_long.s
+++++ b/examples/tests/long-nop/add_long.s
++@@ -4100,7 +4100,7 @@ add:
++   addi x0, x0, 0
++   addi sp, sp, -64
++   li a0, 0xdeadbeef
++-  sd a0, (sp)
+++  sw a0, (sp)
++ return:
++   li a0, 12345
++   li a7, 1101 
++diff --git a/examples/tests/long-nop/func_base.s b/examples/tests/long-nop/func_base.s
++index 00782b6..79f0ae9 100644
++--- a/examples/tests/long-nop/func_base.s
+++++ b/examples/tests/long-nop/func_base.s
++@@ -1,6 +1,6 @@
++   addi sp, sp, -64
++   li a0, 0xdeadbeef
++-  sd a0, (sp)
+++  sw a0, (sp)
++ return:
++   li a0, 12345
++   li a7, 1101 
++diff --git a/examples/tests/long-nop/func_long.s b/examples/tests/long-nop/func_long.s
++index 5645ba6..2edf017 100644
++--- a/examples/tests/long-nop/func_long.s
+++++ b/examples/tests/long-nop/func_long.s
++@@ -4098,7 +4098,7 @@ add:
++   addi x0, x0, 0
++   addi sp, sp, -64
++   li a0, 0xdeadbeef
++-  sd a0, (sp)
+++  sw a0, (sp)
++ return:
++   li a0, 12345
++   li a7, 1101 
++diff --git a/examples/tests/long-nop/long-nop.s b/examples/tests/long-nop/long-nop.s
++index a0800b6..8c3b47d 100644
++--- a/examples/tests/long-nop/long-nop.s
+++++ b/examples/tests/long-nop/long-nop.s
++@@ -4100,7 +4100,7 @@ add:
++   addi x0, x0, 0
++   addi sp, sp, -64
++   li a0, 0xdeadbeef
++-  sd a0, (sp)
+++  sw a0, (sp)
++ return:
++   li a0, 12345
++   li a7, 1101 
++diff --git a/examples/tests/stack/stack.s b/examples/tests/stack/stack.s
++index 08af8f2..54e356f 100644
++--- a/examples/tests/stack/stack.s
+++++ b/examples/tests/stack/stack.s
++@@ -4,7 +4,7 @@ eapp_entry:
++ add:
++   addi sp, sp, -64
++   li a0, 0xdeadbeef
++-  sd a0, (sp)
+++  sw a0, (sp)
++ return:
++   li a0, 12345
++   li a7, 1101 
++diff --git a/examples/tests/test-runner.cpp b/examples/tests/test-runner.cpp
++index 391f1fb..ea0f588 100644
++--- a/examples/tests/test-runner.cpp
+++++ b/examples/tests/test-runner.cpp
++@@ -66,8 +66,13 @@ int main(int argc, char** argv)
++   int self_timing = 0;
++   int load_only = 0;
++ 
+++#if __riscv_xlen == 64
++   size_t untrusted_size = 2*1024*1024;
++   size_t freemem_size = 48*1024*1024;
+++#else
+++  size_t untrusted_size = 512*1024;
+++  size_t freemem_size = 1024*1024;
+++#endif
++   uintptr_t utm_ptr = (uintptr_t)DEFAULT_UNTRUSTED_PTR;
++ 
++   static struct option long_options[] =
++diff --git a/examples/tests/untrusted/Makefile b/examples/tests/untrusted/Makefile
++index 918f7d6..e88cecb 100644
++--- a/examples/tests/untrusted/Makefile
+++++ b/examples/tests/untrusted/Makefile
++@@ -1,10 +1,10 @@
++ APP = untrusted
++ APP_C_SRCS= untrusted.c edge_wrapper.c
++ 
++-CC = riscv64-unknown-linux-gnu-gcc
+++CC = riscv32-unknown-linux-gnu-gcc
++ CFLAGS = -Wall -Werror
++-LINK = riscv64-unknown-linux-gnu-ld
++-AS = riscv64-unknown-linux-gnu-as
+++LINK = riscv32-unknown-linux-gnu-ld
+++AS = riscv32-unknown-linux-gnu-as
++ 
++ SDK_LIB_DIR = $(KEYSTONE_SDK_DIR)/lib
++ SDK_APP_LIB = $(SDK_LIB_DIR)/libkeystone-eapp.a
++diff --git a/examples/tests/vault.sh b/examples/tests/vault.sh
++index 1272b07..b44ad7d 100755
++--- a/examples/tests/vault.sh
+++++ b/examples/tests/vault.sh
++@@ -40,10 +40,10 @@ fi
++ 
++ # check if riscv tools are in PATH
++ if ! (
++-  $(command -v riscv64-unknown-elf-g++ > /dev/null) &&
++-  $(command -v riscv64-unknown-linux-gnu-g++ > /dev/null) &&
++-  $(command -v riscv64-unknown-elf-gcc > /dev/null) &&
++-  $(command -v riscv64-unknown-linux-gnu-gcc > /dev/null)
+++  $(command -v riscv32-unknown-elf-g++ > /dev/null) &&
+++  $(command -v riscv32-unknown-linux-gnu-g++ > /dev/null) &&
+++  $(command -v riscv32-unknown-elf-gcc > /dev/null) &&
+++  $(command -v riscv32-unknown-linux-gnu-gcc > /dev/null)
++   ); then
++   echo "riscv tools are not in PATH"
++   exit 1
++diff --git a/lib/app/Makefile b/lib/app/Makefile
++index 0f6ca6d..e598794 100644
++--- a/lib/app/Makefile
+++++ b/lib/app/Makefile
++@@ -1,8 +1,8 @@
++-CC = riscv64-unknown-linux-gnu-gcc
++-LINK = riscv64-unknown-linux-gnu-ld
+++CC = riscv32-unknown-linux-gnu-gcc
+++LINK = riscv32-unknown-linux-gnu-ld
++ LINKFLAGS = -static
++ INCLUDE_DIR = include
++-AR = riscv64-unknown-elf-ar
+++AR = riscv32-unknown-elf-ar
++ ARFLAGS = rcs
++ 
++ OPTIONS_FLAGS ?=
++diff --git a/lib/edge/Makefile b/lib/edge/Makefile
++index b9b7c25..dbb5545 100644
++--- a/lib/edge/Makefile
+++++ b/lib/edge/Makefile
++@@ -1,4 +1,4 @@
++-CC = riscv64-unknown-linux-gnu-gcc
+++CC = riscv32-unknown-linux-gnu-gcc
++ INCLUDE_DIR = include/
++ SRC_DIR = src
++ 
++@@ -9,7 +9,7 @@ CCFLAGS = -Wall -Werror -I$(INCLUDE_DIR) $(OPTIONS_FLAGS)
++ SRCS = src/edge_call.c src/edge_dispatch.c src/edge_syscall.c
++ OBJS = $(patsubst %.c,%.o,$(SRCS))
++ 
++-AR = riscv64-unknown-elf-ar
+++AR = riscv32-unknown-elf-ar
++ ARFLAGS = rcs
++ 
++ TARGET=../libkeystone-edge.a
++diff --git a/lib/edge/src/edge_syscall.c b/lib/edge/src/edge_syscall.c
++index cd40bb9..55daed9 100644
++--- a/lib/edge/src/edge_syscall.c
+++++ b/lib/edge/src/edge_syscall.c
++@@ -17,7 +17,7 @@ void incoming_syscall(struct edge_call* edge_call){
++ 
++   edge_call->return_data.call_status = CALL_STATUS_OK;
++ 
++-  int64_t ret;
+++  long ret;
++ 
++   // Right now we only handle some io syscalls. See runtime for how
++   // others are handled.
++@@ -73,8 +73,8 @@ void incoming_syscall(struct edge_call* edge_call){
++ 
++   /* Setup return value */
++   void* ret_data_ptr = (void*)edge_call_data_ptr();
++-  *(int64_t*)ret_data_ptr = ret;
++-  if(edge_call_setup_ret(edge_call, ret_data_ptr , sizeof(int64_t)) !=0) goto syscall_error;
+++  *(long*)ret_data_ptr = ret;
+++  if(edge_call_setup_ret(edge_call, ret_data_ptr , sizeof(long)) !=0) goto syscall_error;
++ 
++   return;
++ 
++diff --git a/lib/host/Makefile b/lib/host/Makefile
++index 0453c85..099915c 100644
++--- a/lib/host/Makefile
+++++ b/lib/host/Makefile
++@@ -1,4 +1,4 @@
++-CC = riscv64-unknown-linux-gnu-g++
+++CC = riscv32-unknown-linux-gnu-g++
++ INCLUDE_DIR = include/
++ SRC_DIR = src
++ 
++@@ -7,7 +7,7 @@ OPTIONS_FLAGS ?=
++ CCFLAGS = -Wall -Werror -I $(INCLUDE_DIR) $(OPTIONS_FLAGS)
++ SRCS = keystone.cpp elffile.cpp elf.cpp elf32.cpp elf64.cpp
++ OBJS = $(patsubst %.cpp,%.o,$(SRCS))
++-AR = riscv64-unknown-linux-gnu-ar
+++AR = riscv32-unknown-linux-gnu-ar
++ ARFLAGS = rcs
++ 
++ TARGET=../libkeystone-host.a
++diff --git a/lib/host/include/keystone_user.h b/lib/host/include/keystone_user.h
++index 7da2d90..827731d 100644
++--- a/lib/host/include/keystone_user.h
+++++ b/lib/host/include/keystone_user.h
++@@ -38,45 +38,45 @@
++ 
++ 
++ struct runtime_params_t {
++-  __u64 runtime_entry;
++-  __u64 user_entry;
++-  __u64 untrusted_ptr;
++-  __u64 untrusted_size;
+++  unsigned long runtime_entry;
+++  unsigned long user_entry;
+++  unsigned long untrusted_ptr;
+++  unsigned long untrusted_size;
++ };
++ 
++ struct keystone_ioctl_create_enclave {
++-  __u64 eid;
+++  unsigned long eid;
++ 
++   //Min pages required
++-  __u64 min_pages;
+++  unsigned long min_pages;
++ 
++   // virtual addresses
++-  __u64 runtime_vaddr;
++-  __u64 user_vaddr;
+++  unsigned long runtime_vaddr;
+++  unsigned long user_vaddr;
++ 
++   // Runtime Parameters
++   struct runtime_params_t params;
++ };
++ 
++ struct keystone_ioctl_run_enclave {
++-  __u64 eid;
++-  __u64 entry;
++-  __u64 args_ptr;
++-  __u64 args_size;
++-  __u64 ret;
+++  unsigned long eid;
+++  unsigned long entry;
+++  unsigned long args_ptr;
+++  unsigned long args_size;
+++  unsigned long ret;
++ };
++ 
++ struct addr_packed {
++-  __u64 va;
++-  __u64 copied;
++-  __u64 eid;
++-  __u64 mode;
+++  unsigned long va;
+++  unsigned long copied;
+++  unsigned long eid;
+++  unsigned long mode;
++ };
++ 
++ struct keystone_ioctl_alloc_vspace {
++-  __u64 eid;
++-  __u64 vaddr;
++-  __u64 size;
+++  unsigned long eid;
+++  unsigned long vaddr;
+++  unsigned long size;
++ };
++ 
++ #endif
++diff --git a/lib/host/include/params.h b/lib/host/include/params.h
++index d994641..d0022ad 100644
++--- a/lib/host/include/params.h
+++++ b/lib/host/include/params.h
++@@ -8,11 +8,22 @@
++ #include <cstdio>
++ 
++ #define DEFAULT_FREEMEM_SIZE    1024*1024 // 1 MB
++-#define DEFAULT_UNTRUSTED_PTR   0xffffffff80000000
++ #define DEFAULT_UNTRUSTED_SIZE  8192 // 8 KB
++-
++ #define DEFAULT_STACK_SIZE      1024*16 // 16k
++-#define DEFAULT_STACK_START  0x0000000040000000
+++#if __riscv_xlen == 64
+++#define DEFAULT_UNTRUSTED_PTR   0xffffffff80000000
+++#define DEFAULT_STACK_START     0x0000000040000000
+++#else
+++#define DEFAULT_UNTRUSTED_PTR   0xff800000
+++#define DEFAULT_STACK_START     0x40000000
+++#endif
+++
+++#if __riscv_xlen == 64
+++#define XLEN_T uint64_t
+++#else
+++#define XLEN_T uint32_t
+++#endif
+++
++ /* parameters for enclave creation */
++ class Params
++ {
++@@ -23,18 +34,20 @@ class Params
++       freemem_size = DEFAULT_FREEMEM_SIZE;
++     }
++ 
++-    void setEnclaveEntry(uint64_t) { printf("WARN: setEnclaveEntry() is deprecated.\n"); }
++-    void setUntrustedMem(uint64_t ptr, uint64_t size) { untrusted = ptr; untrusted_size = size; }
++-    void setFreeMemSize(uint64_t size) { freemem_size = size; }
++-    uint64_t getUntrustedMem() { return untrusted; }
++-    uint64_t getUntrustedSize() { return untrusted_size; }
++-    uint64_t getFreeMemSize() { return freemem_size; }
+++    void setEnclaveEntry(XLEN_T) { printf("WARN: setEnclaveEntry() is deprecated.\n"); }
+++    void setUntrustedMem(XLEN_T ptr, XLEN_T size) { untrusted = ptr; untrusted_size = size; }
+++    void setFreeMemSize(XLEN_T size) { freemem_size = size; }
+++    XLEN_T getUntrustedMem() { return untrusted; }
+++    XLEN_T getUntrustedSize() { return untrusted_size; }
+++    XLEN_T getFreeMemSize() { return freemem_size; }
++   private:
++-    uint64_t runtime_entry;
++-    uint64_t enclave_entry;
++-    uint64_t untrusted;
++-    uint64_t untrusted_size;
++-    uint64_t freemem_size;
+++    XLEN_T runtime_entry;
+++    XLEN_T enclave_entry;
+++    XLEN_T untrusted;
+++    XLEN_T untrusted_size;
+++    XLEN_T freemem_size;
++ };
++ 
+++#undef XLEN_T
+++
++ #endif
++diff --git a/lib/verifier/Makefile b/lib/verifier/Makefile
++index 9fb84f7..2c21b95 100644
++--- a/lib/verifier/Makefile
+++++ b/lib/verifier/Makefile
++@@ -1,6 +1,6 @@
++-CXX = riscv64-unknown-linux-gnu-g++
++-CC	= riscv64-unknown-liunux-gnu-gcc
++-AR = riscv64-unknown-linux-gnu-ar
+++CXX = riscv32-unknown-linux-gnu-g++
+++CC	= riscv32-unknown-liunux-gnu-gcc
+++AR = riscv32-unknown-linux-gnu-ar
++ #CXX = g++
++ #CC = gcc
++ #AR = ar
+diff --git a/patches/qemu-rv32-romsize.patch b/patches/qemu-rv32-romsize.patch
+index e5d151e..84b4e2f 100644
+--- a/patches/qemu-rv32-romsize.patch
++++ b/patches/qemu-rv32-romsize.patch
+@@ -11,9 +11,3 @@ index 5a5fd108bb..3ff05994eb 100644
+      [VIRT_TEST] =     {   0x100000,     0x1000 },
+      [VIRT_CLINT] =    {  0x2000000,    0x10000 },
+      [VIRT_PLIC] =     {  0xc000000,  0x4000000 },
+-diff --git roms/seabios roms/seabios
+---- roms/seabios
+-+++ roms/seabios
+-@@ -1 +1 @@
+--Subproject commit a698c8995ffb2838296ec284fe3c4ad33dfca307
+-+Subproject commit a698c8995ffb2838296ec284fe3c4ad33dfca307-dirty
+diff --git a/patches/riscv-pk-qemu-misa.patch b/patches/riscv-pk-qemu-misa.patch
+new file mode 100644
+index 0000000..160e6b6
+--- /dev/null
++++ b/patches/riscv-pk-qemu-misa.patch
+@@ -0,0 +1,13 @@
++diff --git a/machine/minit.c b/machine/minit.c
++index f0b1b50..58f8536 100644
++--- a/machine/minit.c
+++++ b/machine/minit.c
++@@ -74,7 +74,7 @@ static void fp_init()
++ #else
++   uintptr_t fd_mask = (1 << ('F' - 'A')) | (1 << ('D' - 'A'));
++   clear_csr(misa, fd_mask);
++-  assert(!(read_csr(misa) & fd_mask));
+++  //assert(!(read_csr(misa) & fd_mask));
++ #endif
++ }
++ 
+diff --git a/scripts/apply-patch.sh b/scripts/apply-patch.sh
+index ff1ab7a..b1be2a9 100755
+--- a/scripts/apply-patch.sh
++++ b/scripts/apply-patch.sh
+@@ -7,5 +7,26 @@ cd ..
+ # linux patch
+ cd riscv-linux
+ patch -p0 --forward <  ../patches/linux-cma.patch || true
++patch -p1 --forward <  ../patches/kernel-rv32-module.patch || true
++cd ..
++
++# buildroot patch
++cd buildroot
++patch -p1 --forward <  ../patches/buildroot-multilib-toolchain.patch || true
++cd ..
++
++# linux driver patch
++cd linux-keystone-driver
++patch -p1 --forward <  ../patches/linux-keystone-driver-rv32.patch || true
++cd ..
++
++# sdk patch
++cd sdk
++patch -p1 --forward <  ../patches/linux-sdk-rv32.patch || true
++cd ..
++
++# riscv-pk patch
++cd riscv-pk
++patch -p1 --forward <  ../patches/riscv-pk-qemu-misa.patch || true
+ cd ..
+ 
+diff --git a/sdk b/sdk
+index c110f44..11fffad 160000
+--- a/sdk
++++ b/sdk
+@@ -1 +1 @@
+-Subproject commit c110f44be7cb543c4b255e17de3a4898d8ee4e20
++Subproject commit 11fffad526678aa703835aedb76f3a82bcb3b95b
