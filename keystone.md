@@ -6,14 +6,14 @@ layout : default
 
 * * *
 
-# I. Use Prebuilt Toolchain
+# I. Make Keystone Project
 
 ## I. a) Keystone
 
 	$ git clone https://github.com/keystone-enclave/keystone.git
 	$ cd keystone/
-	$ git checkout dev			#commit 44acf9bf on 10-Aug-2019
-
+	$ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
+	
 	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ . source.sh
 	$ export KEYSTONE_DIR=`pwd`
@@ -22,15 +22,15 @@ layout : default
 	$ make -j`nproc`
 	
 	$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
-	(this line is for VC707 board, because there is only 1GB of memory on the VC707 board so...)
+	(this line is for FPGA board, because usually there is only 1GB of memory on the board)
 	
 	$ ./sdk/scripts/vault-sample.sh
 	$ ./tests/tests/vault.sh
 	$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 
-To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-usb--ethernet-drivers).
+To turn on usb and ethernet drivers in the Linux kernel, see section [II](#ii-usb--ethernet-drivers).
 
-To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
+To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
 
 ## I. b) Keystone-demo
 
@@ -41,7 +41,7 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	
 	$ cd ../				#go back outside
 	$ git clone https://github.com/keystone-enclave/keystone-demo.git
-	(branch master commit 64009889 on 17-Jul-2019)
+	(branch master commit a25084ea on 18-Dec-2019)
 	
 	$ cd keystone-demo/
 	$ . source.sh
@@ -58,25 +58,19 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 	$ make image -j`nproc`		#and update the bbl.bin there
 
-To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
+To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
+
+***Note:*** keystone & keystone-demo in this tutorial use the prebuilt toolchain (kernel=4.13.x & gcc=7.2), and they won't be compatible with the current mainstream of riscv-gnu-toolchain (kernel=5.0.x & gcc=9.2). So please don't try to modify the keystone to match with the riscv-gnu-toolchain mainstream.
+
+***Further note:*** the mainstream keystone now can compatible with kernel 5.x and gcc 9.x. However, they moved from using Makefile to CMake, which is unfamiliar for me. So the task "make Keystone with native toolchain" is for the future work.
 
 * * *
 
-# II. Use Native Toolchain
-
-TODO: in the future, upgrade the build scripts of keystone & keystone-demo from using the prebuilt toolchain (kernel=4.13.x & gcc=7.2) to the current mainstream of riscv-gnu-toolchain (kernel=5.0.x & gcc=9.2).
-
-## II. a) Keystone
-
-## II. b) Keystone-demo
-
-* * *
-
-# III. USB & Ethernet Drivers
+# II. USB & Ethernet Drivers
 
 There are two ways of doing this, the 'formal' way, and the shortcut.
 
-## III. a) Check the PATH things
+## II. a) Check the PATH things
 
         $ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
         $ cd <your keystone folder>			#go to your keystone folder
@@ -86,7 +80,7 @@ There are two ways of doing this, the 'formal' way, and the shortcut.
         $ cd <your keystone-demo folder>	#go to your keystone-demo folder
         $ . source.sh
 
-## III. b) Make the 'formal' way
+## II. b) Make the 'formal' way
 
 The proper way to modify drivers in Linux kernel is open the kernel, select or diselect some drivers, apply the changes, and remake everything.
 
@@ -108,7 +102,7 @@ The proper way to modify drivers in Linux kernel is open the kernel, select or d
         $ make -j`nproc`
         $ make image -j`nproc`
 
-## III. c) Make by the 'shortcut'
+## II. c) Make by the 'shortcut'
 
 So, the bottom line of the 'formal' way above is just to creating a new **linux_cma_conf** file under the *hifive-conf/* directory.
 
@@ -119,7 +113,7 @@ Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
         $ make -j`nproc`
         $ make image -j`nproc`
 
-## III. d) Aftermath
+## II. d) Aftermath
 
 After your changes on the kernel, the hash value of the **bbl.bin** file is different now.
 
@@ -136,7 +130,7 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo) or [II. b)]
 
 * * *
 
-# IV. Run Test on QEMU
+# III. Run Test on QEMU
 
         $ cd <keystone folder>			#go to your keystone folder
         $ ./scripts/run-qemu.sh
