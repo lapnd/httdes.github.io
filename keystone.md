@@ -48,7 +48,12 @@ To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
 	$ ./quick-start.sh		#type Y when asked
 	after this step, a new app is generated and coppied to the keystone directory
 	
+	cd back to the keystone directory and remake the image with the new keystone-demo app
+	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+	$ make image -j`nproc`		#and update the bbl.bin there
+	
 	However, it will be a false attestation. To update the new hash value, do the followings:
+	$ cd ../keystone-demo/		#first, cd back to the keystone-demo directory
 	$ make getandsethash
 	$ rm trusted_client.riscv
 	$ make trusted_client.riscv
