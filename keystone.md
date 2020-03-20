@@ -32,6 +32,28 @@ To turn on usb and ethernet drivers in the Linux kernel, see section [II](#ii-us
 
 To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
 
+## 32bit
+
+	$ git clone -b dev-rv32 https://github.com/keystone-enclave/keystone.git keystone-rv32
+	$ cd keystone-rv32/
+	$ echo ${PATH}                  #and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ export RISCV=/opt/gcc8/riscv32gc
+	$ export PATH=$RISCV/bin:$PATH
+	$ git config --global submodule.riscv-gnu-toolchain.update none
+	$ git submodule sync --recursive
+	$ git submodule update --init --recursive
+	$ make -j`nproc`
+	$ make -C sdk
+	
+	$ git clone https://github.com/riscv/riscv-gnu-toolchain.git riscv-gnu-toolchain-gcc7
+	$ cd riscv-gnu-toolchain-gcc7/
+	$ git checkout 0914ab9f41b63681e538ec677c4adeaa889adae5 gcc8
+	$ git checkout bb41926cb5a62e6cbe4b659ded6ff52c70b2baf1 gcc7
+	$ git submodule update --init --recursive
+	$ ./configure --prefix=/opt/gcc7/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
+	$ sudo make -j`nproc`
+	$ sudo make linux -j`nproc`
+
 ## I. b) Keystone-demo
 
 	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
