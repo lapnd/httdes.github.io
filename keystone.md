@@ -34,25 +34,51 @@ To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
 
 ## 32bit
 
-	$ git clone -b dev-rv32 https://github.com/keystone-enclave/keystone.git keystone-rv32
-	$ cd keystone-rv32/
-	$ echo ${PATH}                  #and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ export RISCV=/opt/gcc8/riscv32gc
-	$ export PATH=$RISCV/bin:$PATH
-	$ git config --global submodule.riscv-gnu-toolchain.update none
-	$ git submodule sync --recursive
+First, you need the gcc8 riscv toolchain for this.
+
+Either the gcc9 mainstream riscv-gnu-toolchain or the gcc7 prebuilt toolchain won't work.
+
+To build gcc8 riscv toolchain: (skip this if you already have gcc8 riscv toolchain)
+
+	# clone a new riscv-gnu-toolchain somewhere
+	$ git clone https://github.com/riscv/riscv-gnu-toolchain.git riscv-gnu-toolchain-gcc8
+	
+	# then cd to the folder and checkout to the point of gcc8
+	$ cd riscv-gnu-toolchain-gcc8/
+	$ git checkout 0914ab9f41b63681e538ec677c4adeaa889adae5	#this is the point right before updating to gcc9
 	$ git submodule update --init --recursive
+	
+	# now configure the toolchain as rv32gc and make
+	$ ./configure --prefix=/opt/gcc8/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
+	$ sudo make -j`nproc`
+	$ sudo make linux -j`nproc`
+
+With gcc8 ready, now we can make the keystone-rv32:
+
+	$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone.git keystone-rv32
+	$ cd keystone-rv32/
+	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
+	$ export PATH=$RISCV/bin:$PATH
+	
+	$ ./fast-setup.sh			#now clone the submodules then make
 	$ make -j`nproc`
 	$ make -C sdk
 	
-	$ git clone https://github.com/riscv/riscv-gnu-toolchain.git riscv-gnu-toolchain-gcc7
-	$ cd riscv-gnu-toolchain-gcc7/
-	$ git checkout 0914ab9f41b63681e538ec677c4adeaa889adae5 gcc8
-	$ git checkout bb41926cb5a62e6cbe4b659ded6ff52c70b2baf1 gcc7
-	$ git submodule update --init --recursive
-	$ ./configure --prefix=/opt/gcc7/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
-	$ sudo make -j`nproc`
-	$ sudo make linux -j`nproc`
+	$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./sdk/examples/tests/test-runner.cpp
+	(this line is for FPGA board, because usually there is only 1GB of memory on the board)
+	
+	$ cd sdk/				#make sdk
+	$ ./scripts/init.sh
+	$ export KEYSTONE_SDK_DIR=`pwd`
+	$ export EYRIE_DIR=`pwd`/rts/eyrie
+	$ cd ../
+	
+	$ ./sdk/scripts/vault-sample.sh		#make demo
+	$ ./sdk/examples/tests/vault.sh
+	$ make -j`nproc`			#do this to update the demo to the image file bbl.bin
+
+To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
 
 ## I. b) Keystone-demo
 
