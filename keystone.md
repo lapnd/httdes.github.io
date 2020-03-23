@@ -57,26 +57,26 @@ With gcc8 ready, now we can make the keystone-rv32:
 
 	$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone.git keystone-rv32
 	$ cd keystone-rv32/
-	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
 	$ export PATH=$RISCV/bin:$PATH
 	
-	$ ./fast-setup.sh			#now clone the submodules then make
+	$ ./fast-setup.sh					#now clone the submodules then make
 	$ make -j`nproc`
 	$ make -C sdk
 	
 	$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./sdk/examples/tests/test-runner.cpp
 	(this line is for FPGA board, because usually there is only 1GB of memory on the board)
 	
-	$ cd sdk/				#make sdk
+	$ cd sdk/						#make sdk
 	$ ./scripts/init.sh
 	$ export KEYSTONE_SDK_DIR=`pwd`
 	$ export EYRIE_DIR=`pwd`/rts/eyrie
 	$ cd ../
 	
-	$ ./sdk/scripts/vault-sample.sh		#make demo
+	$ ./sdk/scripts/vault-sample.sh				#make demo
 	$ ./sdk/examples/tests/vault.sh
-	$ make -j`nproc`			#do this to update the demo to the image file bbl.bin
+	$ make -j`nproc`					#do this to update the demo to the image file bbl.bin
 
 To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
 
