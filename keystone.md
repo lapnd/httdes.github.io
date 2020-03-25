@@ -132,7 +132,7 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
 	$ export PATH=$RISCV/bin:$PATH
-	$ cd <your keystone folder>				#go to your keystone folder
+	$ cd <your keystone folder>			#go to your keystone folder
 	$ export KEYSTONE_DIR=`pwd`
 	
 	$ cd ../							#go back outside
@@ -145,8 +145,8 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
         after this step, a new app is generated and coppied to the keystone directory
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
-	$ cd ${KEYSTONE_DIR}				#now go back to the keystone folder
-	$ make -j`nproc`				#and update the bbl.bin there
+	$ cd ${KEYSTONE_DIR}			#now go back to the keystone folder
+	$ make -j`nproc`					#and update the bbl.bin there
 	
 	However, it will be a false attestation. To update the new hash value, do the followings:
 	$ cd ../keystone-demo-rv32/			#first, cd back to the keystone-demo directory
@@ -156,8 +156,8 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	$ make copybins
 	after this step, the app is updated with the correct hash value and coppied to the keystone directory
 	
-	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make -j`nproc`		#and update the bbl.bin there
+	$ cd ${KEYSTONE_DIR}			#now go back to the keystone folder
+	$ make -j`nproc`				#and update the bbl.bin there
 	
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
