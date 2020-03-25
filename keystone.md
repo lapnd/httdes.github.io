@@ -6,13 +6,14 @@ layout : default
 
 * * *
 
-# I. Make Keystone Project
+# I. Make Keystone Project (RV64)
 
 ## I. a) Keystone
 
-	$ git clone https://github.com/keystone-enclave/keystone.git
-	$ cd keystone/
+	$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64
+	$ cd keystone-rv64/
 	$ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
+	(this is the commit right before upgrading to CMake)
 	
 	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ . source.sh
@@ -28,34 +29,78 @@ layout : default
 	$ ./tests/tests/vault.sh
 	$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 
-To turn on usb and ethernet drivers in the Linux kernel, see section [II](#ii-usb--ethernet-drivers).
+To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-usb--ethernet-drivers).
 
-To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
+To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
-## 32bit
+## I. b) Keystone-demo
 
-First, you need the gcc8 riscv toolchain for this.
+	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ cd <your keystone folder>		#go to your keystone folder
+	$ . source.sh
+	$ export KEYSTONE_DIR=`pwd`
+	
+	$ cd ../				#go back outside
+	$ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64
+	(branch master commit a25084ea on 18-Dec-2019)
+	
+	$ cd keystone-demo-rv64/
+	$ . source.sh
+	$ ./quick-start.sh		#type Y when asked
+	after this step, a new app is generated and coppied to the keystone directory
+	
+	cd back to the keystone directory and remake the image with the new keystone-demo app
+	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+	$ make image -j`nproc`		#and update the bbl.bin there
+	
+	However, it will be a false attestation. To update the new hash value, do the followings:
+	$ cd ../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
+	$ make getandsethash
+	$ rm trusted_client.riscv
+	$ make trusted_client.riscv
+	$ make copybins
+	after this step, the app is updated with the correct hash value and coppied to the keystone directory
+
+	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+	$ make image -j`nproc`		#and update the bbl.bin there
+
+To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
+
+***Note:*** keystone & keystone-demo in this tutorial use the prebuilt toolchain (kernel=4.13.x & gcc=7.2), and they won't be compatible with the current mainstream of riscv-gnu-toolchain (kernel=5.0.x & gcc=9.2). So please don't try to modify the keystone to match with the riscv-gnu-toolchain mainstream.
+
+***Further note:*** the mainstream keystone now can compatible with kernel 5.x and gcc 9.x. However, they moved from using Makefile to CMake, which is unfamiliar for me. So the task "make Keystone with native toolchain" is for the future work.
+
+* * *
+# II. Make Keystone Project (RV32)
+
+## II. a) riscv-gnu-toolchain gcc8
+
+You need the gcc8 riscv toolchain for this build.
 
 Either the gcc9 mainstream riscv-gnu-toolchain or the gcc7 prebuilt toolchain won't work.
 
-To build gcc8 riscv toolchain: (skip this if you already have gcc8 riscv toolchain)
+To build the gcc8 riscv toolchain: (skip this step if you already have gcc8 riscv toolchain in your local machine)
 
-	# clone a new riscv-gnu-toolchain somewhere
+	(clone a new riscv-gnu-toolchain somewhere)
 	$ git clone https://github.com/riscv/riscv-gnu-toolchain.git riscv-gnu-toolchain-gcc8
 	
-	# then cd to the folder and checkout to the point of gcc8
+	(then cd to the folder and checkout to the point of gcc8)
 	$ cd riscv-gnu-toolchain-gcc8/
-	$ git checkout 0914ab9f41b63681e538ec677c4adeaa889adae5	#this is the point right before updating to gcc9
+	$ git checkout 0914ab9f41b63681e538ec677c4adeaa889adae5
 	$ git submodule update --init --recursive
 	
-	# now configure the toolchain as rv32gc and make
+	(now configure the toolchain as rv32gc and make)
 	$ ./configure --prefix=/opt/gcc8/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
 	$ sudo make -j`nproc`
 	$ sudo make linux -j`nproc`
 
+## II. b) Keystone
+
 With gcc8 ready, now we can make the keystone-rv32:
 
 	$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone.git keystone-rv32
+	(branch dev-rv32 commit 34da1acd on 23-Mar-2020)
+	
 	$ cd keystone-rv32/
 	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
@@ -69,61 +114,60 @@ With gcc8 ready, now we can make the keystone-rv32:
 	(this line is for FPGA board, because usually there is only 1GB of memory on the board)
 	
 	$ cd sdk/							#make sdk
-	$ ./scripts/init.sh
 	$ export KEYSTONE_SDK_DIR=`pwd`
 	$ export EYRIE_DIR=`pwd`/rts/eyrie
+	$ ./scripts/init.sh
 	$ cd ../
 	
 	$ ./sdk/scripts/vault-sample.sh		#make demo
 	$ ./sdk/examples/tests/vault.sh
 	$ make -j`nproc`					#do this to update the demo to the image file bbl.bin
 
-To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
+To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-usb--ethernet-drivers).
 
-## I. b) Keystone-demo
+To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
-	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ cd <your keystone folder>		#go to your keystone folder
-	$ . source.sh
+## II. c) Keystone-demo
+	
+	$ echo ${PATH}                                  #and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ export RISCV=/opt/gcc8/riscv32gc      #point to the gcc8 riscv32gc toolchain
+        $ export PATH=$RISCV/bin:$PATH
+	$ cd <your keystone folder>             #go to your keystone folder
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ cd ../				#go back outside
-	$ git clone https://github.com/keystone-enclave/keystone-demo.git
-	(branch master commit a25084ea on 18-Dec-2019)
+	$ cd ../                                #go back outside
+	$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone-demo.git keystone-demo-rv32
+	(branch dev-rv32 commit 7c913f0b on 24-Mar-2020)
 	
-	$ cd keystone-demo/
+	$ cd keystone-demo-rv32/
 	$ . source.sh
-	$ ./quick-start.sh		#type Y when asked
-	after this step, a new app is generated and coppied to the keystone directory
+        $ ./quick-start.sh              #type Y when asked
+        after this step, a new app is generated and coppied to the keystone directory
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
 	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make image -j`nproc`		#and update the bbl.bin there
+	$ make -j`nproc`		#and update the bbl.bin there
 	
 	However, it will be a false attestation. To update the new hash value, do the followings:
-	$ cd ../keystone-demo/		#first, cd back to the keystone-demo directory
+	$ cd ../keystone-demo-rv32/	#first, cd back to the keystone-demo directory
 	$ make getandsethash
 	$ rm trusted_client.riscv
 	$ make trusted_client.riscv
 	$ make copybins
 	after this step, the app is updated with the correct hash value and coppied to the keystone directory
-
+	
 	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make image -j`nproc`		#and update the bbl.bin there
-
-To run the test with QEMU, see section [III](#iii-run-test-on-qemu).
-
-***Note:*** keystone & keystone-demo in this tutorial use the prebuilt toolchain (kernel=4.13.x & gcc=7.2), and they won't be compatible with the current mainstream of riscv-gnu-toolchain (kernel=5.0.x & gcc=9.2). So please don't try to modify the keystone to match with the riscv-gnu-toolchain mainstream.
-
-***Further note:*** the mainstream keystone now can compatible with kernel 5.x and gcc 9.x. However, they moved from using Makefile to CMake, which is unfamiliar for me. So the task "make Keystone with native toolchain" is for the future work.
+	$ make -j`nproc`		#and update the bbl.bin there
+	
+To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 * * *
 
-# II. USB & Ethernet Drivers
+# III. USB & Ethernet Drivers
 
 There are two ways of doing this, the 'formal' way, and the shortcut.
 
-## II. a) Check the PATH things
+## III. a) Check the PATH things
 
         $ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
         $ cd <your keystone folder>			#go to your keystone folder
@@ -133,7 +177,7 @@ There are two ways of doing this, the 'formal' way, and the shortcut.
         $ cd <your keystone-demo folder>	#go to your keystone-demo folder
         $ . source.sh
 
-## II. b) Make the 'formal' way
+## III. b) Make the 'formal' way
 
 The proper way to modify drivers in Linux kernel is open the kernel, select or diselect some drivers, apply the changes, and remake everything.
 
@@ -153,9 +197,9 @@ The proper way to modify drivers in Linux kernel is open the kernel, select or d
         finally, remake everything:
         $ make clean
         $ make -j`nproc`
-        $ make image -j`nproc`
+        $ make image -j`nproc`		#skip this step if you are using keystone-rv32
 
-## II. c) Make by the 'shortcut'
+## III. c) Make by the 'shortcut'
 
 So, the bottom line of the 'formal' way above is just to creating a new **linux_cma_conf** file under the *hifive-conf/* directory.
 
@@ -164,9 +208,9 @@ Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
         after copy the **linux_cma_conf** file to your <keystone folder>/hifive-conf/linux_cma_conf:
         $ make clean
         $ make -j`nproc`
-        $ make image -j`nproc`
+        $ make image -j`nproc`		#skip this step if you are using keystone-rv32
 
-## II. d) Aftermath
+## III. d) Aftermath
 
 After your changes on the kernel, the hash value of the **bbl.bin** file is different now.
 
@@ -179,11 +223,13 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
         $ make copybins
 
         $ cd <your keystone folder>			#go to your keystone folder
-        $ make image -j`nproc`			#and update the bbl.bin there
+	(and update the bbl.bin there)
+        if keystone-rv64:	$ make image -j`nproc`	
+	if keystone-rv32:	$ make -j`nproc`
 
 * * *
 
-# III. Run Test on QEMU
+# IV. Run Test on QEMU
 
         $ cd <keystone folder>			#go to your keystone folder
         $ ./scripts/run-qemu.sh
