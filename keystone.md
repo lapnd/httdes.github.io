@@ -230,18 +230,18 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
 
 # IV. Run Test on QEMU
 
-	$ cd <keystone folder>		#go to your keystone folder
+	$ cd <keystone folder>			#go to your keystone folder
 	$ ./scripts/run-qemu.sh
 	Login by the id of 'root' and the password of 'sifive'.
 
-	$ insmod keystone-driver.ko	#install driver
+	$ insmod keystone-driver.ko		#install driver
 
 	To do the initial test:
 	$ time ./tests/tests.ke			#ok if 'Attestation report SIGNATURE is valid' is printed
 
 	To do the keystone-demo test:
 	$ cd keystone-demo/			#go to the keystone-demo test
-	$ ./enclave-host.riscv &		#run host in localhost
+	$ ./enclave-host.riscv &			#run host in localhost
 	$ ./trusted_client.riscv localhost	#connect to localhost and test
 	okay if the 'Attestation signature and enclave hash are valid' is printed
 	exit the Security Monitor by:	$ q
