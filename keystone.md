@@ -132,24 +132,24 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
 	$ export PATH=$RISCV/bin:$PATH
-	$ cd <your keystone folder>		#go to your keystone folder
+	$ cd <your keystone folder>				#go to your keystone folder
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ cd ../				#go back outside
+	$ cd ../							#go back outside
 	$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone-demo.git keystone-demo-rv32
 	(branch dev-rv32 commit 7c913f0b on 24-Mar-2020)
 	
 	$ cd keystone-demo-rv32/
 	$ . source.sh
-        $ ./quick-start.sh			#type Y when asked
+        $ ./quick-start.sh					#type Y when asked
         after this step, a new app is generated and coppied to the keystone directory
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
-	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make -j`nproc`		#and update the bbl.bin there
+	$ cd ${KEYSTONE_DIR}				#now go back to the keystone folder
+	$ make -j`nproc`				#and update the bbl.bin there
 	
 	However, it will be a false attestation. To update the new hash value, do the followings:
-	$ cd ../keystone-demo-rv32/	#first, cd back to the keystone-demo directory
+	$ cd ../keystone-demo-rv32/			#first, cd back to the keystone-demo directory
 	$ make getandsethash
 	$ rm trusted_client.riscv
 	$ make trusted_client.riscv
