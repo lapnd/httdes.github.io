@@ -130,18 +130,18 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 ## II. c) Keystone-demo
 	
 	$ echo ${PATH}                                  #and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ export RISCV=/opt/gcc8/riscv32gc      #point to the gcc8 riscv32gc toolchain
-        $ export PATH=$RISCV/bin:$PATH
-	$ cd <your keystone folder>             #go to your keystone folder
+	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
+	$ export PATH=$RISCV/bin:$PATH
+	$ cd <your keystone folder>		#go to your keystone folder
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ cd ../                                #go back outside
+	$ cd ../				#go back outside
 	$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone-demo.git keystone-demo-rv32
 	(branch dev-rv32 commit 7c913f0b on 24-Mar-2020)
 	
 	$ cd keystone-demo-rv32/
 	$ . source.sh
-        $ ./quick-start.sh              #type Y when asked
+        $ ./quick-start.sh			#type Y when asked
         after this step, a new app is generated and coppied to the keystone directory
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
