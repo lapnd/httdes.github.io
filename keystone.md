@@ -129,7 +129,7 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 ## II. c) Keystone-demo
 	
-	$ echo ${PATH}                                  #and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
 	$ export PATH=$RISCV/bin:$PATH
 	$ cd <your keystone folder>		#go to your keystone folder
