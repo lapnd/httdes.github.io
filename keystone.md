@@ -141,8 +141,8 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	
 	$ cd keystone-demo-rv32/
 	$ . source.sh
-        $ ./quick-start.sh					#type Y when asked
-        after this step, a new app is generated and coppied to the keystone directory
+	$ ./quick-start.sh					#type Y when asked
+	after this step, a new app is generated and coppied to the keystone directory
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
 	$ cd ${KEYSTONE_DIR}			#now go back to the keystone folder
@@ -222,9 +222,8 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
         $ make trusted_client.riscv
         $ make copybins
 
-        $ cd <your keystone folder>			#go to your keystone folder
-	(and update the bbl.bin there)
-        if keystone-rv64:	$ make image -j`nproc`	
+        $ cd <your keystone folder>			#go to your keystone folder and update the bbl.bin there
+	if keystone-rv64:	$ make image -j`nproc`	
 	if keystone-rv32:	$ make -j`nproc`
 
 * * *
