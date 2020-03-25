@@ -40,13 +40,13 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	$ . source.sh
 	$ export KEYSTONE_DIR=`pwd`
 	
-	$ cd ../				#go back outside
+	$ cd ../						#go back outside
 	$ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64
 	(branch master commit a25084ea on 18-Dec-2019)
 	
 	$ cd keystone-demo-rv64/
 	$ . source.sh
-	$ ./quick-start.sh		#type Y when asked
+	$ ./quick-start.sh				#type Y when asked
 	after this step, a new app is generated and coppied to the keystone directory
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
