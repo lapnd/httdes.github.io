@@ -51,7 +51,7 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
 	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make image -j`nproc`		#and update the bbl.bin there
+	$ make image -j`nproc`			#and update the bbl.bin there
 	
 	However, it will be a false attestation. To update the new hash value, do the followings:
 	$ cd ../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
@@ -62,7 +62,7 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	after this step, the app is updated with the correct hash value and coppied to the keystone directory
 
 	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make image -j`nproc`		#and update the bbl.bin there
+	$ make image -j`nproc`			#and update the bbl.bin there
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
