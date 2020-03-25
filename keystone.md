@@ -216,13 +216,13 @@ After your changes on the kernel, the hash value of the **bbl.bin** file is diff
 
 So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have to do the followings to reapply the hashes to the image file of **bbl.bin**:
 
-        $ cd <your keystone-demo folder>		#go to your keystone-demo folder
-        $ make getandsethash
-        $ rm trusted_client.riscv
-        $ make trusted_client.riscv
-        $ make copybins
+	$ cd <your keystone-demo folder>		#go to your keystone-demo folder
+	$ make getandsethash
+	$ rm trusted_client.riscv
+	$ make trusted_client.riscv
+	$ make copybins
 
-        $ cd <your keystone folder>			#go to your keystone folder and update the bbl.bin there
+	$ cd <your keystone folder>			#go to your keystone folder and update the bbl.bin there
 	if keystone-rv64:	$ make image -j`nproc`	
 	if keystone-rv32:	$ make -j`nproc`
 
