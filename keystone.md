@@ -157,7 +157,7 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	after this step, the app is updated with the correct hash value and coppied to the keystone directory
 	
 	$ cd ${KEYSTONE_DIR}			#now go back to the keystone folder
-	$ make -j`nproc`				#and update the bbl.bin there
+	$ make -j`nproc`					#and update the bbl.bin there
 	
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
@@ -170,7 +170,7 @@ There are two ways of doing this, the 'formal' way, and the shortcut.
 ## III. a) Check the PATH things
 
         $ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-        $ cd <your keystone folder>			#go to your keystone folder
+        $ cd <your keystone folder>		#go to your keystone folder
         $ . source.sh
         $ export KEYSTONE_DIR=`pwd`
 
@@ -216,7 +216,7 @@ After your changes on the kernel, the hash value of the **bbl.bin** file is diff
 
 So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have to do the followings to reapply the hashes to the image file of **bbl.bin**:
 
-        $ cd <your keystone-demo folder>	#go to your keystone-demo folder
+        $ cd <your keystone-demo folder>		#go to your keystone-demo folder
         $ make getandsethash
         $ rm trusted_client.riscv
         $ make trusted_client.riscv
@@ -231,7 +231,7 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
 
 # IV. Run Test on QEMU
 
-        $ cd <keystone folder>			#go to your keystone folder
+        $ cd <keystone folder>		#go to your keystone folder
         $ ./scripts/run-qemu.sh
         Login by the id of 'root' and the password of 'sifive'.
 
