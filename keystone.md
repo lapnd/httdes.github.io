@@ -146,7 +146,6 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 	
 	cd back to the keystone directory and remake the image with the new keystone-demo app
 	$ cd ${KEYSTONE_DIR}			#now go back to the keystone folder
-	$ make clean
 	$ make -j`nproc`					#and update the bbl.bin there
 	
 	However, it will be a false attestation. To update the new hash value, do the followings:
