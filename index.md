@@ -20,6 +20,10 @@ The guide in this tutorial has the following contents:
 
 - [SiFive Freedom on VC707](./vc707.md): *implement SiFive Freedom on VC707 with/without the Keystone demo*
 
+<p style="text-align:center">** VEXRISCV 32-bit MCU **</p>
+
+- [VexRiscv 32-bit MCU](./vexriscv.md): *to make the VexRiscv 32-bit MCU*
+
 <p style="text-align:center">** CHISEL STUDY **</p>
 
 - [Scala Study Notes](./scala.md): *Scala: General-purpose Programming Language*
