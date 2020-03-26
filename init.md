@@ -161,7 +161,13 @@ To install the RISC-V QEMU:
         $ ../configure
         $ make -j`nproc`
 
-## II. e) Eclipse
+## II. e) Idea IntelliJ
+
+**Idea IntelliJ** is a tool for compiling scala codes. It much more like a GUI for the SBT tool.
+
+After download the **Idea IntelliJ** from the [website](https://www.jetbrains.com/idea/), extract it and run it by **./idea.sh**
+
+## II. f) Eclipse
 
 Eclipse is the tool for writing software codes (C/C++), to build, to run, and to debug the software.
 
@@ -169,7 +175,7 @@ Download the gnu-mcu-eclipse (linux version) from the [website](https://github.c
 
 Then extract it and copy the folder to any place you want. The execution file is at: ***\[Eclipse folder\]/eclipse/eclipse***
 
-## II. f) OpenOCD
+## II. g) OpenOCD
 
 Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus allowing us to load a program, and run or debug that program. Ref [link](https://github.com/SpinalHDL/openocd_riscv).
 
@@ -183,7 +189,7 @@ To install & make OpenOCD:
 	$ make -j`nproc`
 	$ sudo make install -j`nproc`
 
-## II. g) Vivado 2016.4
+## II. h) Vivado 2016.4
 
 (because the VC707 project now can compatible only with the 2016.4 version of Vivado)
 
@@ -216,7 +222,7 @@ The GUI for installation will be load. Choose to install the Vivado HL Design Ed
         $ cd ...Xilinx/Vivado/2016.4/data/xicom/cable_drivers/lin64/install_script/install_drivers/
         $ sudo ./install_drivers
 
-## II. h) Quartus
+## II. i) Quartus
 
 Just download from the [website](http://fpgasoftware.intel.com/?edition=standard&platform=linux&download_manager=direct) and install.
 
@@ -226,7 +232,7 @@ The Quartus execution file is located at **intelFPGA/18.1/quartus/bin/**
 
 Note: if running Quartus fail due to libpng12 error, then you need to install it manually (Just download & install): for [32-bit](https://packages.ubuntu.com/en/xenial/i386/libpng12-0/download), for [64-bit](https://packages.ubuntu.com/en/xenial/amd64/libpng12-0/download).
 
-## II. i) Create Ubuntu Desktop Shorcut
+## II. k) Create Ubuntu Desktop Shorcut
 
 To install the tool:
 
