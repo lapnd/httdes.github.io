@@ -33,7 +33,7 @@ Update & upgrade everything:
 
 Then install dependencies:
 
-	$ sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev libusb-1.0-0-dev gawk build-essential bison flex texinfo gperf libtool libssl-dev libpixman-1-dev patchutils bc zlib1g-dev libglib2.0-dev binutils-dev libboost-all-dev device-tree-compiler pkg-config libexpat-dev python libpython-dev python-pip python-capstone virtualenv git make g++
+	$ sudo apt-get install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev libusb-1.0-0-dev gawk build-essential bison flex texinfo gperf libtool libssl-dev libpixman-1-dev patchutils bc zlib1g-dev libglib2.0-dev binutils-dev libboost-all-dev device-tree-compiler pkg-config libexpat-dev python libpython-dev python-pip python-capstone virtualenv git make g++ libusb-1.0.0-dev libusb-dev libyaml-dev
 
 And other dependencies:
 
@@ -177,12 +177,28 @@ Then extract it and copy the folder to any place you want. The execution file is
 
 ## II. g) OpenOCD
 
-Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus allowing us to load a program, and run or debug that program. Ref [link](https://github.com/SpinalHDL/openocd_riscv).
+Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus allowing us to load a program, and run or debug that program.
+
+#### For normal OpenOCD
+
+*(this is also used for RocketChip)*
 
 To install & make OpenOCD:
 
-	$ git clone https://github.com/riscv/riscv-openocd.git		#branch riscv commit f93ede54
+	$ git clone https://github.com/riscv/riscv-openocd.git		#branch riscv commit 54e5d253 on 5-Mar-2020
 	$ cd riscv-openocd/
+	$ git submodule update --init --recursive
+	$ ./bootstrap
+	$ ./configure --enable-ftdi --enable-dummy
+	$ make -j`nproc`
+	$ sudo make install -j`nproc`
+
+#### For VexRiscv OpenOCD
+
+*(custom-made by SpinalHDL team for VexRiscv CPU)*
+
+	$ git clone https://github.com/SpinalHDL/openocd_riscv.git vexriscv-openocd	#branch riscv_spinal commit 92c05420 on 13-Mar-2020
+	$ cd vexriscv-openocd/
 	$ git submodule update --init --recursive
 	$ ./bootstrap
 	$ ./configure --enable-ftdi --enable-dummy
