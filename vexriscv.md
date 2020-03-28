@@ -153,7 +153,7 @@ To debug the program:
 ***note:*** if not yet config your Debug Configurations, then double-click on the "GDB OpenOCD Debugging" and follow these images to config it.
 
 (on the image number 2, remember to check the correct paths for the riscv32im-elf-toolchain)
-![DebugConfig](https://github.com/thuchoang90/thuchoang90.github.io/blob/master/debug_configuration.png)
+![DebugConfig](./debug_configuration.png)
 
 * * *
 
