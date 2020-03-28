@@ -133,7 +133,7 @@ To debug the Briey SoC with Verilator + OpenOCD + GDB:
 
 ## II. c) Debug with Eclipse
 
-Smae procedure as [II. b)](#ii-c-debug-briey-soc-with-verilator--openocd--gdb), just replace the GDB step with this Eclipse step.
+Smae procedure as [II. b)](#ii-b-debug-briey-soc-with-verilator--openocd--gdb) with three separated terminals, just replace the GDB-terminal step with this Eclipse step.
 
 Open the Eclipse tool, then import the example software folder:
 
