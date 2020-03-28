@@ -44,7 +44,7 @@ Actually, this library is downloaded and embedded into the system automatically 
 
 Self-test using Verilator:
 
-	$ cd VexRiscv/	#go to your VexRiscv folder
+	$ cd VexRiscv/		#go to your VexRiscv folder
 	$ cd src/test/cpp/regression/
 
 	for GenSmallest:	$ make clean run IBUS=SIMPLE DBUS=SIMPLE CSR=no MMU=no DEBUG_PLUGIN=no MUL=no DIV=no
@@ -57,16 +57,16 @@ Open three terminals separately: one for Verilator, one for OpenOCD, and one for
 
 On the first terminal, run Verilator:
 
-	$ cd VexRiscv/	#go to your VexRiscv folder
+	$ cd VexRiscv/			#go to your VexRiscv folder
 	$ cd src/test/cpp/regression/
 	$ make clean run DEBUG_PLUGIN_EXTERNAL=yes
 
 On the second terminal, run OpenOCD:
 
-	$ cd openocd_riscv/	#go to your openocd_riscv folder
+	$ cd openocd_riscv/		#go to your openocd_riscv folder
 	$ src/openocd -c "set VEXRISCV_YAML <cpu0.yaml PATH>" -f tcl/target/vexriscv_sim.cfg
-	where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
-	---> for example: $ src/openocd -c "set VEXRISCV_YAML /home/ubuntu/projects/VexRiscv/VexRiscv/cpu0.yaml" -f tcl/target/vexriscv_sim.cfg
+		where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
+		---> for example: $ src/openocd -c "set VEXRISCV_YAML /home/ubuntu/projects/VexRiscv/VexRiscv/cpu0.yaml" -f tcl/target/vexriscv_sim.cfg
 
 Finally, on the third terminal, run GDB:
 
