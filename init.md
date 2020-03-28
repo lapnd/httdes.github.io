@@ -80,13 +80,13 @@ Finally, reboot the machine.
 Some tips for using Github:
 
         to git clone
-        $ git clone <link>								#clone and keep the original name for the cloned folder
+        $ git clone <link>							#clone and keep the original name for the cloned folder
         $ git clone <link> <name>						#clone and change the name for the cloned folder
 
         to track your changes
         $ git diff									#list the differences of your folder
         $ git diff <branch-name>						#list the differences of your folder compare to another branch
-        $ git diff <src-branch>..<des-branch>				#list the differences between two branches
+        $ git diff <src-branch>..<des-branch>			#list the differences between two branches
         $ git diff <commit-hash>						#list the differences of your folder compare to the old commit
         $ git diff <src-commit-hash>..<des-commit-hash>	#list the differences between two commits
 
@@ -96,7 +96,7 @@ Some tips for using Github:
 
         to update your folder TO github
         $ git status									#to see changes for commit
-        $ git add <file-name> <folder-name>				#first, add every changes of yours
+        $ git add <file-name> <folder-name>			#first, add every changes of yours
         $ git commit -m "<some message>"				#make a commit with <some message> attached
         $ git push									#this one will push to the current branch, OR
         $ git push <branch-name>						#       push to another branch
@@ -142,7 +142,7 @@ To install the Verilator:
         $ autoconf #this is to create the ./configure script
         $ ./configure #then run the script
         $ make -j`nproc`
-        $ make test     		#might skip
+        $ make test     				#might skip
         $ sudo make install
 
 ## II. d) QEMU
@@ -154,7 +154,7 @@ To install the RISC-V QEMU:
         stand where you want to install RISC-V QEMU
         $ git clone https://github.com/riscv/riscv-qemu.git
         $ cd riscv-qemu/
-        $ git checkout riscv-qemu-4.0.0         #commit 62a172e on 19-Mar-2019
+        $ git checkout riscv-qemu-4.0.0         	#commit 62a172e on 19-Mar-2019
         $ git submodule update --init --recursive
         $ mkdir build
         $ cd build
@@ -185,7 +185,7 @@ Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus
 
 To install & make OpenOCD:
 
-	$ git clone https://github.com/riscv/riscv-openocd.git		#branch riscv commit 54e5d253 on 5-Mar-2020
+	$ git clone https://github.com/riscv/riscv-openocd.git			#branch riscv commit 54e5d253 on 5-Mar-2020
 	$ cd riscv-openocd/
 	$ git submodule update --init --recursive
 	$ ./bootstrap
