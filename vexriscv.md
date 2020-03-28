@@ -71,12 +71,12 @@ On the second terminal, run OpenOCD:
 
 Finally, on the third terminal, run GDB:
 
-	$ echo $PATH									#check that if the riscv32im toolchain is on the PATH or not
-	$ export PATH=/opt/gcc9/riscv32im/bin/:$PATH		#if not, then export the riscv32im toolchain to the PATH
+	$ echo $PATH											#check that if the riscv32im toolchain is on the PATH or not
+	$ export PATH=/opt/gcc9/riscv32im/bin/:$PATH				#if not, then export the riscv32im toolchain to the PATH
 	
-	$ cd VexRiscv/								#go to your VexRiscv folder
+	$ cd VexRiscv/										#go to your VexRiscv folder
 	$ riscv32-unknown-elf-gdb src/test/resources/elf/uart.elf		#run the software with gdb tool
-	$ target remote localhost:3333						#connect to the hardware (right now is emulated by verilator)
+	$ target remote localhost:3333							#connect to the hardware (right now is emulated by verilator)
 	$ monitor reset halt
 	$ load
 	$ continue
