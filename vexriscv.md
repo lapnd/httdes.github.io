@@ -57,26 +57,26 @@ Open three terminals separately: one for Verilator, one for OpenOCD, and one for
 
 On the first terminal, run Verilator:
 
-	$ cd VexRiscv/					#go to your VexRiscv folder
+	$ cd VexRiscv/						#go to your VexRiscv folder
 	$ sbt "runMain vexriscv.demo.GenFull"	#make sure that GenFull is generated
 	$ cd src/test/cpp/regression/
 	$ make clean run DEBUG_PLUGIN_EXTERNAL=yes
 
 On the second terminal, run OpenOCD:
 
-	$ cd vexriscv_openocd/				#go to your vexriscv_openocd folder
+	$ cd vexriscv_openocd/					#go to your vexriscv_openocd folder
 	$ src/openocd -c "set VEXRISCV_YAML <cpu0.yaml PATH>" -f tcl/target/vexriscv_sim.cfg
 		where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
 		---> for example: $ src/openocd -c "set VEXRISCV_YAML /home/ubuntu/Projects/VexRiscv/cpu0.yaml" -f tcl/target/vexriscv_sim.cfg
 
 Finally, on the third terminal, run GDB:
 
-	$ echo $PATH								#check that if the riscv32im toolchain is on the PATH or not
+	$ echo $PATH									#check that if the riscv32im toolchain is on the PATH or not
 	$ export PATH=/opt/gcc9/riscv32im/bin/:$PATH		#if not, then export the riscv32im toolchain to the PATH
 	
-	$ cd VexRiscv/	#go to your VexRiscv folder
+	$ cd VexRiscv/								#go to your VexRiscv folder
 	$ riscv32-unknown-elf-gdb src/test/resources/elf/uart.elf		#run the software with gdb tool
-	$ target remote localhost:3333					#connect to the hardware (right now is emulated by verilator)
+	$ target remote localhost:3333						#connect to the hardware (right now is emulated by verilator)
 	$ monitor reset halt
 	$ load
 	$ continue
