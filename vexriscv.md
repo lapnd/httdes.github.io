@@ -22,11 +22,11 @@ First, git clone the folder:
 
 VexRiscv CPU has many build options:
 
-	$ cd VexRiscv/	#go to your VexRiscv folder
+	$ cd VexRiscv/			#go to your VexRiscv folder
 	
 	for smallest CPU:	$ sbt "runMain vexriscv.demo.GenSmallest"
 	for GenFull CPU:	$ sbt "runMain vexriscv.demo.GenFull"
-	for Linux CPU:		$ sbt "runMain vexriscv.demo.LinuxGen"
+	for Linux CPU:	$ sbt "runMain vexriscv.demo.LinuxGen"
 	for Briey SoC		$ sbt "runMain vexriscv.demo.Briey"		#GenFull CPU + bus + devices + IO
 
 ## I. b) SpinalHDL source-code library
