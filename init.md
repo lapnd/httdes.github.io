@@ -175,6 +175,8 @@ Download the gnu-mcu-eclipse (linux version) from the [website](https://github.c
 
 Then extract it and copy the folder to any place you want. The execution file is at: ***\[Eclipse folder\]/eclipse/eclipse***
 
+You will be aksed to install plugins at the first launch of the program, remember to choose install the Scala language support.
+
 ## II. g) OpenOCD
 
 Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus allowing us to load a program, and run or debug that program.
