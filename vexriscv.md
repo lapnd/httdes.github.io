@@ -109,20 +109,20 @@ The GDB is a native tool of the toolchain for debugging the hardware. The GDB ca
 To debug the Briey SoC with Verilator + OpenOCD + GDB:
 
 	First, run the Verilator:
-	$ cd VexRiscv/						#cd to your VexRiscv folder
-	$ sbt "runMain vexriscv.demo.Briey"		#make sure that Briey SoC is generated
+	$ cd VexRiscv/							#cd to your VexRiscv folder
+	$ sbt "runMain vexriscv.demo.Briey"			#make sure that Briey SoC is generated
 	$ cd src/test/cpp/briey/
 	$ make clean run
 	
 	Keep the Verilator terminal running, open a second terminal to run OpenOCD:
-	$ cd vexriscv_openocd/					#cd to your vexriscv_openocd folder
+	$ cd vexriscv_openocd/						#cd to your vexriscv_openocd folder
 	$ src/openocd -f tcl/interface/jtag_tcp.cfg -c "set BRIEY_CPU0_YAML <cpu0.yaml PATH>" -f tcl/target/briey.cfg
 		where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
 		---> for example: $ src/openocd -f tcl/interface/jtag_tcp.cfg -c "set BRIEY_CPU0_YAML /home/ubuntu/Projects/VexRiscv/cpu0.yaml" -f tcl/target/briey.cfg
 	
 	Keep both Verilator and OpenOCD terminals running, open a third terminal to run GDB:
-	$ cd briey_software/					#cd to your briey_software/ folder
-	$ echo ${PATH}						#check that if the riscv32im toolchain is on the PATH or not
+	$ cd briey_software/						#cd to your briey_software/ folder
+	$ echo ${PATH}							#check that if the riscv32im toolchain is on the PATH or not
 	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH		#if not, then export the riscv32im toolchain to the PATH
 	$ riscv32-unknown-elf-gdb test/build/briey.elf
 	$ target remote localhost:3333
