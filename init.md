@@ -142,7 +142,7 @@ To install the Verilator:
         $ autoconf #this is to create the ./configure script
         $ ./configure #then run the script
         $ make -j`nproc`
-        $ make test     				#might skip
+        $ make test     					#might skip
         $ sudo make install
 
 ## II. d) QEMU
@@ -199,7 +199,8 @@ To install & make OpenOCD:
 
 *(custom-made by SpinalHDL team for VexRiscv CPU)*
 
-	$ git clone https://github.com/SpinalHDL/openocd_riscv.git vexriscv-openocd	#branch riscv_spinal commit 92c05420 on 13-Mar-2020
+	$ git clone https://github.com/SpinalHDL/openocd_riscv.git vexriscv-openocd
+	(branch riscv_spinal commit 92c05420 on 13-Mar-2020)
 	$ cd vexriscv-openocd/
 	$ git submodule update --init --recursive
 	$ ./bootstrap
@@ -274,7 +275,7 @@ Toolchain for RISC-V CPU. Ref [link](https://github.com/riscv/riscv-gnu-toolchai
 Git clone the toolchain-making on github:
 
         $ git clone https://github.com/riscv/riscv-gnu-toolchain
-        $ cd riscv-gnu-toolchain        #brach master commit 6d2706f2 (gcc 9.2) on 19-Feb-2020
+        $ cd riscv-gnu-toolchain        	#brach master commit 6d2706f2 (gcc 9.2) on 19-Feb-2020
         $ git submodule update --init --recursive
 
 ## III. b) Configurations
