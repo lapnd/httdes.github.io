@@ -10,17 +10,14 @@ layout : default
 
 VexRiscv CPU is a 5-stage 32-bit RISC-V CPU.
 
-Original [repo](https://github.com/thuchoang90/VexRiscv). Modified [repo](https://github.com/SpinalHDL/VexRiscv)
+Original [repo](https://github.com/SpinalHDL/VexRiscv). Modified [repo](https://github.com/thuchoang90/VexRiscv)
 
 ## I. a) Make
 
 First, git clone the folder:
 
-	$ git clone https://github.com/thuchoang90/VexRiscv.git
+	$ git clone -b dev-chip https://github.com/thuchoang90/VexRiscv.git	#commit 06f30990 on 28-Mar-2020
 	$ cd VexRiscv/
-	$ git checkout 01db217ab927dd1f415f28d6ac726edb73ae2ee0			#commit on 6-May-2019
-	$ sed -i '/url/c\url = https://github.com/SpinalHDL/VexRiscvRegressionData.git' .gitmodules
-	(replace the correct url for submodule)
 	$ git submodule update --init --recursive
 
 VexRiscv CPU has many build options:
@@ -74,8 +71,8 @@ On the second terminal, run OpenOCD:
 
 Finally, on the third terminal, run GDB:
 
-	$ echo $PATH					#and check that it DOESN'T contain ANY TOOLCHAIN on the PATH
-	$ export PATH=/opt/gcc9/riscv32im/bin/:$PATH	#now export the rv32im toolchain to the path
+	$ echo $PATH					#check that if the riscv32im toolchain is on the PATH or not
+	$ export PATH=/opt/gcc9/riscv32im/bin/:$PATH	#if not, then export the riscv32im toolchain to the PATH
 	
 	$ cd VexRiscv/	#go to your VexRiscv folder
 	$ riscv32-unknown-elf-gdb src/test/resources/elf/uart.elf	#run the software with gdb tool
@@ -125,8 +122,8 @@ To debug the Briey SoC with Verilator + OpenOCD + GDB:
 	
 	Keep both Verilator and OpenOCD terminals running, open a third terminal to run GDB:
 	$ cd briey_software/		#cd to your briey_software/ folder
-	$ echo ${PATH}		#and make sure that there is NO toolchain on the PATH
-	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH	#then export the riscv32im toolchain to the PATH
+	$ echo ${PATH}		#check that if the riscv32im toolchain is on the PATH or not
+	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
 	$ riscv32-unknown-elf-gdb test/build/briey.elf
 	$ target remote localhost:3333
 	$ monitor reset halt
