@@ -259,25 +259,25 @@ Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 
 3. Create OpenOCD terminal: *(vexriscv_openocd/ folder is prepared in [Initial Setup: II.g)](./init.md#ii-g-openocd))*
 ```
-$ cd vexriscv_openocd/							#cd to your vexriscv_openocd folder
+$ cd vexriscv_openocd/					#cd to your vexriscv_openocd folder
 $ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML <cpu0.yaml PATH>" -f tcl/target/briey.cfg
-	where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
-	---> for example: $ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML /home/ubuntu/Projects/VexRiscv/cpu0.yaml" -f tcl/target/briey.cfg
+where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
+---> for example: $ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML /home/ubuntu/Projects/VexRiscv/cpu0.yaml" -f tcl/target/briey.cfg
 ```
 4. Create UART terminal: *(open a new one, don't close the OpenOCD terminal)*
 ```
 $ sudo minicom -b 115200 -D /dev/ttyUSBx
-	where x is the number of connected USB-UART device
-	---> for example: $ sudo minicom -b 115200 -D /dev/ttyUSB0
+where x is the number of connected USB-UART device
+---> for example: $ sudo minicom -b 115200 -D /dev/ttyUSB0
 ```
-5. Run or debug software
+5. Run or debug software *(by GDB or Eclipse)*
 
 Using GDB: *(open a new one, don't close the two terminals of OpenOCD & UART)*
 
 	$ echo ${PATH}								#check that if the riscv32im toolchain is on the PATH or not
 	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH		#if not, then export the riscv32im toolchain to the PATH
 	
-	$ cd software/			#go to the software folder inside the Quartus project folder
+	$ cd software/						#go to the software folder inside the Quartus project folder
 	$ riscv32-unknown-elf-gdb build/briey.elf
 	$ target remote localhost:3333
 	$ monitor reset halt
