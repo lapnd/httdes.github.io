@@ -143,7 +143,7 @@ After this, Linux should be booted on Verilator. After boot, login with **$ root
 	Make sure that you are using the "#define QEMU" & comment out the "#define SIM"
 	then,	$ make clean all
 	
-	$ cd ../../../						#go back to the VexRiscv/ folder
+	$ cd ../../../								#go back to the VexRiscv/ folder
 	$ qemu-system-riscv32 -nographic -machine virt -m 1536M -device loader,file=src/main/c/emulator/build/emulator.bin,addr=0x80000000,cpu-num=0 -device loader,file=$BUILDROOT/board/spinal/vexriscv_sim/rv32.dtb,addr=0xC3000000 -device loader,file=$BUILDROOT/output/images/Image,addr=0xC0000000 -device loader,file=$BUILDROOT/output/images/rootfs.cpio,addr=0xc2000000
 
 After this, Linux should be booted on QEMU. After boot, login with **$ root** and exit with **$ poweroff**.
