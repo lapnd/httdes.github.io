@@ -98,7 +98,7 @@ To run Linux you need a buildroot. First, prepare your vexriscv_buildroot folder
 
 	$ git clone https://github.com/SpinalHDL/buildroot.git vexriscv_buildroot
 	$ cd vexriscv_buildroot/
-	$ git checkout f1bbee4
+	$ git checkout f1bbee4			#commit on 21-Apr-2019
 	$ git submodule update --init --recursive
 	
 	$ make spinal_vexriscv_sim_defconfig
@@ -107,13 +107,13 @@ To run Linux you need a buildroot. First, prepare your vexriscv_buildroot folder
 
 ## II. b) Simulate on Verilator
 
-	$ echo ${PATH}					#check that if the riscv32im toolchain is on the PATH or not
+	$ echo ${PATH}							#check that if the riscv32im toolchain is on the PATH or not
 	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
 	
-	$ echo ${PATH}					#check that if the vexriscv_buildroot is on the PATH or not
+	$ echo ${PATH}							#check that if the vexriscv_buildroot is on the PATH or not
 	$ export BUILDROOT=/home/ubuntu/Projects/VexRiscv/vexriscv_buildroot	#if not, then export the vexriscv_buildroot to the PATH
 
-	$ cd VexRiscv/					#go to your VexRiscv folder
+	$ cd VexRiscv/							#go to your VexRiscv folder
 	$ sbt "runMain vexriscv.demo.LinuxGen"		#make sure that the LinuxGen is generated
 	$ cd src/main/c/emulator/
 	$ vi src/config.h
@@ -127,23 +127,23 @@ After this, Linux should be booted on Verilator. After boot, login with **$ root
 
 ### Simulate with QEMU
 
-	$ echo ${PATH}					#check that if the riscv32im toolchain is on the PATH or not
+	$ echo ${PATH}							#check that if the riscv32im toolchain is on the PATH or not
 	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
 	
-	$ echo ${PATH}					#check that if the vexriscv_buildroot is on the PATH or not
-	$ export BUILDROOT=/home/ubuntu/Projects/VexRiscv/vexriscv_buildroot	#if not, then export the vexriscv_buildroot to the PATH
+	$ echo ${PATH}							#check that if the vexriscv_buildroot is on the PATH or not
+	$ export BUILDROOT=/home/ubuntu/Projects/VexRiscv/vexriscv_buildroot		#if not, then export the vexriscv_buildroot to the PATH
 	
-	$ echo ${PATH}					#check that if the QEMU is on the PATH or not
-	$ export PATH=/home/ubuntu/Projects/Tools/riscv-qemu/build/riscv32-softmmu/:$PATH	#if not, then export the QEMU to the PATH
+	$ echo ${PATH}							#check that if the QEMU is on the PATH or not
+	$ export PATH=/home/ubuntu/Projects/Tools/riscv-qemu/build/riscv32-softmmu/:$PATH		#if not, then export the QEMU to the PATH
 	
-	$ cd VexRiscv/					#go to your VexRiscv folder
+	$ cd VexRiscv/							#go to your VexRiscv folder
 	$ sbt "runMain vexriscv.demo.LinuxGen"		#make sure that the LinuxGen is generated
 	$ cd src/main/c/emulator/
 	$ vi src/config.h
 	Make sure that you are using the "#define QEMU" & comment out the "#define SIM"
 	then,	$ make clean all
 	
-	$ cd ../../../			#go back to the VexRiscv/ folder
+	$ cd ../../../						#go back to the VexRiscv/ folder
 	$ qemu-system-riscv32 -nographic -machine virt -m 1536M -device loader,file=src/main/c/emulator/build/emulator.bin,addr=0x80000000,cpu-num=0 -device loader,file=$BUILDROOT/board/spinal/vexriscv_sim/rv32.dtb,addr=0xC3000000 -device loader,file=$BUILDROOT/output/images/Image,addr=0xC0000000 -device loader,file=$BUILDROOT/output/images/rootfs.cpio,addr=0xc2000000
 
 After this, Linux should be booted on QEMU. After boot, login with **$ root** and exit with **$ poweroff**.
