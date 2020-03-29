@@ -240,7 +240,7 @@ Details about JTAG & UART connections of each demo are in the file **README.md**
 
 ### About the JTAG debugger
 
-The demos use the Olimex debugger. Reference link: https://www.olimex.com/Products/ARM/JTAG/ARM-USB-TINY-H/
+The demos use the Olimex debugger. Reference [link](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-TINY-H/).
 
 To install the driver for the debugger:
 
@@ -258,18 +258,18 @@ Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 2. Make sure that you have connected the JTAG & UART to the FPGA board with correct connections as written in the README.md file.
 
 3. Create OpenOCD terminal: *(vexriscv_openocd/ folder is prepared in [Initial Setup: II.g)](./init.md#ii-g-openocd))*
-
-	$ cd vexriscv_openocd/							#cd to your vexriscv_openocd folder
-	$ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML <cpu0.yaml PATH>" -f tcl/target/briey.cfg
-		where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
-		---> for example: $ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML /home/ubuntu/Projects/VexRiscv/cpu0.yaml" -f tcl/target/briey.cfg
-
+```
+$ cd vexriscv_openocd/							#cd to your vexriscv_openocd folder
+$ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML <cpu0.yaml PATH>" -f tcl/target/briey.cfg
+	where <cpu0.yaml PATH> point to the file cpu0.yaml in the VexRiscv folder
+	---> for example: $ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML /home/ubuntu/Projects/VexRiscv/cpu0.yaml" -f tcl/target/briey.cfg
+```
 4. Create UART terminal: *(open a new one, don't close the OpenOCD terminal)*
-
-	$ sudo minicom -b 115200 -D /dev/ttyUSBx
-		where x is the number of connected USB-UART device
-		---> for example: $ sudo minicom -b 115200 -D /dev/ttyUSB0
-
+```
+$ sudo minicom -b 115200 -D /dev/ttyUSBx
+	where x is the number of connected USB-UART device
+	---> for example: $ sudo minicom -b 115200 -D /dev/ttyUSB0
+```
 5. Run or debug software
 
 Using GDB: *(open a new one, don't close the two terminals of OpenOCD & UART)*
