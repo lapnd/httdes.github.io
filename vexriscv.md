@@ -238,7 +238,7 @@ All of the demos above are based on the Briey SoC with some modifications to fit
 
 Details about JTAG & UART connections of each demo are in the file **README.md** in each of the corresponding folder. Example Eclipse projects are also included in the links.
 
-### About the JTAG debugger
+### (i) About the JTAG debugger
 
 The demos use the Olimex debugger. Reference [link](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-TINY-H/).
 
@@ -251,7 +251,7 @@ Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 
 	SUBSYSTEM=="usb", ACTION=="add", ATTRS{idProduct}=="002a", ATTRS{idVendor}=="15ba", MODE="664", GROUP="plugdev"
 
-### Run a demo step-by-step
+### (ii) Run a demo step-by-step
 
 1. Download the corresponding Quartus project folder in the links above and program your FPGA board.
 
