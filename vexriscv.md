@@ -222,17 +222,17 @@ To debug the program:
 
 Same procedure as [III. b)](#iii-b-debug-briey-soc-with-verilator--openocd--gdb) with three separated terminals, just replace the Verilator-terminal step with a real hardware on an FPGA.
 
-There are several FPGA demos available:
+There are several FPGA demos available: *(click to the link to download the corresponding Quartus project folder)*
 
 * Cyclone IV:
-  * DE2-115
-  * DE0-Nano
+  * [DE2-115](./DE2_115.rar)
+  * [DE0-Nano](./DE0_nano.rar)
 * Cyclone V:
-  * DE1-SoC
-  * Arrow SoCKit
+  * [DE1-SoC](./DE1_SoC.rar)
+  * [Arrow SoCKit](./Arrow_SoCKit.rar)
 * Stratix IV:
-  * DE4
-  * TR4
+  * [DE4](./DE4.rar)
+  * [TR4](./TR4.rar)
 
 All of the demos above are based on Briey SoC with some modifications to fit in the corresponding FPGA.
 
