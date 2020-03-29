@@ -197,7 +197,7 @@ To debug the Briey SoC with Verilator + OpenOCD + GDB:
 
 ## III. c) Debug with Eclipse
 
-Smae procedure as [III. b)](#iii-b-debug-briey-soc-with-verilator--openocd--gdb) with three separated terminals, just replace the GDB-terminal step with this Eclipse step. *(Eclipse tool is prepared in [Initial Setup: II.f)](./init.md#ii-g-openocd))*
+Same procedure as [III. b)](#iii-b-debug-briey-soc-with-verilator--openocd--gdb) with three separated terminals, just replace the GDB-terminal step with this Eclipse step. *(Eclipse tool is prepared in [Initial Setup: II.f)](./init.md#ii-g-openocd))*
 
 Open the Eclipse tool, then import the example software folder:
 
@@ -218,7 +218,25 @@ To debug the program:
 *(on the image **number 2**, remember to check the **correct path** for the riscv32im toolchain)*
 ![DebugConfig](./debug_configuration.png)
 
-## III. d) FPGA demos
+## III. d) Run on FPGA
+
+Same procedure as [III. b)](#iii-b-debug-briey-soc-with-verilator--openocd--gdb) with three separated terminals, just replace the Verilator-terminal step with a real hardware on an FPGA.
+
+There are several FPGA demos available:
+
+* Cyclone IV:
+  * DE2-115
+  * DE0-Nano
+* Cyclone V:
+  * DE1-SoC
+  * Arrow SoCKit
+* Stratix IV:
+  * DE4
+  * TR4
+
+All of the demos above are based on Briey SoC with some modifications to fit in the corresponding FPGA.
+
+Details about JTAG & UART connections of each demo are in the file **README.md** in each of the corresponding folder.
 
 Follow the instructions.
 
