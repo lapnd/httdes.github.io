@@ -277,7 +277,7 @@ Using GDB: *(open a new one, don't close the two terminals of OpenOCD & UART)*
 	$ echo ${PATH}								#check that if the riscv32im toolchain is on the PATH or not
 	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH		#if not, then export the riscv32im toolchain to the PATH
 	
-	$ cd software/						#go to the software folder inside the Quartus project folder
+	$ cd software/								#go to the software folder inside the Quartus project folder
 	$ riscv32-unknown-elf-gdb build/briey.elf
 	$ target remote localhost:3333
 	$ monitor reset halt
