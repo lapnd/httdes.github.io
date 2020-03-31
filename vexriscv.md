@@ -8,7 +8,7 @@ layout : default
 
 # I. VexRiscv CPU
 
-VexRiscv CPU is a 5-stage 32-bit RISC-V CPU.
+VexRiscv CPU is a 5-stage 32-bit RISC-V CPU. The ISA that VexRiscv is using is rv32i for SmallestGen, rv32im for GenFull, and rv32ima for LinuxGen.
 
 Original [repo](https://github.com/SpinalHDL/VexRiscv). Modified [repo](https://github.com/thuchoang90/VexRiscv)
 
