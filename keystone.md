@@ -208,9 +208,7 @@ Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
 	after copy the **linux_cma_conf** file to your <keystone folder>/hifive-conf/linux_cma_conf:
 	and also after "Check the PATH things" at III. a):
 	$ make clean
-	if keystone-rv64:	$ make -j`nproc`
-				$ make image -j`nproc`
-	if keystone-rv32:	$ make -j`nproc`
+	$ make -j`nproc`
 	
 ## III. d) Aftermath
 
