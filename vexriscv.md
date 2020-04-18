@@ -287,6 +287,13 @@ Using GDB: *(open a new one, don't close the two terminals of OpenOCD & UART)*
 
 Using Eclipse: the same as [III. c)](#iii-c-debug-with-eclipse)
 
+### (iii) Note to update software with changed hardware
+
+The software folders in links above were already synced up with its corresponding hardware.
+
+So, if you change the hardware properties, you will have to change the software as well. To be specific, mind the **libs/briey.h** file for addresses and **libs/briey.ld** for linker.
+
+
 * * *
 
 # BOTTOM PAGE
