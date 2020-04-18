@@ -156,11 +156,13 @@ Briey SoC is a system consists of GenFull CPU + AXI bus + device modules (RAM, U
 
 ## III. a) Briey SoC software demo
 
+Sample sofwares for Briey SoC can be found at: https://github.com/thuchoang90/briey_software
+
 First, clone the Briey SoC software demo to your local machine.
 
 	$ git clone https://github.com/thuchoang90/briey_software.git
 
-This contains the first test demo under the **"test"** folder, and some other example demos.
+This contains the first test demo under the **"test"** folder, and some other example demos, including chip demos.
 
 ## III. b) Debug Briey SoC with Verilator + OpenOCD + GDB
 
