@@ -121,7 +121,7 @@ Some tips for using Github:
 
 The source code for hardware is written in scala language by using the Chisel library. The sbt is the tool to compile the scala codes. Sbt is used to generate java codes from the scala codes, then later on, java generates firrtl codes from the java codes, and finally, from firrtl codes to the actual verilog codes.
 
-First, we need to install the scala. You can follow the [website](https://www.scala-lang.org/download/) to download the [deb file](https://downloads.lightbend.com/scala/2.12.9/scala-2.12.9.deb) (version 2.12.9) and install. (You can choose another version to install at your own risk :))
+First, we need to install the scala. You can follow the [website](https://www.scala-lang.org/download/) to download the [deb file](https://downloads.lightbend.com/scala/2.12.4/scala-2.12.4.deb) (version 2.12.4) and install. (You can choose another version to install at your own risk :))
 
 Then download the sbt tool according to the [website](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html). Download the [deb file](http://dl.bintray.com/sbt/debian/sbt-1.2.8.deb) (version 1.2.8) and install.
 
