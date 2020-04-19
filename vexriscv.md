@@ -291,10 +291,23 @@ Using Eclipse: the same as [III. c)](#iii-c-debug-with-eclipse)
 
 ### (iii) Note to update software with changed hardware
 
-The software folders in links above were already synced up with its corresponding hardware.
+The software folders in the links above were already synced up with their corresponding hardwares outside.
 
 So, if you change the hardware properties, you will have to change the software as well. To be specific, mind the **libs/briey.h** file for addresses and **libs/briey.ld** for linker.
 
+### (iv) Note for chip demo
+
+For SOTB chip fabricated in Aug. 2019:
+
+- Software demos: **SOTB_Aug2019_\*** folders at [https://github.com/thuchoang90/briey_software](https://github.com/thuchoang90/briey_software)
+
+- Hardware source: **src/main/scala/vexriscv/demo/Briey_SOTB_Aug2019.scala** file at [https://github.com/thuchoang90/VexRiscv/tree/dev-chip](https://github.com/thuchoang90/VexRiscv/tree/dev-chip)
+
+For ROHM chip fabricated in Jan. 2020:
+
+- Software demos: **ROHM_Jan2020_\*** folders at [https://github.com/thuchoang90/briey_software](https://github.com/thuchoang90/briey_software)
+
+- Hardware sources: **src/main/scala/vexriscv/demo/Briey_ROHM_Jan2020.scala** file at [https://github.com/thuchoang90/VexRiscv/tree/dev-chip](https://github.com/thuchoang90/VexRiscv/tree/dev-chip)
 
 * * *
 
