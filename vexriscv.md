@@ -40,7 +40,22 @@ Actually, this library is downloaded and embedded into the system automatically 
 	$ git submodule update --init --recursive
 	(the library source-code are under the folder: lib/src/main/scala/spinal/lib/)
 
-## I. c) Regression test
+## I. c) VexRiscv's OpenOCD
+
+OpenOCD tool that custom-made by the SpinalHDL group for this VexRiscv CPU.
+
+*(the generic OpenOCD tool in the [Initial Setup: II.g)](./init.md#ii-g-openocd) won't work)*
+
+	$ git clone https://github.com/SpinalHDL/openocd_riscv.git vexriscv-openocd
+	(branch riscv_spinal commit 92c05420 on 13-Mar-2020)
+	$ cd vexriscv-openocd/
+	$ git submodule update --init --recursive
+	$ ./bootstrap
+	$ ./configure --enable-ftdi --enable-dummy
+	$ make -j`nproc`
+	$ sudo make install -j`nproc`
+
+## I. d) Regression test
 
 Self-test using Verilator:
 
@@ -51,7 +66,7 @@ Self-test using Verilator:
 	for GenFull:		$ make clean run
 	for LinuxGen:		$ make clean run IBUS=CACHED DBUS=CACHED DEBUG_PLUGIN=STD DHRYSTONE=yes SUPERVISOR=yes MMU=yes CSR=yes DEBUG_PLUGIN=no COMPRESSED=no MUL=yes DIV=yes LRSC=yes AMO=yes REDO=10 TRACE=no COREMARK=yes LINUX_REGRESSION=yes
 
-## I. d) Debug GenFull CPU with Verilator + OpenOCD + GDB
+## I. e) Debug GenFull CPU with Verilator + OpenOCD + GDB
 
 Open three terminals separately: one for Verilator, one for OpenOCD, and one for GDB.
 
@@ -63,8 +78,6 @@ On the first terminal, run Verilator:
 	$ make clean run DEBUG_PLUGIN_EXTERNAL=yes
 
 On the second terminal, run OpenOCD:
-
-*(vexriscv_openocd/ folder is prepared in [Initial Setup: II.g)](./init.md#ii-g-openocd))*
 
 	$ cd vexriscv_openocd/					#go to your vexriscv_openocd folder
 	$ src/openocd -c "set VEXRISCV_YAML <cpu0.yaml PATH>" -f tcl/target/vexriscv_sim.cfg
@@ -168,7 +181,7 @@ This contains the first test demo under the **"test"** folder, and some other ex
 
 The Verilator emulates the Briey SoC. If you are using FPGA (or chip), then the real hardware will replace the Verilator. But the running scheme stays the same.
 
-The OpenOCD makes the bridge between hardware and software. *(vexriscv_openocd/ folder is prepared in [Initial Setup: II.g)](./init.md#ii-g-openocd))*
+The OpenOCD makes the bridge between hardware and software. *(vexriscv_openocd/ folder is prepared in [I.c)](#i-c-vexriscvs-openocd))*
 
 The GDB is a native tool of the toolchain for debugging the hardware. The GDB can be replaced by other debugging tools such as Eclipse.
 
@@ -199,7 +212,7 @@ To debug the Briey SoC with Verilator + OpenOCD + GDB:
 
 ## III. c) Debug with Eclipse
 
-Same procedure as [III. b)](#iii-b-debug-briey-soc-with-verilator--openocd--gdb) with three separated terminals, just replace the GDB-terminal step with this Eclipse step. *(Eclipse tool is prepared in [Initial Setup: II.f)](./init.md#ii-g-openocd))*
+Same procedure as [III. b)](#iii-b-debug-briey-soc-with-verilator--openocd--gdb) with three separated terminals, just replace the GDB-terminal step with this Eclipse step. *(Eclipse tool is prepared in [Initial Setup: II.f)](./init.md#ii-f-eclipse))*
 
 Open the Eclipse tool, then import the example software folder:
 
@@ -259,7 +272,7 @@ Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 
 2. Make sure that you have connected the JTAG & UART to the FPGA board with correct connections as written in the README.md file.
 
-3. Create OpenOCD terminal: *(vexriscv_openocd/ folder is prepared in [Initial Setup: II.g)](./init.md#ii-g-openocd))*
+3. Create OpenOCD terminal: *(vexriscv_openocd/ folder is prepared in [I.c)](#i-c-vexriscvs-openocd))*
 ```
 $ cd vexriscv_openocd/					#cd to your vexriscv_openocd folder
 $ src/openocd -f tcl/interface/ftdi/olimex-arm-usb-tiny-h.cfg -c "set BRIEY_CPU0_YAML <cpu0.yaml PATH>" -f tcl/target/briey.cfg
