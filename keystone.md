@@ -73,28 +73,13 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 * * *
 # II. Make Keystone Project (RV32)
 
-## II. a) riscv-gnu-toolchain gcc8
+## II. a) Keystone
 
 You need the gcc8 riscv toolchain for this build.
 
 Either the gcc9 mainstream riscv-gnu-toolchain or the gcc7 prebuilt toolchain won't work.
 
-To build the gcc8 riscv toolchain: (skip this step if you already have gcc8 riscv toolchain in your local machine)
-
-	(clone a new riscv-gnu-toolchain somewhere)
-	$ git clone https://github.com/riscv/riscv-gnu-toolchain.git riscv-gnu-toolchain-gcc8
-	
-	(then cd to the folder and checkout to the point of gcc8)
-	$ cd riscv-gnu-toolchain-gcc8/
-	$ git checkout 0914ab9f41b63681e538ec677c4adeaa889adae5
-	$ git submodule update --init --recursive
-	
-	(now configure the toolchain as rv32gc and make)
-	$ ./configure --prefix=/opt/gcc8/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
-	$ sudo make -j`nproc`
-	$ sudo make linux -j`nproc`
-
-## II. b) Keystone
+To build the gcc8 riscv toolchain, follow the instruction in [Initial Setup](./init.md#iii-risc-v-toolchain).
 
 With gcc8 ready, now we can make the keystone-rv32:
 
@@ -127,7 +112,7 @@ To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
-## II. c) Keystone-demo
+## II. b) Keystone-demo
 	
 	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
