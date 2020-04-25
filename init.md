@@ -177,27 +177,10 @@ You will be aksed to install plugins at the first launch of the program, remembe
 
 Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus allowing us to load a program, and run or debug that program.
 
-#### For normal OpenOCD
-
-*(this is also used for RocketChip)*
-
 To install & make OpenOCD:
 
 	$ git clone https://github.com/riscv/riscv-openocd.git			#branch riscv commit 54e5d253 on 5-Mar-2020
 	$ cd riscv-openocd/
-	$ git submodule update --init --recursive
-	$ ./bootstrap
-	$ ./configure --enable-ftdi --enable-dummy
-	$ make -j`nproc`
-	$ sudo make install -j`nproc`
-
-#### For VexRiscv OpenOCD
-
-*(custom-made by SpinalHDL team for VexRiscv CPU)*
-
-	$ git clone https://github.com/SpinalHDL/openocd_riscv.git vexriscv-openocd
-	(branch riscv_spinal commit 92c05420 on 13-Mar-2020)
-	$ cd vexriscv-openocd/
 	$ git submodule update --init --recursive
 	$ ./bootstrap
 	$ ./configure --enable-ftdi --enable-dummy
