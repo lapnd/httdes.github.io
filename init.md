@@ -125,10 +125,6 @@ First, we need to install the scala. You can follow the [website](https://www.sc
 
 Then download the sbt tool according to the [website](https://www.scala-sbt.org/release/docs/Installing-sbt-on-Linux.html). Download the [deb file](http://dl.bintray.com/sbt/debian/sbt-1.2.8.deb) (version 1.2.8) and install.
 
-Finally from a terminal: (this is just for download the library for the first time, then type "exit" close the terminal)
-
-        $ sbt
-
 ## II. c) Verilator
 
 Verilator is a cycle-accurate behavioral model, and it is used to simulate the Verilog codes at cycle level (like ModelSim).
