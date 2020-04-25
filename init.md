@@ -279,15 +279,15 @@ The **[arch]** is the RISC-V architecture that you want. To be specific:
 
 For example, to generate toolchain for a general 64-bit RISC-V CPU, you can write like this:
 
-        $ ./configure --prefix=/opt/gcc9/riscv64gc --with-arch=rv64gc
+        $ ./configure --prefix=/opt/riscv64gc --with-arch=rv64gc
 
 Or for a general 32-bit RISC-V CPU:
 
-        $ ./configure --prefix=/opt/gcc9/riscv32gc --with-arch=rv32gc
+        $ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc
 
 To adjust the using of soft-float or hard-float (default is hard-float), can specify the ABIs as follows:
 
-	$ ./configure --prefix=/opt/gcc9/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
+	$ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
 	
  * **ilp32** is for using soft-float; **ilp32d** is for using hard-float; **ilp32f** is for using single-precision in register and double-precision in memory. The default is **ilp32d**
  * **ilp64**, **ilp64d**, and **ilp64f** are similar but for 64-bit instructions.
