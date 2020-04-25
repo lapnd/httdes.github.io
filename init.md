@@ -270,8 +270,8 @@ Toolchain for RISC-V CPU. Ref [link](https://github.com/riscv/riscv-gnu-toolchai
 
 Git clone the toolchain-making on github:
 
-        $ git clone https://github.com/riscv/riscv-gnu-toolchain
-        $ cd riscv-gnu-toolchain/
+	$ git clone https://github.com/riscv/riscv-gnu-toolchain
+	$ cd riscv-gnu-toolchain/
 	
 	Current mainstream is gcc 9.2 (brach master commit 6d2706f2 on 19-Feb-2020).
 	if you want to use older gcc:
@@ -279,7 +279,7 @@ Git clone the toolchain-making on github:
 	gcc 8.3:	$ git checkout 0914ab9f41b63681e538ec677c4adeaa889adae5		#branch master commit on 16-Aug-2019
 	
 	finally,
-        $ git submodule update --init --recursive
+	$ git submodule update --init --recursive
 
 ## III. b) Configurations
 
