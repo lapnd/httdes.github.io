@@ -290,7 +290,7 @@ To adjust the using of soft-float or hard-float (default is hard-float), can spe
 	$ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
 	
  * **ilp32** is for using soft-float; **ilp32d** is for using hard-float; **ilp32f** is for using single-precision in register and double-precision in memory. The default is **ilp32d**
- * **ilp64**, **ilp64d**, and **ilp64f** are similar but for 64-bit instructions.
+ * **lp64**, **lp64d**, and **lp64f** are similar but for 64-bit instructions.
 
 *Note*: RocketChip uses 32/64-bit **gc** with hard-float; and VexRiscv uses 32-bit **i**, **im**, or **ima** with soft-float.
 
