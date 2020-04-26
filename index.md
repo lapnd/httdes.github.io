@@ -12,28 +12,28 @@ The guide in this tutorial has the following contents:
 
 * * *
 
-<p style="text-align:center">** INITIAL SETUP **</p>
+<p style="text-align:center">INITIAL SETUP</p>
 
-- [Initial Setup](./init.md) : *set up a new Ubuntu machine & install necessary tools*
-
-* * *
-
-<p style="text-align:center">** SOFTWARE **</p>
-
-- [Keystone: TEE framework](./keystone.md): *guide to 'make' the Keystone project*
+- [Initial Setup](./init.md) *sets up a new Ubuntu machine & install necessary tools*.
 
 * * *
 
-<p style="text-align:center">** HARDWARE **</p>
+<p style="text-align:center">SOFTWARE</p>
 
-- [SiFive Freedom (on VC707)](./vc707.md): *implement SiFive Freedom on VC707 with/without the Keystone demo*
+- [Keystone: TEE framework](./keystone.md) *guides to 'make' the Keystone project*.
 
-- [VexRiscv 32-bit MCU](./vexriscv.md): *to make the VexRiscv 32-bit MCU*
+* * *
+
+<p style="text-align:center">HARDWARE</p>
+
+- [SiFive Freedom](./vc707.md) *implements on VC707 (with/without Keystone)*.
+
+- [VexRiscv 32-bit MCU](./vexriscv.md) *(don't have Keystone)*.
 
 * * *
 
 <p style="text-align:center">** CHISEL STUDY **</p>
 
-- [Scala Study Notes](./scala.md): *Scala: General-purpose Programming Language*
-- [Chisel Study Notes](./chisel.md): *Chisel: Hardware Constructor Language*
-- [SiFive Freedom Code Structure](freedom.md): *Understanding the Freedom U540 Code Structure*
+- [Scala](./scala.md): *General-purpose programming language*
+- [Chisel](./chisel.md): *Hardware constructor language*
+- [SiFive Freedom](freedom.md): *Understanding the code structure*
