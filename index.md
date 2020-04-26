@@ -30,6 +30,8 @@ The guide in this tutorial has the following contents:
 
 - [VexRiscv 32-bit MCU](./vexriscv.md) *(don't have Keystone)*.
 
+- [TEE-Hardware](./tee-hw.md) custom-made for TEE acceleration *(have demos on VC707, DE4, and TR4)*.
+
 * * *
 
 <p style="text-align:center">** CHISEL STUDY **</p>
