@@ -8,20 +8,17 @@ layout : default
 
 # I. Hardware
 
-Based on [Chipyard](https://github.com/ucb-bar/chipyard),
-a hardware is made dedicate to accelerating the Trusted Execution Environment (TEE).
-Original [repo](https://github.com/ckdur/tee-hardware).
+Based on the [Chipyard](https://github.com/ucb-bar/chipyard), this hardware dedicates to accelerating the Trusted Execution Environment (TEE). Original [repo](https://github.com/ckdur/tee-hardware).
 
 The TEE-HW has demos on VC707, DE4, and TR4 FPGA boards.
-The RISC-V core processors can be configuresd to use [Rocket](https://github.com/chipsalliance/rocket-chip) cores with RV64GC or RV32GC,
-or a hybrid system of Rocket & [BOOM](https://github.com/riscv-boom/riscv-boom) cores.
+
+The core processors can be configured to use [Rocket](https://github.com/chipsalliance/rocket-chip) cores with RV64 or RV32, or a hybrid system of Rocket (RV64) & [BOOM](https://github.com/riscv-boom/riscv-boom) cores.
 
 ## I. a) Build
 
 **Git clone:**
 
-	$ git clone -b thuc-dev https://github.com/thuchoang90/tee-hardware.git
-	(commit ??? on ??-??-2020)
+	$ git clone -b dev-thuc https://github.com/thuchoang90/tee-hardware.git		#commit ??? on ??-??-2020
 	$ cd tee-hardware/
 	$ git submodule update --init
 	$ cd hardware/chipyard/scripts/
@@ -35,6 +32,9 @@ or a hybrid system of Rocket & [BOOM](https://github.com/riscv-boom/riscv-boom) 
 	$ . update.sh
 	
 **To build:**
+	
+	check PATH:	$ echo ${PATH}		#check that the toolchain is on the PATH or not
+	if not, then:	$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}	#export the toolchain to PATH 
 	
 	for VC707:
 	$ cd fpga/vc707
