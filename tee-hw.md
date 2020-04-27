@@ -54,15 +54,21 @@ Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPG
 Guide for program & debug on VC707 can be found [here](./fpgaguide_vc707.md).
 
 For demo on DE4 or TR4:
-- Open the Quartus tool, select ''
-- Import project, point to 
-- build
+- Open the Quartus tool, select 'File' then 'Open Project'
+- Point to 'tee-hardware/fpga/stratixIV/DE4/NEDOFPGAQuartus.qpf', then click 'Open'
+- Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
+- Click the 'Generate HDL' button then 'Generate', and wait for its done
+- When it's done, hit 'Close' then 'Finish' to close the Platform Designer's window
+- On the Quartus's window, click the 'Compilation' button or Ctrl+L, and wait or it to finish.
 
-Guide for program & debug on [DE4](./fpgaguide_de4.md) and [TR4](./fpgaguide_tr4.md)
+Built files are under tee-hardware/fpga/stratixIV/DE4/output_files/
+- NEDOFPGAQuartus.sof: bitstream file for direct programming
+
+Guide for program & debug on [DE4 and TR4](./fpgaguide_de4.md)
 
 ### (iii) Notes
 
-**1:** 
+**1:** The maximum frequency for.
 
 * * *
 
@@ -81,12 +87,6 @@ The **[MODEL]** option is for selecting the PCIe option.
 The **[BUILD_DIR]** option is to specify the build directory.
 	
 Example:
-
-### (ii) Notes
-
-**1:** The maximum frequency for.
-
-
 
 * * *
 
