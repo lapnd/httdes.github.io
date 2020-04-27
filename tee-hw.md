@@ -33,8 +33,8 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	
 	to comile the TEE-HW for
 	VC707:		$ cd fpga/vc707
-	DE4:			$ cd fpga/stratixIV/
-	then:				$ make
+	DE4:		$ cd fpga/stratixIV/
+	then:		$ make
 
 * * *
 
@@ -66,7 +66,9 @@ To clean and build again:
 	
 	*.mcs and *.prm		the two files for flash programming
 	*.bit						the bitstream file for direct programming
-	
+
+* * *
+
 ## I. b) Program the board
 
 Remember to switch the switches above the LCD to UP-UP-DOWN-UP-DOWN, then open vivado, open hardware manager, open target board, auto connect.
@@ -174,38 +176,7 @@ Some useful tips for debugging the RISC-V CPU:
 	Read from address:		$ print/x *0x...
 	Reset CPU:			$ monitor reset halt
 
-## I. d) Other utilities
-
-To quickly set build environment:
-
-	$ vi setenv.sh
-	and change the correct corresponding paths in your machine
-	
-	Then from this point forward, you can auto set your environment by simply:
-	$ . setenv.sh
-
-If you want to change the ROM size:
-
-	BootRom size is declared in the file:
-		rocket-chip/src/main/scala/devices/tilelink/MaskROM.scala
-	
-	On the line 12:
-		case class MaskROMParams(address: BigInt, name: String, depth: Int = 2048, width: Int = 32)
-
-	Change the <depth> value to change the size.
-
-If you want to change the modules' addresses, number of CPU cores, etc:
-
-	The declarations are in the file:
-		src/main/scala/unleashed/DevKitConfigs.scala
-	
-	But remember to change the addresses on the software as well. These files:
-		bootrom/sdboot/include/platform.h
-		bootrom/sdboot/linker/memory.lds
-		bootrom/freedom-u540-c000-bootloader/sifive/platform.h
-		bootrom/freedom-u540-c000-bootloader/memory_vc707.lds
-	
-*TODO*: script to auto update ROM size, modules' addresses, and number of CPU to software
+* * *
 
 ## I. e) Use with Idea IntelliJ
 
