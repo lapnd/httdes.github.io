@@ -328,5 +328,5 @@ For ROHM chip fabricated in Jan. 2020:
 
 | Back | Next |
 | :--- | ---: |
-| [SiFive Freedom on VC707](./vc707.md) | [Scala Study Notes](./scala.md) |
+| [SiFive Freedom](./vc707.md) | [TEE-Hardware](./tee-hw.md) |
 
