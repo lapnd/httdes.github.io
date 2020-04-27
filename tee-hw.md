@@ -31,71 +31,27 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	if not, then:		$ export RISCV=/opt/gcc9/riscv64gc		#export the toolchain to PATH 
 					$ export PATH=${RISCV}/bin/:${PATH}
 	
-	for VC707:
-	$ cd fpga/vc707
-	$ make
+	for VC707:		$ cd fpga/vc707
+					$ make
 	
-	for DE4:
-	$ cd fpga/stratixIV/
-	$ make
-	
-### (i) Make
+	for DE4:		$ cd fpga/stratixIV/
+					$ make
 
-Before 'make', remember to set the environment (see [I. c) Other Utilities](#i-c-other-utilities)) simply by: **$ . setenv.sh**
+* * *
+
+LATER
 
 The format for 'make' command is:
 
-	This is for creating .v files:
-	$ make [CONFIG] [MODEL] [BOOTROM_DIR] [BUILD_DIR] -f Makefile.vc707-u500devkit verilog -j`nproc`
+	$ make [CONFIG] [MODEL] [BUILD_DIR] -f Makefile.vc707-u500devkit -j`nproc`
 
-	This is for Vivado build:
-	$ make [CONFIG] [MODEL] [BOOTROM_DIR] [BUILD_DIR] -f Makefile.vc707-u500devkit mcs -j`nproc`
+The **[CONFIG]** option is for selecting the frequency.
 
-The **[CONFIG]** option is for selecting the frequency:
-
-	CONFIG=DevKitU500FPGADesign_WithDevKit50MHz (default value)
-	       DevKitU500FPGADesign_WithDevKit100MHz
-	       DevKitU500FPGADesign_WithDevKit125MHz
-	       DevKitU500FPGADesign_WithDevKit150MHz
-
-The **[MODEL]** option is for selecting the PCIe option:
-
-	with PCIe build (default value):
-	MODEL=VC707PCIeShell
+The **[MODEL]** option is for selecting the PCIe option.
 	
-	without PCIe build:
-	MODEL=VC707BaseShell
-	
-The **[BOOTROM_DIR]** option is to specify the bootrom directory that you want to use:
-
-	using the sifive's sdboot (default value):
-	BOOTROM_DIR=`pwd`/bootrom/sdboot
-	
-	using the keystone's zsfl+fsbl boot:
-	BOOTROM_DIR=`pwd`/bootrom/freedom-u540-c000-bootloader
-	
-The **[BUILD_DIR]** option is to specify the build directory:
-
-	BUILD_DIR=`pwd`/builds/<name>
-	default value: BUILD_DIR=`pwd`/builds/vc707-u500devkit
+The **[BUILD_DIR]** option is to specify the build directory.
 	
 Example:
-
-	To build with PCIe, 125MHz, using sifive's sdboot:
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit125MHz BUILD_DIR=`pwd`/builds/vc707-u500devkit-withpcie-sdboot -f Makefile.vc707-u500devkit verilog -j`nproc`
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit125MHz BUILD_DIR=`pwd`/builds/vc707-u500devkit-withpcie-sdboot -f Makefile.vc707-u500devkit mcs -j`nproc`
-	
-	To build without PCIe, 150MHz, using sifive's sdboot:
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit150MHz MODEL=VC707BaseShell BUILD_DIR=`pwd`/builds/vc707-u500devkit-nopcie-sdboot -f Makefile.vc707-u500devkit verilog -j`nproc`
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit150MHz MODEL=VC707BaseShell BUILD_DIR=`pwd`/builds/vc707-u500devkit-nopcie-sdboot -f Makefile.vc707-u500devkit mcs -j`nproc`
-	
-	To build with PCIe, 125MHz, using keystone's zsbl-fsbl boot:
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit125MHz BOOTROM_DIR=`pwd`/bootrom/freedom-u540-c000-bootloader BUILD_DIR=`pwd`/builds/vc707-u500devkit-withpcie-keystoneboot -f Makefile.vc707-u500devkit verilog -j`nproc`
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit125MHz BOOTROM_DIR=`pwd`/bootrom/freedom-u540-c000-bootloader BUILD_DIR=`pwd`/builds/vc707-u500devkit-withpcie-keystoneboot -f Makefile.vc707-u500devkit mcs -j`nproc`
-	
-	To build without PCIe, 150MHz, using keystone's zsbl-fsbl boot:
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit150MHz MODEL=VC707BaseShell BOOTROM_DIR=`pwd`/bootrom/freedom-u540-c000-bootloader BUILD_DIR=`pwd`/builds/vc707-u500devkit-nopcie-keystoneboot -f Makefile.vc707-u500devkit verilog -j`nproc`
-	$ make CONFIG=DevKitU500FPGADesign_WithDevKit150MHz MODEL=VC707BaseShell BOOTROM_DIR=`pwd`/bootrom/freedom-u540-c000-bootloader BUILD_DIR=`pwd`/builds/vc707-u500devkit-nopcie-keystoneboot -f Makefile.vc707-u500devkit mcs -j`nproc`
 	
 To clean and build again:
 
@@ -105,24 +61,12 @@ To clean and build again:
 
 ### (ii) Notes
 
-**1:** The maximum frequency for the VC707 board with PCIE is 125MHz, and without PCIE is 150MHz.
+**1:** The maximum frequency for.
 
-**2:** Sometime the **make mcs** end with timing error and did not continue to generate the final mcs files for the flash programming, but still, it did generate the **.bit** file. Then, we can manually generate the **.mcs** from the **.bit**:
-
-	cd to the build folder
-	$ cd builds/<name>/obj/
+**2:** Built files are under **builds/<name>/obj/**. The important built files are:
 	
-	for VC707PCIeShell:
-	$ vivado -nojournal -mode batch -source ../../../fpga-shells/xilinx/common/tcl/write_cfgmem.tcl -tclargs vc707 VC707PCIeShell.mcs VC707PCIeShell.bit
-	
-	for VC707BaseShell:
-	$ vivado -nojournal -mode batch -source ../../../fpga-shells/xilinx/common/tcl/write_cfgmem.tcl -tclargs vc707 VC707BaseShell.mcs VC707BaseShell.bit
-
-**3:** Built files are under **builds/<name>/obj/**. The important built files are:
-	
-	VC707Shell.v							the verilog source code
-	VC707Shell.mcs and VC707Shell.prm		the two files for flash programming
-	VC707Shell.bit						the bitstream file for direct programming
+	*.mcs and *.prm		the two files for flash programming
+	*.bit						the bitstream file for direct programming
 	
 ## I. b) Program the board
 
@@ -375,5 +319,5 @@ To run the keystone test:
 
 | Back | Next |
 | :--- | ---: |
-| [Keystone Guide](./keystone.md) | [VexRiscv 32-bit MCU](./vexriscv.md) |
+| [VexRiscv 32-bit MCU](./vexriscv.md) | [Scala](./scala.md) |
 
