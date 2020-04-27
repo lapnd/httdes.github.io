@@ -92,8 +92,11 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
  - Open the Idea IntelliJ tool, and choose '*Import Project*'
  - Then choose '*sbt*' then hit '*Next*'
  - Tick the '*for imports*' and '*for builds*' options in the ***Use sbt shell*** then hit '*Finish*'
- - Wait for it to sync for the first time. This first time sync will fail
- - After that, go to the tab ***sbt shell*** and type ***++2.12.4***, and then type ***compile***, and wait!
+ - Wait for it to sync for the first time.
+ 
+ Go to the 'Build' tab *(at the bottom menu)* to see that it synced successfully or not. If not, then:
+ 
+ - Go to the tab ***sbt shell*** and type ***++2.12.4***, and then type ***compile***, and wait!
  - After the compile, go to the ***sbt*** tab on the MOST RIGHT EDGE and hit the reload button, it will re-sync for the second time
  - After the second time sync, if it still fail, I have no idea ¯\\_(ツ)_/¯
 
@@ -104,11 +107,11 @@ To debug with the **Idea IntelliJ** tool:
  - After 'compile' succeed and '*Indexing*' finished, click the ***Add Configuration...*** button right next to the build button (at the top-bar to the right). Then hit the ***+*** button to add a new configuration, and choose the ***JAR Application*** setting
  - Now get back to the " *java -jar* " example note earlier:
 ```
-java -jar /home/ubuntu/project/freedom/rocket-chip/sbt-launch.jar ++2.12.4 "runMain freechips.rocketchip.system.Generator /home/ubuntu/project/freedom/builds/chip uec.nedo.chip ChipShell uec.nedo.chip ChipDesignTop"
+cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSize=256M -jar /home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar ++2.12.4 "project keystoneAcc" "runMain uec.keystoneAcc.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/stratixIV/generated-src/uec.keystoneAcc.nedochip.NEDOFPGAQuartus.ChipConfigDE4 uec.keystoneAcc.nedochip NEDOFPGAQuartus uec.keystoneAcc.nedochip ChipConfigDE4"
 ```
-   The ***/home/ubuntu/project/freedom/rocket-chip/sbt-launch.jar*** part will go to the ***Path to JAR:***
+   The ***/home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar*** part will go to the ***Path to JAR:***
    
-   The ***++2.12.4 "runMain freechips.rocketchip.system.Generator /home/ubuntu/project/freedom/builds/chip uec.nedo.chip ChipShell uec.nedo.chip ChipDesignTop"*** part will go to the ***Program arguments:***
+   The ***++2.12.4 "project keystoneAcc" "runMain uec.keystoneAcc.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/stratixIV/generated-src/uec.keystoneAcc.nedochip.NEDOFPGAQuartus.ChipConfigDE4 uec.keystoneAcc.nedochip NEDOFPGAQuartus uec.keystoneAcc.nedochip ChipConfigDE4"*** part will go to the ***Program arguments:***
    
    Everythiing else just leave as they are, then click '*Apply*' and '*OK*'. Now you can debug with freedom folder.
 
