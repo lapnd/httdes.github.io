@@ -239,5 +239,5 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
 
 | Back | Next |
 | :--- | ---: |
-| [Initial Setup](./init.md) | [SiFive Freedom on VC707](./vc707.md) |
+| [Initial Setup](./init.md) | [SiFive Freedom](./vc707.md) |
 
