@@ -33,23 +33,17 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	
 	$ cd <to your tee-hardware folder>
 	for VC707:		$ cd fpga/vc707
-	for DE4:		$ cd fpga/stratixIV/
-	finally:		$ make
+	for DE4:			$ cd fpga/stratixIV/
+	finally:			$ make
 
-To clean and build again:
-
-	$ cd <to the fpga folder>		#fpga/vc707 or fpga/stratixIV/
-	$ make clean
-	Finally, make again:		$ make
-
-### (ii) Build FPGA (make FPGA's bitstream)
+### (ii) Build FPGA (make bitstream)
 
 For demo on VC707:
 - Open the Vivado tool, select the 'Open Project'
 - Point to 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.xpr', then click 'OK'
 - Click the 'Run Synthesis' button or F11
-- When it's done, a dialog will appear, click the 'Run Implementation', , and wait
-- When it's done, another dialog will appear, click the 'Generate Bitstream', , and wait
+- When it's done, a dialog will appear, choose the 'Run Implementation', then click 'OK', then 'OK', and wait
+- When it's done, another dialog will appear, choose the 'Generate Bitstream', then click 'OK', then 'OK', and wait
 - Guide for [program & debug VC707](./fpgaguide_vc707.md)
 
 For demo on DE4 or TR4:
