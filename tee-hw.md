@@ -25,14 +25,14 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	
 ### (i) Make verilog files
 	
-	check PATH:		$ echo ${RISCV}		#check the toolchain is on the PATH or not
-					$ echo ${PATH}
+	check PATH:		$ echo ${RISCV}
+					$ echo ${PATH}		#check the toolchain is on the PATH or not
 					
-	if not, then:		$ export RISCV=/opt/gcc9/riscv64gc		#export the toolchain to PATH 
-					$ export PATH=${RISCV}/bin/:${PATH}
+	if not, then:		$ export RISCV=/opt/gcc9/riscv64gc
+					$ export PATH=${RISCV}/bin/:${PATH}		#export the toolchain to PATH
 	
 	$ cd <to your tee-hardware folder>
-	for VC707:		$ cd fpga/vc707
+	for VC707:		$ cd fpga/vc707/
 	for DE4:			$ cd fpga/stratixIV/
 	finally:			$ make
 
@@ -44,13 +44,25 @@ For demo on VC707:
 - Click the 'Run Synthesis' button or F11
 - When it's done, a dialog will appear, choose the 'Run Implementation', then click 'OK', then 'OK', and wait
 - When it's done, another dialog will appear, choose the 'Generate Bitstream', then click 'OK', then 'OK', and wait
-- Guide for [program & debug VC707](./fpgaguide_vc707.md)
+- When it's done, another dialog will appear, if you don't want to generate the .mcs & .prm files for flash, skip this
+- * if you want to program the flash, choose the 'Generate Memory Configuration File' then click 'OK'
+- * on the dialog that appeared, select format 'MCS', choose 'Memory Part' with the allias name of '28f00ag18f'
+- * on the 'Filename' name it '/home/ubuntu/Projects/tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/NEDOFPGA.mcs' *(path maybe different on your machine)*
+- * tick the 'Load bitstream files', start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit
+- * finally click 'OK' to finish
+
+Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/
+- impl_1/NEDOFPGA.bit: bitstream file for direct programming
+- NEDOFPGA.mcs and NEDOFPGA.prm: two files for flash programming
+
+Guide for program & debug on [VC707](./fpgaguide_vc707.md)
 
 For demo on DE4 or TR4:
 - Open the Quartus tool,
 - Import project, point to 
 - build
-- Guide for program & debug [DE4]() and [TR4]()
+
+Guide for program & debug on [DE4](./fpgaguide_de4.md) and [TR4](./fpgaguide_tr4.md)
 
 ### (iii) Notes
 
@@ -78,10 +90,7 @@ Example:
 
 **1:** The maximum frequency for.
 
-**2:** Built files are under **builds/<name>/obj/**. The important built files are:
-	
-	*.mcs and *.prm		the two files for flash programming
-	*.bit						the bitstream file for direct programming
+
 
 * * *
 
