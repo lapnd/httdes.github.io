@@ -22,5 +22,5 @@ Scala is a General-Purpose Programming Language
 
 | Back | Next |
 | :--- | ---: |
-| [SiFive Freedom on VC707](./vc707.md) | [Chisel Study Notes](./chisel.md) |
+| [TEE-Hardware](./tee-hw.md) | [Chisel](./chisel.md) |
 
