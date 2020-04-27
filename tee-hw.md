@@ -25,7 +25,7 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	
 **To build:**
 	
-	check PATH:		$ echo ${RISCV}						#check the toolchain is on the PATH or not
+	check PATH:		$ echo ${RISCV}		#check the toolchain is on the PATH or not
 					$ echo ${PATH}
 					
 	if not, then:		$ export RISCV=/opt/gcc9/riscv64gc		#export the toolchain to PATH 
