@@ -23,7 +23,7 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	update with firesim:		$ . update.sh
 	update without firesim:		$ . update_nosim.sh
 	
-### (i) Make
+### (i) Make verilog files
 	
 	check PATH:		$ echo ${RISCV}		#check the toolchain is on the PATH or not
 					$ echo ${PATH}
@@ -31,20 +31,36 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	if not, then:		$ export RISCV=/opt/gcc9/riscv64gc		#export the toolchain to PATH 
 					$ export PATH=${RISCV}/bin/:${PATH}
 	
-	to comile the TEE-HW for
-	VC707:		$ cd fpga/vc707
-	DE4:		$ cd fpga/stratixIV/
-	then:		$ make
+	$ cd <to your tee-hardware folder>
+	for VC707:		$ cd fpga/vc707
+	for DE4:		$ cd fpga/stratixIV/
+	finally:		$ make
 
 To clean and build again:
 
 	$ cd <to the fpga folder>		#fpga/vc707 or fpga/stratixIV/
 	$ make clean
 	Finally, make again:		$ make
- 
-### (ii) Notes
 
-**1:** Guide on programming and debuging the VC707 FPGA board can be found [here](./fpgaguide_vc707.md).
+### (ii) Build FPGA (make FPGA's bitstream)
+
+For demo on VC707:
+- Open the Vivado tool, select the 'Open Project'
+- Point to 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.xpr', then click 'OK'
+- Click the 'Run Synthesis' button or F11
+- When it's done, a dialog will appear, click the 'Run Implementation', , and wait
+- When it's done, another dialog will appear, click the 'Generate Bitstream', , and wait
+- Guide for [program & debug VC707](./fpgaguide_vc707.md)
+
+For demo on DE4 or TR4:
+- Open the Quartus tool,
+- Import project, point to 
+- build
+- Guide for program & debug [DE4]() and [TR4]()
+
+### (iii) Notes
+
+**1:** 
 
 * * *
 
