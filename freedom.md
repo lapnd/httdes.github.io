@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# SIFIVE FREEDOM CODE STRUCTURE
+# FREEDOM CODE STRUCTURE
 
 Understanding SiFive Freedom U540 Code Structure
 
@@ -125,10 +125,3 @@ This file carries out the actual implementation of the design, with all of the m
 This file calls and extends (or even overrides) the *Configs* file.
 
 * * *
-
-# BOTTOM PAGE
-
-| Back |
-| :--- |
-| [Chisel Study Notes](./chisel.md) |
-
