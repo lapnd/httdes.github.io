@@ -23,7 +23,7 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	update with firesim:		$ . update.sh
 	update without firesim:		$ . update_nosim.sh
 	
-**To build:**
+### (i) Make
 	
 	check PATH:		$ echo ${RISCV}		#check the toolchain is on the PATH or not
 					$ echo ${PATH}
@@ -36,11 +36,21 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	DE4:		$ cd fpga/stratixIV/
 	then:		$ make
 
-Guide on programming and debuging the VC707 FPGA board can be found [here](./fpgaguide_vc707.md).
+To clean and build again:
+
+	$ cd <to the fpga folder>		#fpga/vc707 or fpga/stratixIV/
+	$ make clean
+	Finally, make again:		$ make
+ 
+### (ii) Notes
+
+**1:** Guide on programming and debuging the VC707 FPGA board can be found [here](./fpgaguide_vc707.md).
 
 * * *
 
 LATER
+
+### (i) Make
 
 The format for 'make' command is:
 
@@ -53,12 +63,6 @@ The **[MODEL]** option is for selecting the PCIe option.
 The **[BUILD_DIR]** option is to specify the build directory.
 	
 Example:
-	
-To clean and build again:
-
- - Remove the **builds/\<name\>** folder
- - If you used the keystone's zsbl-fsbl boot process, then go the **bootrom/freedom-u540-c000-bootloader/** folder and **$ make clean**.
- - Finally, go to the top folder and 'make' again.
 
 ### (ii) Notes
 
@@ -71,22 +75,18 @@ To clean and build again:
 
 * * *
 
-## I. e) Use with Idea IntelliJ
+## I. b) Use with Idea IntelliJ
 
 Guide to install Idea IntelliJ is in [Initial Setup: II.e)](./init.md#ii-e-idea-intellij).
 
-To import the freedom folder to the **Idea IntelliJ** tool:
+To import the tee-hardware folder to the **Idea IntelliJ** tool:
 
- - If the freedom folder wasn't compiled before, go ahead and 'make verilog' for the first time (no need to 'make mcs' though). This act is just for download the dependencies, because the Idea IntelliJ has trouble with dependencies download.
- - **Big note:** when 'make verilog', please notice that there will be one line looks like this, you should copy it for later use:
+ - If the tee-hardware folder wasn't compiled before, go ahead and 'make' for the first time. This act is just for download the dependencies, because the Idea IntelliJ has trouble with dependencies download.
+ - **Big note:** when 'make', please notice that there will be one line looks like this, you should copy it for later use *(it usually appears right before the creation of the device tree)*:
 
 ```
-java -jar /home/ubuntu/project/freedom/rocket-chip/sbt-launch.jar ++2.12.4 "runMain freechips.rocketchip.system.Generator /home/ubuntu/project/freedom/builds/chip uec.nedo.chip ChipShell uec.nedo.chip ChipDesignTop"
+cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSize=256M -jar /home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar ++2.12.4 "project keystoneAcc" "runMain uec.keystoneAcc.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/stratixIV/generated-src/uec.keystoneAcc.nedochip.NEDOFPGAQuartus.ChipConfigDE4 uec.keystoneAcc.nedochip NEDOFPGAQuartus uec.keystoneAcc.nedochip ChipConfigDE4"
 (the content may be differ on your machine)
-
-In the first time 'make', it usually appears near after this line:
-	[success] Total time: xxx s, completed xxx, xxx, xx:xx:xx
-In the NOT first time 'make', it usually appears right away
 ```
 
  - Open the Idea IntelliJ tool, and choose '*Import Project*'
