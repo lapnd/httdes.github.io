@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# FPGA GUIDE: VC707
+# FPGA PROGRAM & DEBUG GUIDE: VC707
 
 * * *
 
