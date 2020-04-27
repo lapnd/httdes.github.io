@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# KEYSTONE GUIDE
+# KEYSTONE: TEE FRAMEWORK
 
 * * *
 
