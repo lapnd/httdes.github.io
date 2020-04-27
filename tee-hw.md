@@ -147,10 +147,10 @@ The **bbl.bin** is for the 1st partition of the SD card:
 	
 #### For the fsbl.bin:
 
-After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.bin** file inside the folder **bootrom/freedom-u540-c000-bootloader/**. That file is for the 4th partition of the SD card:
+After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.bin** file inside the folder **software/freedom-u540-c000-bootloader/**. That file is for the 4th partition of the SD card:
 
-	$ cd <your freedom folder>
-	$ cd bootrom/freedom-u540-c000-bootloader/
+	$ cd <your tee-hardware folder>
+	$ cd software/freedom-u540-c000-bootloader/
 	$ sudo dd if=vc707fsbl.bin of=/dev/sdX4 bs=4096 conv=fsync
 	where the X4 is the 4th partition of the USB device
 
