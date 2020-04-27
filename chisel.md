@@ -20,5 +20,5 @@ Chisel is a Hardware Constructor Language
 
 | Back | Next |
 | :--- | ---: |
-| [Scala Study Notes](./scala.md) | [SiFive Freedom Code Structure](./freedom.md) |
+| [Scala](./scala.md) | [SiFive Freedom Code Structure](./freedom.md) |
 
