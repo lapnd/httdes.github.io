@@ -18,18 +18,10 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 
 **Git clone:**
 
-	$ git clone -b dev-thuc https://github.com/thuchoang90/tee-hardware.git		#commit ??? on ??-??-2020
+	$ git clone -b dev-thuc https://github.com/ckdur/tee-hardware.git
 	$ cd tee-hardware/
-	$ git submodule update --init
-	$ cd hardware/chipyard/scripts/
-	$ ./init-submodules-no-riscv-tools.sh
-	$ cd ../../../			#go back outside
-	$ cd software/freedom-u540-c000-bootloader/
-	$ git submodule update --init
-	$ cd ../../				#go back outside
-	
-	this will 'submodule update' without download the toolchain again, and also patch the fpga-shells submodule afterward
-	$ . update.sh
+	update with firesim:	$ . update.sh
+	update without firesim:	$ . update_nosim.sh
 	
 **To build:**
 	
