@@ -312,5 +312,5 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 | Next |
 | ---: |
-| [Keystone Guide](./keystone.md) |
+| [Keystone: TEE framework](./keystone.md) |
 
