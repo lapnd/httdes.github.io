@@ -93,18 +93,10 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
  - Then choose '*sbt*' then hit '*Next*'
  - Tick the '*for imports*' and '*for builds*' options in the ***Use sbt shell*** then hit '*Finish*'
  - Wait for it to sync for the first time.
- 
- Go to the 'Build' tab *(at the bottom menu)* to see that it synced successfully or not. If not, then:
- 
- - Go to the tab ***sbt shell*** and type ***++2.12.4***, and then type ***compile***, and wait!
- - After the compile, go to the ***sbt*** tab on the MOST RIGHT EDGE and hit the reload button, it will re-sync for the second time
- - After the second time sync, if it still fail, I have no idea ¯\\_(ツ)_/¯
 
 To debug with the **Idea IntelliJ** tool:
 
- - Before debugging it, you have to build it first. Go to the ***sbt shell*** tab and type ***++2.12.4*** then type ***compile***
- - Please notice that there might be a task name *Indexing* still running in the background, wait for it to finish.
- - After 'compile' succeed and '*Indexing*' finished, click the ***Add Configuration...*** button right next to the build button (at the top-bar to the right). Then hit the ***+*** button to add a new configuration, and choose the ***JAR Application*** setting
+ - Click the ***Add Configuration...*** button right next to the build button (at the top-bar to the right). Then hit the ***+*** button to add a new configuration, and choose the ***JAR Application*** setting
  - Now get back to the " *java -jar* " example note earlier:
 ```
 cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSize=256M -jar /home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar ++2.12.4 "project keystoneAcc" "runMain uec.keystoneAcc.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/stratixIV/generated-src/uec.keystoneAcc.nedochip.NEDOFPGAQuartus.ChipConfigDE4 uec.keystoneAcc.nedochip NEDOFPGAQuartus uec.keystoneAcc.nedochip ChipConfigDE4"
