@@ -44,21 +44,17 @@ For demo on VC707:
 - Click the 'Run Synthesis' button or F11
 - When it's done, a dialog will appear, choose the 'Run Implementation', then click 'OK', then 'OK', and wait
 - When it's done, another dialog will appear, choose the 'Generate Bitstream', then click 'OK', then 'OK', and wait
-- When it's done, another dialog will appear, if you don't want to generate the .mcs & .prm files for flash, skip this
-- * if you want to program the flash, choose the 'Generate Memory Configuration File' then click 'OK'
-- * on the dialog that appeared, select format 'MCS', choose 'Memory Part' with the allias name of '28f00ag18f'
-- * on the 'Filename' name it '/home/ubuntu/Projects/tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/NEDOFPGA.mcs' *(path maybe different on your machine)*
-- * tick the 'Load bitstream files', start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit
-- * finally click 'OK' to finish
+- When it's done, another dialog will appear, if you don't want to generate the files for flash programming, skip this
+- * if you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. On the dialog that appeared, select format 'MCS', choose 'Memory Part' with the allias name of '28f00ag18f', on the 'Filename' name it '/home/ubuntu/Projects/tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/NEDOFPGA.mcs' *(path maybe different on your machine)*, tick the 'Load bitstream files', start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit. Finally click 'OK' to finish.
 
 Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/
 - impl_1/NEDOFPGA.bit: bitstream file for direct programming
 - NEDOFPGA.mcs and NEDOFPGA.prm: two files for flash programming
 
-Guide for program & debug on [VC707](./fpgaguide_vc707.md)
+Guide for program & debug on VC707 can be found [here](./fpgaguide_vc707.md).
 
 For demo on DE4 or TR4:
-- Open the Quartus tool,
+- Open the Quartus tool, select ''
 - Import project, point to 
 - build
 
