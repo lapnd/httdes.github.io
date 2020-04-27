@@ -38,4 +38,3 @@ The guide in this tutorial has the following contents:
 
 - [Scala](./scala.md): *General-purpose programming language*
 - [Chisel](./chisel.md): *Hardware constructor language*
-- [SiFive Freedom](freedom.md): *Understanding the code structure*
