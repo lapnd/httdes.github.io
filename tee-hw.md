@@ -25,7 +25,7 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	
 **To build:**
 	
-	check PATH:		$ echo ${PATH}							#check the toolchain is on the PATH or not
+	check PATH:		$ echo ${PATH}								#check the toolchain is on the PATH or not
 	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}	#export the toolchain to PATH 
 	
 	for VC707:
