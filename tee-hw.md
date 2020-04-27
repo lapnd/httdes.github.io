@@ -20,13 +20,13 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 
 	$ git clone -b dev-thuc https://github.com/ckdur/tee-hardware.git
 	$ cd tee-hardware/
-	update with firesim:	$ . update.sh
-	update without firesim:	$ . update_nosim.sh
+	update with firesim:		$ . update.sh
+	update without firesim:		$ . update_nosim.sh
 	
 **To build:**
 	
-	check PATH:	$ echo ${PATH}		#check that the toolchain is on the PATH or not
-	if not, then:	$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}	#export the toolchain to PATH 
+	check PATH:		$ echo ${PATH}					#check the toolchain is on the PATH or not
+	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}	#export the toolchain to PATH 
 	
 	for VC707:
 	$ cd fpga/vc707
