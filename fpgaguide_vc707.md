@@ -20,7 +20,7 @@ Vivado direct programming:
 
 	a. right-click on the xc7vx485t_0
 	b. Program Device ...
-	c. select the .bit file in the builds/vc707-u500devkit/obj/VC707Shell.bit
+	c. select the .bit file
 	d. Program
 
 Vivado flash programming:
@@ -29,7 +29,7 @@ Vivado flash programming:
 	b. Add Configuration Memory Device ...
 	c. select the one with the Alias of 28f00ag18f ---> OK
 	d. OK to continue to program the device
-	e. select the Configuration file (.mcs) and PRM file (.prm) in the builds/vc707-u500devkit/obj/
+	e. select the Configuration file (.mcs) and PRM file (.prm)
 	f. select the RS pins: 25:24
 	g. OK to write data to the flash
 	h. finally, right-click again on the xc7vx485t_0 and select Boot from Configuration Memory Device
