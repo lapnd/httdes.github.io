@@ -31,11 +31,10 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	if not, then:		$ export RISCV=/opt/gcc9/riscv64gc		#export the toolchain to PATH 
 					$ export PATH=${RISCV}/bin/:${PATH}
 	
-	for VC707:		$ cd fpga/vc707
-					$ make
-	
-	for DE4:		$ cd fpga/stratixIV/
-					$ make
+	to comile the TEE-HW for
+	VC707:		$ cd fpga/vc707
+	DE4:			$ cd fpga/stratixIV/
+	then:				$ make
 
 * * *
 
