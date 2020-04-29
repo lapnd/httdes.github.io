@@ -42,8 +42,8 @@ For demo on VC707:
 - Open the Vivado tool, select the 'Open Project'
 - Point to 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.xpr', then click 'OK'
 - Click the 'Run Synthesis' button or F11
-- When it's done, a dialog will appear, choose the 'Run Implementation', then click 'OK', then 'OK', and wait
-- When it's done, another dialog will appear, choose the 'Generate Bitstream', then click 'OK', then 'OK', and wait
+- When it's done, a dialog will appear, choose the 'Run Implementation', then 'OK' and wait
+- When it's done, another dialog will appear, choose the 'Generate Bitstream', then 'OK' and wait
 - When it's done, another dialog will appear, if you don't want to generate the files for flash programming, skip this
 - * if you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. On the dialog that appeared, select format 'MCS', choose 'Memory Part' with the allias name of '28f00ag18f', on the 'Filename' name it '/home/ubuntu/Projects/tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/NEDOFPGA.mcs' *(path maybe different on your machine)*, tick the 'Load bitstream files', start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit. Finally click 'OK' to finish.
 
