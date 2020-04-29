@@ -45,10 +45,10 @@ For demo on VC707:
 - When it's done, a dialog will appear, choose the 'Run Implementation', then 'OK' and wait
 - When it's done, another dialog will appear, choose the 'Generate Bitstream', then 'OK' and wait
 - When it's done, another dialog will appear, if you don't want to generate the files for flash programming, skip this
-- * if you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. On the dialog that appeared, select format 'MCS', choose 'Memory Part' with the allias name of '28f00ag18f', on the 'Filename' name it '/home/ubuntu/Projects/tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/NEDOFPGA.mcs' *(path maybe different on your machine)*, tick the 'Load bitstream files', start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit. Finally click 'OK' to finish.
+- * if you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. On the dialog that appeared, select format 'MCS', choose 'Memory Part' with the allias name of '28f00ag18f', on the 'Filename' browse to the tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/ folder and name the file 'NEDOFPGA.mcs', tick the 'Load bitstream files', start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit. Finally click 'OK' to finish.
 
-Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/
-- impl_1/NEDOFPGA.bit: bitstream file for direct programming
+Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/
+- NEDOFPGA.bit: bitstream file for direct programming
 - NEDOFPGA.mcs and NEDOFPGA.prm: two files for flash programming
 
 Guide for program & debug on VC707 can be found [here](./fpgaguide_vc707.md).
@@ -64,31 +64,7 @@ For demo on DE4 or TR4:
 Built files are under tee-hardware/fpga/stratixIV/DE4/output_files/
 - NEDOFPGAQuartus.sof: bitstream file for direct programming
 
-Guide for program & debug on [DE4 and TR4](./fpgaguide_de4.md)
-
-### (iii) Notes
-
-**1:** The maximum frequency for.
-
-* * *
-
-LATER
-
-### (i) Make
-
-The format for 'make' command is:
-
-	$ make [CONFIG] [MODEL] [BUILD_DIR] -f Makefile.vc707-u500devkit -j`nproc`
-
-The **[CONFIG]** option is for selecting the frequency.
-
-The **[MODEL]** option is for selecting the PCIe option.
-	
-The **[BUILD_DIR]** option is to specify the build directory.
-	
-Example:
-
-* * *
+Guide for program & debug on DE4 and TR4 can be found [here](./fpgaguide_de4.md).
 
 ## I. b) Use with Idea IntelliJ
 
