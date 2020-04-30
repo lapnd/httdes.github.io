@@ -43,7 +43,7 @@ Using the Olimex JTAG debugger. Ref [link](https://www.olimex.com/Products/ARM/J
 To install the driver for the debugger:
 
 	$ sudo apt-get install libftdi-dev libftdi1
-	$ vi /etc/udev/rules.d/olimex-arm-usb-tiny-h.rules
+	$ sudo vi /etc/udev/rules.d/olimex-arm-usb-tiny-h.rules
 
 Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 
