@@ -38,22 +38,26 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 
 ### (ii) Build FPGA (make bitstream)
 
-For demo on VC707:
+#### For demo on VC707:
 - Open the Vivado tool, select the 'Open Project'
 - Point to 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.xpr', then click 'OK'
 - Click the 'Run Synthesis' button or F11
 - When it's done, a dialog will appear, choose the 'Run Implementation', then 'OK' and wait
 - When it's done, another dialog will appear, choose the 'Generate Bitstream', then 'OK' and wait
-- When it's done, another dialog will appear, if you don't want to generate the files for flash programming, skip this
-- * if you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. On the dialog that appeared, select format 'MCS', choose 'Memory Part' with the allias name of '28f00ag18f', on the 'Filename' browse to the tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/ folder and name the file 'NEDOFPGA.mcs', tick the 'Load bitstream files', start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit. Finally click 'OK' to finish.
+- When it's done, another dialog will appear, if you don't want to generate the files for flash programming, skip this then you're done
+
+If you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. A new dialog will appear:
+- Format: select 'MCS'
+- On the 'Memory Part': browse to the one with the allias name of '28f00ag18f'
+- On the 'Filename': browse to 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/' folder and name the file 'NEDOFPGA.mcs'
+- Tick the 'Load bitstream files': start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the 'keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit'
+- Finally, click 'OK' to finish.
 
 Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/
 - NEDOFPGA.bit: bitstream file for direct programming
 - NEDOFPGA.mcs and NEDOFPGA.prm: two files for flash programming
 
-Guide for program & debug on VC707 can be found [here](./fpgaguide_vc707.md).
-
-For demo on DE4 or TR4:
+#### For demo on DE4:
 - Open the Quartus tool, select 'File' then 'Open Project'
 - Point to 'tee-hardware/fpga/stratixIV/DE4/NEDOFPGAQuartus.qpf', then click 'Open'
 - Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
@@ -61,10 +65,14 @@ For demo on DE4 or TR4:
 - When it's done, hit 'Close' then 'Finish' to close the Platform Designer's window
 - On the Quartus's window, click the 'Compilation' button or Ctrl+L, and wait or it to finish.
 
+If you want to program the flash, then
+
 Built files are under tee-hardware/fpga/stratixIV/DE4/output_files/
 - NEDOFPGAQuartus.sof: bitstream file for direct programming
 
-Guide for program & debug on DE4 and TR4 can be found [here](./fpgaguide_de4.md).
+#### For demo on TR4:
+
+Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
 ## I. b) Use with Idea IntelliJ
 
