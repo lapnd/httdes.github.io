@@ -230,6 +230,30 @@ The Quartus execution file is located at **intelFPGA/18.1/quartus/bin/**
 
 Note: if running Quartus fail due to libpng12 error, then you need to install it manually (Just download & install): for [32-bit](https://packages.ubuntu.com/en/xenial/i386/libpng12-0/download), for [64-bit](https://packages.ubuntu.com/en/xenial/amd64/libpng12-0/download).
 
+**Install cable driver:**
+
+Create two 51- and 52- files:
+
+	$ sudo vi /etc/udev/rules.d/51-usbblaster.rules
+	$ sudo vi /etc/udev/rules.d/51-usbblaster.rules
+	
+And add these lines on both files:
+
+	# USB-Blaster
+	BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6001", MODE="0666"
+	BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6002", MODE="0666" 
+	BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6003", MODE="0666"   
+	
+	# USB-Blaster II
+	BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6010", MODE="0666"
+	BUS=="usb", SYSFS{idVendor}=="09fb", SYSFS{idProduct}=="6810", MODE="0666"
+
+After that, you may:
+
+	$ sudo service udev restart
+
+Or even reboot the computer if it's still not recognize the cable.
+	
 ## II. k) Create Ubuntu Desktop Shorcut
 
 To install the tool:
