@@ -63,9 +63,7 @@ Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPG
 - Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
 - Click the 'Generate HDL' button then 'Generate', and wait for its done
 - When it's done, hit 'Close' then 'Finish' to close the Platform Designer's window
-- On the Quartus's window, click the 'Compilation' button or Ctrl+L, and wait or it to finish.
-
-If you want to program the flash, then
+- On the Quartus's window, click the 'Compilation' button or Ctrl+L, and wait for it to finish.
 
 Built files are under tee-hardware/fpga/stratixIV/DE4/output_files/
 - NEDOFPGAQuartus.sof: bitstream file for direct programming
