@@ -235,7 +235,7 @@ Note: if running Quartus fail due to libpng12 error, then you need to install it
 Create two 51- and 52- files:
 
 	$ sudo vi /etc/udev/rules.d/51-usbblaster.rules
-	$ sudo vi /etc/udev/rules.d/51-usbblaster.rules
+	$ sudo vi /etc/udev/rules.d/52-usbblaster.rules
 	
 And add these lines on both files:
 
