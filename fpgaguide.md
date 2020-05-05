@@ -71,7 +71,18 @@ The four data pins TDI (pin 5), TMS (pin 7), TCLK (pin 9), and TDO (pin 13) are 
 
 ### (ii) DE4
 
+Connect your Olimex JTAG debugger to the DE4 FPGA board by the GPIO_1 (JP4) header, with JTAG pin 1 connects to GPIO pin 1, etc.
+
+The UART uses the RS232 connection on the board.
+
 ### (iii) TR4
+
+Connect your Olimex JTAG debugger to the TR4 FPGA board by the GPIO_1 (JP10) header, with JTAG pin 1 connects to GPIO pin 1, etc.
+
+For UART:
+- GPIO_1 (JP10) HSMC_TX_n[3] (pin 39 of 40-pin header) : TX ---> connects to the outside RX
+- GPIO_1 (JP10) HSMC_TX_n[1] (pin 40 of 40-pin header) : RX <--- connects to the outside TX
+- GPIO_1 (JP10) pin 30 of 40-pin header : GND <---> connects to the UART GND
 
 ## II. c) Run
 
