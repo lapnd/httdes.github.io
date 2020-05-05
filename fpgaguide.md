@@ -13,11 +13,6 @@ layout : default
 Remember to switch the switches above the LCD to UP-UP-DOWN-UP-DOWN,
 then open vivado, open hardware manager, open target board, auto connect.
 
-About the cable driver:
-
-	$ cd to [installation path]/Vivado/2016.4/data/xicom/cable_drivers/lin64/install_script/install_drivers
-	then run the script "$ sudo ./install_drivers"
-
 Vivado direct programming:
 
 	a. right-click on the xc7vx485t_0
@@ -37,6 +32,8 @@ Vivado flash programming:
 	h. finally, right-click again on the xc7vx485t_0 and select Boot from Configuration Memory Device
 
 # I. b) DE4
+
+
 
 # I. c) TR4
 
