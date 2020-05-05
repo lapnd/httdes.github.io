@@ -2,11 +2,13 @@
 layout : default
 ---
 
-# FPGA PROGRAM & DEBUG GUIDE: VC707
+# FPGA PROGRAM & DEBUG GUIDE
 
 * * *
 
 # I. Program the board
+
+## I. a) VC707
 
 Remember to switch the switches above the LCD to UP-UP-DOWN-UP-DOWN,
 then open vivado, open hardware manager, open target board, auto connect.
@@ -34,6 +36,10 @@ Vivado flash programming:
 	g. OK to write data to the flash
 	h. finally, right-click again on the xc7vx485t_0 and select Boot from Configuration Memory Device
 
+# I. b) DE4
+
+# I. c) TR4
+
 # II. Debug with GDB via JTAG
 
 Using the Olimex JTAG debugger. Ref [link](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-TINY-H/).
@@ -51,6 +57,8 @@ Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 
 ## II. b) Connection
 
+### (i) VC707
+
 Connect your Olimex JTAG debugger to the VC707 FPGA board by the XADC (J19) header as shown as follows:
 
 ![Branching](./jtag-20pin.png)
@@ -58,6 +66,10 @@ Connect your Olimex JTAG debugger to the VC707 FPGA board by the XADC (J19) head
 The four data pins TDI (pin 5), TMS (pin 7), TCLK (pin 9), and TDO (pin 13) are connected to the XADC_GPIO 0 to 3 (pin 17 to 20). The VCC (pin 1) is connected to the XADC_VCC_HEADER (pin 14). And any of the GND pin on the JTAG side is connected to the GND pin 16 of the XADC header.
 
 ![Branching](./jtag-xadc.png)
+
+### (ii) DE4
+
+### (iii) TR4
 
 ## II. c) Run
 
