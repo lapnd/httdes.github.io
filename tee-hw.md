@@ -70,6 +70,10 @@ Built files are under tee-hardware/fpga/stratixIV/DE4/output_files/
 
 #### For demo on TR4:
 
+
+
+### (iii) Notes
+
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
 ## I. b) Use with Idea IntelliJ
@@ -104,7 +108,7 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
    
    Everythiing else just leave as they are, then click '*Apply*' and '*OK*'. Now you can debug with freedom folder.
 
-# II. Software
+# II. Software (with Keystone)
 
 Ref [link](https://github.com/keystone-enclave/keystone) for the KeyStone project.
 
