@@ -33,14 +33,14 @@ Vivado flash programming:
 
 ## I. b) DE4 & TR4
 
+Both DE4 and TR4 FPGA boards share the same programming procedure.
+
 Power on the board, plugin the cable, then open Quartus and click on the 'Programmer' icon *(or in the top menu -> Tool -> Programmer)*. A Programmer window will appear:
 
 	a. Check the 'Hardware Setup..' on the top-left to see if it recognized the usb port or not.
 	   If it shows 'No hardware..' then your computer not yet recognizes the cable.
 	   If it shows 'USB-Blaster [USB-x]' then okay to continue
-	b. Click 'Auto Detect' then:
-		If DE4: choose the first one of 'EP4SGX230' then hit 'OK'
-		If TR4: choose the ... then hit 'OK'
+	b. Click 'Auto Detect' then choose the first one of 'EP4SGX230' then hit 'OK'
 	c. Double-click on the <none> in the tab 'File' and browse to the .sof file
 	d. Tick on the 'Program/Configure' then hit 'Start' to program the board, and wait for it to finish
 
