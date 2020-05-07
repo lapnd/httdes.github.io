@@ -138,7 +138,7 @@ To run Linux you need a buildroot. First, prepare your vexriscv_buildroot folder
 
 After this, Linux should be booted on Verilator. After boot, login with **$ root** and exit with **$ poweroff**.
 
-### Simulate with QEMU
+## II. c) Simulate with QEMU
 
 	$ echo ${PATH}							#check that if the riscv32im toolchain is on the PATH or not
 	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
