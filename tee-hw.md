@@ -33,8 +33,11 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	
 	$ cd <to your tee-hardware folder>
 	for VC707:		$ cd fpga/vc707/
+						$ make
 	for DE4:			$ cd fpga/stratixIV/
-	finally:			$ make
+						$ make
+	for TR4:			$ cd fpga/stratixIV/
+						$ make -f Makefile.TR4
 
 ### (ii) Build FPGA (make bitstream)
 
@@ -53,24 +56,20 @@ If you want to program the flash, then choose the 'Generate Memory Configuration
 - Tick the 'Load bitstream files': start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the 'keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit'
 - Finally, click 'OK' to finish.
 
-Built files are under tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/
-- NEDOFPGA.bit: bitstream file for direct programming
-- NEDOFPGA.mcs and NEDOFPGA.prm: two files for flash programming
+Built files are under 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/'
+- .bit: bitstream file for direct programming
+- .mcs and .prm: two files for flash programming
 
-#### For demo on DE4:
+#### For demo on DE4 & TR4:
 - Open the Quartus tool, select 'File' then 'Open Project'
-- Point to 'tee-hardware/fpga/stratixIV/DE4/NEDOFPGAQuartus.qpf', then click 'Open'
+- Point to 'tee-hardware/fpga/stratixIV/DE4/NEDOFPGAQuartus.qpf' if DE4; 'tee-hardware/fpga/stratixIV/TR4/TR4.qpf' if TR4. Then click 'Open'
 - Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
 - Click the 'Generate HDL' button then 'Generate', and wait for its done
 - When it's done, hit 'Close' then 'Finish' to close the Platform Designer's window
 - On the Quartus's window, click the 'Compilation' button or Ctrl+L, and wait for it to finish.
 
-Built files are under tee-hardware/fpga/stratixIV/DE4/output_files/
-- NEDOFPGAQuartus.sof: bitstream file for direct programming
-
-#### For demo on TR4:
-
-
+Built files are under 'tee-hardware/fpga/stratixIV/DE4/output_files/' if DE4; 'tee-hardware/fpga/stratixIV/TR4/output_files/' if TR4
+- .sof: bitstream file for direct programming
 
 ### (iii) Notes
 
