@@ -33,11 +33,11 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	
 	$ cd <to your tee-hardware folder>
 	for VC707:		$ cd fpga/vc707/
-						$ make
+					$ make
 	for DE4:			$ cd fpga/stratixIV/
-						$ make
+					$ make
 	for TR4:			$ cd fpga/stratixIV/
-						$ make -f Makefile.TR4
+					$ make -f Makefile.TR4
 
 ### (ii) Build FPGA (make bitstream)
 
