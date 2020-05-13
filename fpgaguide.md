@@ -155,7 +155,7 @@ The USB1.1 connection uses the chip with connections listed below.
 
 **For DE4:**
 
-	Signal				Pin			Header (40-pin)
+	Signal				Pin				Header (40-pin)
 	USBWireDataIn[0]		GPIO0_D[0]		JP3[1]
 	USBWireDataIn[1]		GPIO0_D[1]		JP3[2]
 	USBWireDataOut[0]	GPIO0_D[2]		JP3[3]
@@ -165,7 +165,7 @@ The USB1.1 connection uses the chip with connections listed below.
 
 **For TR4:**
 
-	Signal				Pin					Header (40-pin)
+	Signal				Pin							Header (40-pin)
 	USBWireDataIn[0]		HSMC_TX_n[7]  / GPIO1_D[26]		JP10[31]
 	USBWireDataIn[1]		HSMC_TX_p[7]  / GPIO1_D[24]		JP10[27]
 	USBWireDataOut[0]	HSMC_TX_n[8]  / GPIO1_D[18]		JP10[21]
@@ -179,7 +179,7 @@ The USB1.1 connection uses the chip with connections listed below.
 
 **For DE4:**
 
-	Signal		Pin			Header (40-pin)
+	Signal		Pin				Header (40-pin)
 	qspi_cs		GPIO1_D[1]		JP4[2]
 	qspi_sck		GPIO1_D[3]		JP4[4]
 	qspi_miso	GPIO1_D[5]		JP4[6]
@@ -187,7 +187,7 @@ The USB1.1 connection uses the chip with connections listed below.
 
 **For TR4:**
 
-	Signal		Pin							Header (40-pin)
+	Signal		Pin								Header (40-pin)
 	qspi_cs		HSMC_TX_n[4] / GPIO1_D[27]		JP10[32]
 	qspi_sck		HSMC_TX_p[4] / GPIO1_D[25]		JP10[28]
 	qspi_miso	HSMC_TX_n[5] / GPIO1_D[30]		JP10[35]
