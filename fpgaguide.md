@@ -165,7 +165,7 @@ The USB1.1 connection uses the chip with connections listed below.
 
 **For TR4:**
 
-	Signal				Pin							Header (40-pin)
+	Signal				Pin								Header (40-pin)
 	USBWireDataIn[0]		HSMC_TX_n[7]  / GPIO1_D[26]		JP10[31]
 	USBWireDataIn[1]		HSMC_TX_p[7]  / GPIO1_D[24]		JP10[27]
 	USBWireDataOut[0]	HSMC_TX_n[8]  / GPIO1_D[18]		JP10[21]
