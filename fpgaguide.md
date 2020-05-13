@@ -155,23 +155,23 @@ The USB1.1 connection uses the chip with connections listed below.
 
 **For DE4:**
 
-	Signal			Pin		Header (40-pin)
-	USBWireDataIn[0]	GPIO0_D[0]	JP3[1]
-	USBWireDataIn[1]	GPIO0_D[1]	JP3[2]
-	USBWireDataOut[0]	GPIO0_D[2]	JP3[3]
-	USBWireDataOut[1]	GPIO0_D[3]	JP3[4]
-	USBWireCtrlOut		GPIO0_D[6]	JP3[7]
-	USBFullSpeed		GPIO0_D[7]	JP3[8]
+	Signal				Pin			Header (40-pin)
+	USBWireDataIn[0]		GPIO0_D[0]		JP3[1]
+	USBWireDataIn[1]		GPIO0_D[1]		JP3[2]
+	USBWireDataOut[0]	GPIO0_D[2]		JP3[3]
+	USBWireDataOut[1]	GPIO0_D[3]		JP3[4]
+	USBWireCtrlOut		GPIO0_D[6]		JP3[7]
+	USBFullSpeed		GPIO0_D[7]		JP3[8]
 
 **For TR4:**
 
-	Signal			Pin				Header (40-pin)
-	USBWireDataIn[0]	HSMC_TX_n[7]  / GPIO1_D[26]	JP10[31]
-	USBWireDataIn[1]	HSMC_TX_p[7]  / GPIO1_D[24]	JP10[27]
-	USBWireDataOut[0]	HSMC_TX_n[8]  / GPIO1_D[18]	JP10[21]
-	USBWireDataOut[1]	HSMC_TX_p[8]  / GPIO1_D[16]	JP10[19]
-	USBWireCtrlOut		HSMC_TX_n[10] / GPIO1_D[19]	JP10[22]
-	USBFullSpeed		HSMC_TX_p[10] / GPIO1_D[17]	JP10[20]
+	Signal				Pin					Header (40-pin)
+	USBWireDataIn[0]		HSMC_TX_n[7]  / GPIO1_D[26]		JP10[31]
+	USBWireDataIn[1]		HSMC_TX_p[7]  / GPIO1_D[24]		JP10[27]
+	USBWireDataOut[0]	HSMC_TX_n[8]  / GPIO1_D[18]		JP10[21]
+	USBWireDataOut[1]	HSMC_TX_p[8]  / GPIO1_D[16]		JP10[19]
+	USBWireCtrlOut		HSMC_TX_n[10] / GPIO1_D[19]		JP10[22]
+	USBFullSpeed		HSMC_TX_p[10] / GPIO1_D[17]		JP10[20]
 
 ## III. b) QSPI
 
@@ -179,18 +179,18 @@ The USB1.1 connection uses the chip with connections listed below.
 
 **For DE4:**
 
-	Signal		Pin		Header (40-pin)
-	qspi_cs		GPIO1_D[1]	JP4[2]
-	qspi_sck	GPIO1_D[3]	JP4[4]
-	qspi_miso	GPIO1_D[5]	JP4[6]
-	qspi_mosi	GPIO1_D[7]	JP4[8]
+	Signal		Pin			Header (40-pin)
+	qspi_cs		GPIO1_D[1]		JP4[2]
+	qspi_sck		GPIO1_D[3]		JP4[4]
+	qspi_miso	GPIO1_D[5]		JP4[6]
+	qspi_mosi	GPIO1_D[7]		JP4[8]
 
 **For TR4:**
 
-	Signal		Pin				Header (40-pin)
-	qspi_cs		HSMC_TX_n[4] / GPIO1_D[27]	JP10[32]
-	qspi_sck	HSMC_TX_p[4] / GPIO1_D[25]	JP10[28]
-	qspi_miso	HSMC_TX_n[5] / GPIO1_D[30]	JP10[35]
-	qspi_mosi	HSMC_TX_p[5] / GPIO1_D[28]	JP10[33]
+	Signal		Pin							Header (40-pin)
+	qspi_cs		HSMC_TX_n[4] / GPIO1_D[27]		JP10[32]
+	qspi_sck		HSMC_TX_p[4] / GPIO1_D[25]		JP10[28]
+	qspi_miso	HSMC_TX_n[5] / GPIO1_D[30]		JP10[35]
+	qspi_mosi	HSMC_TX_p[5] / GPIO1_D[28]		JP10[33]
 
 * * *
