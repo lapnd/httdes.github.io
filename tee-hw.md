@@ -29,11 +29,11 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}		#export the toolchain to PATH
 	
 	$ cd <to your tee-hardware folder>
-	for VC707:		$ cd fpga/vc707/
+	for VC707:		$ cd fpga/Xilinx/VC707/
 					$ make
-	for DE4:			$ cd fpga/stratixIV/
+	for DE4:			$ cd fpga/Altera/DE4/
 					$ make
-	for TR4:			$ cd fpga/stratixIV/
+	for TR4:			$ cd fpga/Altera/TR4/
 					$ make -f Makefile.TR4
 
 ### (ii) Build FPGA (make bitstream)
