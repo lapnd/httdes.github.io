@@ -145,6 +145,8 @@ Some useful tips for debugging the RISC-V CPU:
 
 # III. Other connections
 
+Other connections use the 40-pin GPIO headers. All of the headers have pin 11th (out of 40) as 5V power supply, pin 29th as 3.3V power supply, and pin 12th and pin 30th as GND.
+
 ## III. a) USB
 
 The USB1.1 connection uses the chip with connections listed below.
