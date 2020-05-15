@@ -53,7 +53,7 @@ If you want to program the flash, then choose the 'Generate Memory Configuration
 - Tick the 'Load bitstream files': start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the 'keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit'
 - Finally, click 'OK' to finish.
 
-Built files are under 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/'
+Built files are under 'tee-hardware/fpga/Xilinx/VC707/keystone-NEDOFPGA.runs/impl_1/'
 - .bit: bitstream file for direct programming
 - .mcs and .prm: two files for flash programming
 
@@ -65,7 +65,7 @@ Built files are under 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFP
 - When it's done, hit 'Close' then 'Finish' to close the Platform Designer's window
 - On the Quartus's window, click the 'Compilation' button or Ctrl+L, and wait for it to finish.
 
-Built files are under 'tee-hardware/fpga/stratixIV/DE4/output_files/' if DE4; 'tee-hardware/fpga/stratixIV/TR4/output_files/' if TR4
+Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-hardware/fpga/Altera/TR4/output_files/' if TR4
 - .sof: bitstream file for direct programming
 
 ### (iii) Notes
