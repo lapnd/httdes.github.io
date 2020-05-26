@@ -77,9 +77,14 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 You need the gcc8 riscv toolchain for this build.
 
-Either the gcc9 mainstream riscv-gnu-toolchain or the gcc7 prebuilt toolchain won't work.
+To build the gcc8 riscv toolchain, follow the instruction in [Initial Setup](./init.md#iii-risc-v-toolchain). But, **important**, remember to set the configuration with 32-bit floating-point when making the toolchain, for example:
 
-To build the gcc8 riscv toolchain, follow the instruction in [Initial Setup](./init.md#iii-risc-v-toolchain).
+	#config with 32-bit fpu
+	$ ./configure --prefix=/opt/riscv32imafc --with-arch=rv32imafc --with-abi=ilp32f
+	
+	#then,
+	$ sudo make -j`nproc`
+	$ sudo make linux -j`nproc`
 
 With gcc8 ready, now we can make the keystone-rv32:
 
