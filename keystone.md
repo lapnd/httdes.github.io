@@ -80,7 +80,7 @@ You need the gcc8 riscv toolchain for this build.
 To build the gcc8 riscv toolchain, follow the instruction in [Initial Setup](./init.md#iii-risc-v-toolchain). But, **important**, remember to set the configuration with 32-bit floating-point when making the toolchain, for example:
 
 	#config with 32-bit fpu
-	$ ./configure --prefix=/opt/riscv32imafc --with-arch=rv32imafc --with-abi=ilp32f
+	$ ./configure --prefix=/opt/riscv32imafc --with-arch=rv32imafc --with-abi=ilp32
 	
 	#then,
 	$ sudo make -j`nproc`
