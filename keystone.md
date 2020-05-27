@@ -79,8 +79,8 @@ You need the gcc8 riscv toolchain for this build.
 
 To build the gcc8 riscv toolchain, follow the instruction in [Initial Setup](./init.md#iii-risc-v-toolchain).
 
-	# config rv32 with FPU:	$ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
-	#       or without FPU:	$ ./configure --prefix=/opt/riscv32imac --with-arch=rv32imac --with-abi=ilp32
+	# config rv32 with FPU:		$ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
+	#       or without FPU:		$ ./configure --prefix=/opt/riscv32imac --with-arch=rv32imac --with-abi=ilp32
 	
 	# after config, then 'make'
 	$ sudo make -j`nproc`
@@ -94,12 +94,11 @@ When gcc8 is ready, we can make the keystone-rv32:
 	$ cd keystone-rv32/
 	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 	
-	#point to toolchain of rv32
+	#point to the gcc8 toolchain of rv32
 	with FPU:	$ export RISCV=/opt/gcc8/riscv32gc
 	without FPU:	$ export RISCV=/opt/gcc8/riscv32imac
 	
-	$ export PATH=$RISCV/bin:$PATH		#export toolchain to the PATH
-	
+	$ export PATH=$RISCV/bin:$PATH	#export the toolchain to the PATH
 	$ ./fast-setup.sh					#now clone the submodules
 	
 	#run this line if you're using rv32 without FPU:
@@ -129,8 +128,13 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 ## II. b) Keystone-demo
 	
 	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
-	$ export PATH=$RISCV/bin:$PATH
+	
+	#point to the gcc8 toolchain of rv32
+	with FPU:	$ export RISCV=/opt/gcc8/riscv32gc
+	without FPU:	$ export RISCV=/opt/gcc8/riscv32imac
+	
+	$ export PATH=$RISCV/bin:$PATH	#export the toolchain to the PATH
+	
 	$ cd <your keystone folder>			#go to your keystone folder
 	$ export KEYSTONE_DIR=`pwd`
 	
