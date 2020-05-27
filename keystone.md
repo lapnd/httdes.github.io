@@ -77,26 +77,35 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 You need the gcc8 riscv toolchain for this build.
 
-To build the gcc8 riscv toolchain, follow the instruction in [Initial Setup](./init.md#iii-risc-v-toolchain). But, **important**, remember to set the configuration with 32-bit floating-point when making the toolchain, for example:
+To build the gcc8 riscv toolchain, follow the instruction in [Initial Setup](./init.md#iii-risc-v-toolchain).
 
-	#config with 32-bit fpu
-	$ ./configure --prefix=/opt/riscv32imafc --with-arch=rv32imafc --with-abi=ilp32
+	# config rv32 with FPU:	$ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
+	#       or without FPU:	$ ./configure --prefix=/opt/riscv32imac --with-arch=rv32imac --with-abi=ilp32
 	
-	#then,
+	# after config, then 'make'
 	$ sudo make -j`nproc`
 	$ sudo make linux -j`nproc`
 
-With gcc8 ready, now we can make the keystone-rv32:
+When gcc8 is ready, we can make the keystone-rv32:
 
 	$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone.git keystone-rv32
-	(branch dev-rv32 commit 34da1acd on 23-Mar-2020)
+	(branch dev-rv32 commit 11cae58f on 26-May-2020)
 	
 	$ cd keystone-rv32/
 	$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ export RISCV=/opt/gcc8/riscv32gc	#point to the gcc8 riscv32gc toolchain
-	$ export PATH=$RISCV/bin:$PATH
 	
-	$ ./fast-setup.sh					#now clone the submodules then make
+	#point to toolchain of rv32
+	with FPU:	$ export RISCV=/opt/gcc8/riscv32gc
+	without FPU:	$ export RISCV=/opt/gcc8/riscv32imac
+	
+	$ export PATH=$RISCV/bin:$PATH		#export toolchain to the PATH
+	
+	$ ./fast-setup.sh					#now clone the submodules
+	
+	#run this line if you're using rv32 without FPU:
+	$ patch -p1 < patches/rv32imac.patch
+	
+	#finally, let's 'make'
 	$ make -j`nproc`
 	$ make -C sdk
 	
