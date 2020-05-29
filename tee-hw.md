@@ -46,9 +46,9 @@ In the Makefile in each folder (i.e., fpga/Xilinx/VC707, fpga/Altera/DE4, and fp
 | Variable | Description | Option |
 | -------- | ----------- | ------ |
 | ISACONF | Select ISA | RV64GC: *default* |
-| ^ | ^ | RV32GC |
-| ^ | ^ | RV32IMAFC |
-| ^ | ^ | RV32IMAC |
+| ^^ | ^^ | RV32GC |
+| ^^ | ^^ | RV32IMAFC |
+| ^^ | ^^ | RV32IMAC |
 
 ### (ii) Build FPGA (make bitstream)
 
