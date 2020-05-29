@@ -12,7 +12,7 @@ Based on the [Chipyard](https://github.com/ucb-bar/chipyard), this hardware dedi
 
 The TEE-HW has demos on VC707, DE4, and TR4 FPGA boards.
 
-The core processors can be configured to use [Rocket](https://github.com/chipsalliance/rocket-chip) cores with RV64 or RV32, or a hybrid system of Rocket (RV64) & [BOOM](https://github.com/riscv-boom/riscv-boom) cores.
+The core processors can be configured to use [Rocket](https://github.com/chipsalliance/rocket-chip) cores with RV64 or RV32, or a hybrid system of Rocket & [BOOM](https://github.com/riscv-boom/riscv-boom) cores.
 
 ## I. a) Build
 
@@ -24,17 +24,31 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	update without firesim:		$ . update_nosim.sh
 	
 ### (i) Make verilog files
-	
+
+Export appropriate toolchain to your PATH:
+
 	check PATH:		$ echo ${PATH}		#check the toolchain is on the PATH or not	
-	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}		#export the toolchain to PATH
+	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}
+	(export the toolchain that you wanted to use, for example, riscv64gc, riscv32gc, or riscv32imac, etc.)
 	
+To make the demo for each board:
+
 	$ cd <to your tee-hardware folder>
 	for VC707:		$ cd fpga/Xilinx/VC707/
 					$ make
 	for DE4:			$ cd fpga/Altera/DE4/
 					$ make
 	for TR4:			$ cd fpga/Altera/TR4/
-					$ make -f Makefile.TR4
+					$ make
+
+In the Makefile in each folder (i.e., fpga/Xilinx/VC707, fpga/Altera/DE4, and fpga/Altera/TR4), these options are availabe:
+
+| Variable | Description | Option |
+| -------- | ----------- | ------ |
+| ISACONF | Select ISA | RV64GC: *default* |
+||| RV32GC |
+| ^ | ^ | RV32IMAFC |
+| RV32IMAC |
 
 ### (ii) Build FPGA (make bitstream)
 
