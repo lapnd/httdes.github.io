@@ -43,28 +43,26 @@ To make the demo for each board:
 
 In the Makefile in each folder (i.e., fpga/Xilinx/VC707, fpga/Altera/DE4, and fpga/Altera/TR4), these options are availabe:
 
-	---------------------------------------------------
-	| Variable | Availabe option |     Description    |
-	| -------- | --------------- | ------------------ |
-	| ISACONF  | RV64GC          | Select ISA         |
-	|          | RV32GC          |                    |
-	|          | RV32IMAFC       |                    |
-	|          | RV32IMAC        |                    |
-	| -------- | --------------- | ------------------ | 
-	| BOOTSRC  | BOOTROM         | Select boot source |
-	|          | QSPI            |                    |
-	| -------- | --------------- | ------------------ |
-	| HYBRID   | Y               | Hybrid system of   |
-	|          | N               | BOOM/Rocket or not |
-	| -------- | --------------- | ------------------ |
-	| FREQ     | 50              | Select frequency   |
-	|          | 75              | (in MHz) for the   |
-	|          | 100             | system bus         |
-	|          | 125             |                    |
-	| -------- | --------------- | ------------------ |
-	| PCIE     | Y               | Include PCIE to    |
-	|          | N               | the system or not  |
-	---------------------------------------------------
+| Variable | Availabe option |     Description    |
+| -------- | --------------- | ------------------ |
+| ISACONF  | RV64GC          | Select ISA         |
+|          | RV32GC          |                    |
+|          | RV32IMAFC       |                    |
+|          | RV32IMAC        |                    |
+| -------- | --------------- | ------------------ | 
+| BOOTSRC  | BOOTROM         | Select boot source |
+|          | QSPI            |                    |
+| -------- | --------------- | ------------------ |
+| HYBRID   | Y               | Hybrid system of   |
+|          | N               | BOOM/Rocket or not |
+| -------- | --------------- | ------------------ |
+| FREQ     | 50              | Select frequency   |
+|          | 75              | (in MHz) for the   |
+|          | 100             | system bus         |
+|          | 125             |                    |
+| -------- | --------------- | ------------------ |
+| PCIE     | Y               | Include PCIE to    |
+|          | N               | the system or not  |
 
 ### (ii) Build FPGA (make bitstream)
 
