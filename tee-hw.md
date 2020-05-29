@@ -43,12 +43,28 @@ To make the demo for each board:
 
 In the Makefile in each folder (i.e., fpga/Xilinx/VC707, fpga/Altera/DE4, and fpga/Altera/TR4), these options are availabe:
 
-| Variable | Description | Option |
-| -------- | ----------- | ------ |
-| ISACONF | Select ISA | RV64GC: *default* |
-| ^^ | ^^ | RV32GC |
-| ^^ | ^^ | RV32IMAFC |
-| ^^ | ^^ | RV32IMAC |
+	---------------------------------------------------
+	| Variable | Availabe option |     Description    |
+	| -------- | --------------- | ------------------ |
+	| ISACONF  | RV64GC          | Select ISA         |
+	|          | RV32GC          |                    |
+	|          | RV32IMAFC       |                    |
+	|          | RV32IMAC        |                    |
+	| -------- | --------------- | ------------------ | 
+	| BOOTSRC  | BOOTROM         | Select boot source |
+	|          | QSPI            |                    |
+	| -------- | --------------- | ------------------ |
+	| HYBRID   | Y               | Hybrid system of   |
+	|          | N               | BOOM/Rocket or not |
+	| -------- | --------------- | ------------------ |
+	| FREQ     | 50              | Select frequency   |
+	|          | 75              | (in MHz) for the   |
+	|          | 100             | system bus         |
+	|          | 125             |                    |
+	| -------- | --------------- | ------------------ |
+	| PCIE     | Y               | Include PCIE to    |
+	|          | N               | the system or not  |
+	---------------------------------------------------
 
 ### (ii) Build FPGA (make bitstream)
 
@@ -86,6 +102,12 @@ Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-
 
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
+Note about variables in **fpga/Xilinx/VC707/Makefile**:
+
+Note about variables in **fpga/Altera/DE4/Makefile**:
+
+Note about variables in **fpga/Altera/TR4/Makefile**:
+
 ## I. b) Use with Idea IntelliJ
 
 Guide to install Idea IntelliJ is in [Initial Setup: II.e)](./init.md#ii-e-idea-intellij).
@@ -96,7 +118,7 @@ To import the tee-hardware folder to the **Idea IntelliJ** tool:
  - **Big note:** when 'make', please notice that there will be one line looks like this, you should copy it for later use *(it usually appears right before the creation of the device tree)*:
 
 ```
-cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSize=256M -jar /home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar ++2.12.4 "project keystoneAcc" "runMain uec.keystoneAcc.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/stratixIV/generated-src/uec.keystoneAcc.nedochip.NEDOFPGAQuartus.ChipConfigDE4 uec.keystoneAcc.nedochip NEDOFPGAQuartus uec.keystoneAcc.nedochip ChipConfigDE4"
+cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSize=256M -jar /home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar ++2.12.4 "project teehardware" "runMain uec.teehardware.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/Altera/DE4/src uec.teehardware FPGADE4 uec.teehardware DE4ConfigRV64GC"
 (the content may be differ on your machine)
 ```
 
@@ -110,13 +132,13 @@ To debug with the **Idea IntelliJ** tool:
  - Click the ***Add Configuration...*** button right next to the build button (at the top-bar to the right). Then hit the ***+*** button to add a new configuration, and choose the ***JAR Application*** setting
  - Now get back to the " *java -jar* " example note earlier:
 ```
-cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSize=256M -jar /home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar ++2.12.4 "project keystoneAcc" "runMain uec.keystoneAcc.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/stratixIV/generated-src/uec.keystoneAcc.nedochip.NEDOFPGAQuartus.ChipConfigDE4 uec.keystoneAcc.nedochip NEDOFPGAQuartus uec.keystoneAcc.nedochip ChipConfigDE4"
+cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSize=256M -jar /home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar ++2.12.4 "project teehardware" "runMain uec.teehardware.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/Altera/DE4/src uec.teehardware FPGADE4 uec.teehardware DE4ConfigRV64GC"
 ```
    The ***/home/ubuntu/Projects/TEE-HW/tee-hardware/hardware/chipyard/generators/rocket-chip/sbt-launch.jar*** part will go to the ***Path to JAR:***
    
-   The ***++2.12.4 "project keystoneAcc" "runMain uec.keystoneAcc.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/stratixIV/generated-src/uec.keystoneAcc.nedochip.NEDOFPGAQuartus.ChipConfigDE4 uec.keystoneAcc.nedochip NEDOFPGAQuartus uec.keystoneAcc.nedochip ChipConfigDE4"*** part will go to the ***Program arguments:***
+   The ***++2.12.4 "project teehardware" "runMain uec.teehardware.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/Altera/DE4/src uec.teehardware FPGADE4 uec.teehardware DE4ConfigRV64GC"*** part will go to the ***Program arguments:***
    
-   Everythiing else just leave as they are, then click '*Apply*' and '*OK*'. Now you can debug with freedom folder.
+   Everything else just leave as they are, then click '*Apply*' and '*OK*'. Now you can debug with freedom folder.
 
 # II. Software (with Keystone)
 
