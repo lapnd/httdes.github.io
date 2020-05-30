@@ -34,35 +34,25 @@ Export appropriate toolchain to your PATH:
 To make the demo for each board:
 
 	$ cd <to your tee-hardware folder>
-	for VC707:		$ cd fpga/Xilinx/VC707/
-					$ make
-	for DE4:			$ cd fpga/Altera/DE4/
-					$ make
-	for TR4:			$ cd fpga/Altera/TR4/
-					$ make
+	
+	for VC707:	$ cd fpga/Xilinx/VC707/
+				$ make
+					
+	for DE4:		$ cd fpga/Altera/DE4/
+				$ make
+					
+	for TR4:		$ cd fpga/Altera/TR4/
+				$ make
 
-In the Makefile in each folder (i.e., fpga/Xilinx/VC707, fpga/Altera/DE4, and fpga/Altera/TR4), these options are availabe:
+In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**, and **fpga/Altera/TR4**), these options are availabe:
 
-| Variable | Availabe option |     Description    |
-| -------- | --------------- | ------------------ |
-| ISACONF  | RV64GC          | Select ISA         |
-|          | RV32GC          |                    |
-|          | RV32IMAFC       |                    |
-|          | RV32IMAC        |                    |
-| -------- | --------------- | ------------------ | 
-| BOOTSRC  | BOOTROM         | Select boot source |
-|          | QSPI            |                    |
-| -------- | --------------- | ------------------ |
-| HYBRID   | Y               | Hybrid system of   |
-|          | N               | BOOM/Rocket or not |
-| -------- | --------------- | ------------------ |
-| FREQ     | 50              | Select frequency   |
-|          | 75              | (in MHz) for the   |
-|          | 100             | system bus         |
-|          | 125             |                    |
-| -------- | --------------- | ------------------ |
-| PCIE     | Y               | Include PCIE to    |
-|          | N               | the system or not  |
+| Variable | Availabe option | Description |
+| -------- | --------------- | ----------- |
+| ISACONF  | - RV64GC<br />- RV32GC<br />- RV32IMAFC<br />- RV32IMAC | Select ISA |
+| BOOTSRC  | - BOOTROM<br />- QSPI | Select boot source |
+| HYBRID   | - Y<br />- N | Hybrid system of<br />BOOM/Rocket or not |
+| FREQ     | - 50<br />- 75<br />- 100<br />- 125 | Select frequency<br />(in MHz) for the<br />system bus |
+| PCIE     | - Y<br />- N | Include PCIE to<br />the system or not |
 
 ### (ii) Build FPGA (make bitstream)
 
