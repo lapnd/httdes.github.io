@@ -48,11 +48,11 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 
 | Variable | Availabe option | Description |
 | -------- | --------------- | ----------- |
-| ISACONF  | - RV64GC<br />- RV32GC<br />- RV32IMAFC<br />- RV32IMAC | Select ISA |
-| BOOTSRC  | - BOOTROM<br />- QSPI | Select boot source |
-| HYBRID   | - Y<br />- N | Hybrid system of<br />BOOM/Rocket or not |
-| FREQ     | - 50<br />- 75<br />- 100<br />- 125 | Select frequency<br />(in MHz) for the<br />system bus |
-| PCIE     | - Y<br />- N | Include PCIE to<br />the system or not |
+| ISACONF  | - RV64GC<br />- RV32GC<br />- RV32IMAFC<br />- RV32IMAC | Select the ISA |
+| BOOTSRC  | - BOOTROM<br />- QSPI | Select the boot sources |
+| HYBRID   | - Y<br />- N | Hybrid of BOOM/Rocket or not |
+| FREQ     | - 50<br />- 75<br />- 100<br />- 125 | Select frequency (in MHz) for the system bus |
+| PCIE     | - Y<br />- N | Include the PCIE or not |
 
 ### (ii) Build FPGA (make bitstream)
 
