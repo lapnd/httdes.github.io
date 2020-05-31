@@ -75,13 +75,13 @@ The UART uses the USB-to-UART connection on the board.
 
 ### (ii) DE4
 
-Connect your Olimex JTAG debugger to the DE4 FPGA board by the GPIO_1 (JP4) header, with JTAG pin 1 connects to GPIO pin 1, etc.
+Connect your Olimex JTAG debugger to the DE4 FPGA board by the GPIO_1 (JP4) header, with JTAG pin\ [1-20\] connects to GPIO pin \[1-20\], etc.
 
 The UART uses the RS232 connection on the board.
 
 ### (iii) TR4
 
-Connect your Olimex JTAG debugger to the TR4 FPGA board by the GPIO_1 (JP10) header, with JTAG pin 1 connects to GPIO pin 1, etc.
+Connect your Olimex JTAG debugger to the TR4 FPGA board by the GPIO_1 (JP10) header, with JTAG pin \[1-20\] connects to GPIO pin \[1-20\], etc.
 
 For UART:
 - GPIO_1 (JP10) HSMC_TX_n[3] (pin 39 of 40-pin header) : TX ---> connects to the outside RX
@@ -158,12 +158,12 @@ The USB1.1 connection uses the chip with connections listed below.
 **For DE4:**
 
 	Signal				Pin				Header (40-pin)
-	USBWireDataIn[0]		GPIO0_D[0]		JP3[1]
-	USBWireDataIn[1]		GPIO0_D[1]		JP3[2]
-	USBWireDataOut[0]	GPIO0_D[2]		JP3[3]
-	USBWireDataOut[1]	GPIO0_D[3]		JP3[4]
-	USBWireCtrlOut		GPIO0_D[6]		JP3[7]
-	USBFullSpeed		GPIO0_D[7]		JP3[8]
+	USBFullSpeed		GPIO0_D[0]		JP3[1]
+	USBWireDataIn[0]		GPIO0_D[1]		JP3[2]
+	USBWireDataIn[1]		GPIO0_D[2]		JP3[3]
+	USBWireCtrlOut		GPIO0_D[3]		JP3[4]
+	USBWireDataOut[1]	GPIO0_D[4]		JP3[5]
+	USBWireDataOut[0]	GPIO0_D[5]		JP3[6]
 
 **For TR4:**
 
