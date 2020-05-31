@@ -59,36 +59,7 @@ Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 
 	SUBSYSTEM=="usb", ACTION=="add", ATTRS{idProduct}=="002a", ATTRS{idVendor}=="15ba", MODE="664", GROUP="plugdev"
 
-## II. b) Connection
-
-### (i) VC707
-
-Connect your Olimex JTAG debugger to the VC707 FPGA board by the XADC (J19) header as shown as follows:
-
-![Branching](./jtag-20pin.png)
-
-The four data pins TDI (pin 5), TMS (pin 7), TCLK (pin 9), and TDO (pin 13) are connected to the XADC_GPIO 0 to 3 (pin 17 to 20). The VCC (pin 1) is connected to the XADC_VCC_HEADER (pin 14). And any of the GND pin on the JTAG side is connected to the GND pin 16 of the XADC header.
-
-![Branching](./jtag-xadc.png)
-
-The UART uses the USB-to-UART connection on the board.
-
-### (ii) DE4
-
-Connect your Olimex JTAG debugger to the DE4 FPGA board by the GPIO_1 (JP4) header, with JTAG pin\ [1-20\] connects to GPIO pin \[1-20\], etc.
-
-The UART uses the RS232 connection on the board.
-
-### (iii) TR4
-
-Connect your Olimex JTAG debugger to the TR4 FPGA board by the GPIO_1 (JP10) header, with JTAG pin \[1-20\] connects to GPIO pin \[1-20\], etc.
-
-For UART:
-- GPIO_1 (JP10) HSMC_TX_n[3] (pin 39 of 40-pin header) : TX ---> connects to the outside RX
-- GPIO_1 (JP10) HSMC_TX_n[1] (pin 40 of 40-pin header) : RX <--- connects to the outside TX
-- GPIO_1 (JP10) pin 30 of 40-pin header : GND <---> connects to the UART GND
-
-## II. c) Run
+## II. b) Run
 
 You need to prepare your riscv-openocd folder, guide is in [Initial Setup: II.g)](./init.md#ii-g-openocd).
 
@@ -143,56 +114,30 @@ Some useful tips for debugging the RISC-V CPU:
 	Read from address:		$ print/x *0x...
 	Reset CPU:			$ monitor reset halt
 
-# III. Other connections
+# III. Connections
 
-Other connections use the 40-pin GPIO headers. All of the headers have pin 11th (out of 40) as 5V power supply, pin 29th as 3.3V power supply, and pin 12th and pin 30th as GND.
+## III. a) VC707
 
-## III. a) USB
+Connect your Olimex JTAG debugger to the VC707 FPGA board by the XADC (J19) header as shown as follows:
 
-The USB1.1 connection uses the chip with connections listed below.
+![Branching](./jtag-20pin.png)
 
-![Branching](./usbconnection.PNG)
+The four data pins TDI (pin 5), TMS (pin 7), TCLK (pin 9), and TDO (pin 13) are connected to the XADC_GPIO 0 to 3 (pin 17 to 20). The VCC (pin 1) is connected to the XADC_VCC_HEADER (pin 14). And any of the GND pin on the JTAG side is connected to the GND pin 16 of the XADC header.
 
-**For VC707:** it doesn't have room for the USB connection.
+![Branching](./jtag-xadc.png)
 
-**For DE4:**
+The UART uses the USB-to-UART connection on the board.
 
-	Signal				Pin				Header (40-pin)
-	USBFullSpeed		GPIO0_D[0]		JP3[1]
-	USBWireDataIn[0]		GPIO0_D[1]		JP3[2]
-	USBWireDataIn[1]		GPIO0_D[2]		JP3[3]
-	USBWireCtrlOut		GPIO0_D[3]		JP3[4]
-	USBWireDataOut[1]	GPIO0_D[4]		JP3[5]
-	USBWireDataOut[0]	GPIO0_D[5]		JP3[6]
+The SD-card uses the SD-card slot on the board
 
-**For TR4:**
+VC707 don't have enough pins for USB and QSPI.
 
-	Signal				Pin								Header (40-pin)
-	USBWireDataIn[0]		HSMC_TX_n[7]  / GPIO1_D[26]		JP10[31]
-	USBWireDataIn[1]		HSMC_TX_p[7]  / GPIO1_D[24]		JP10[27]
-	USBWireDataOut[0]	HSMC_TX_n[8]  / GPIO1_D[18]		JP10[21]
-	USBWireDataOut[1]	HSMC_TX_p[8]  / GPIO1_D[16]		JP10[19]
-	USBWireCtrlOut		HSMC_TX_n[10] / GPIO1_D[19]		JP10[22]
-	USBFullSpeed		HSMC_TX_p[10] / GPIO1_D[17]		JP10[20]
+## III. b) DE4 & TR4
 
-## III. b) QSPI
+DE4 and TR4 use two 40-pin GPIO on the board. The connections are described as follow.
 
-**For VC707:** it doesn't have room for the QSPI connection.
+![Branching](./GPIOConnect.PNG)
 
-**For DE4:**
-
-	Signal		Pin				Header (40-pin)
-	qspi_cs		GPIO1_D[1]		JP4[2]
-	qspi_sck		GPIO1_D[3]		JP4[4]
-	qspi_miso	GPIO1_D[5]		JP4[6]
-	qspi_mosi	GPIO1_D[7]		JP4[8]
-
-**For TR4:**
-
-	Signal		Pin								Header (40-pin)
-	qspi_cs		HSMC_TX_n[4] / GPIO1_D[27]		JP10[32]
-	qspi_sck		HSMC_TX_p[4] / GPIO1_D[25]		JP10[28]
-	qspi_miso	HSMC_TX_n[5] / GPIO1_D[30]		JP10[35]
-	qspi_mosi	HSMC_TX_p[5] / GPIO1_D[28]		JP10[33]
+**Note:** the DE4 board uses on-board RS232/COM port for UART and SD-card slot for SD-card.
 
 * * *
