@@ -136,7 +136,7 @@ VC707 don't have enough pins for USB and QSPI.
 
 DE4 and TR4 use two 40-pin GPIO on the board. The connections are described as follow.
 
-![Branching](./GPIOConnect.PNG)
+![Branching](./GPIOConnect.png)
 
 **Note:** the DE4 board uses on-board RS232/COM port for UART and SD-card slot for SD-card.
 
