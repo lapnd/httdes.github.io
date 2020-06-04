@@ -51,8 +51,12 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 | ISACONF  | - RV64GC<br />- RV32GC<br />- RV32IMAFC<br />- RV32IMAC | Select the ISA |
 | BOOTSRC  | - BOOTROM<br />- QSPI | Select the boot sources |
 | HYBRID   | - Rocket<br />- Boom<br />- RocketBoom<br />- BoomRocet | - Two Rocket cores<br />- Two Boom cores<br />- Rocket core 1st, Boom core 2nd<br />- Boom core 1st, Rocket core 2nd |
-| FREQ     | - 50<br />- 75<br />- 100<br />- 125 | Select frequency (in MHz) for the system bus |
+
+*Not yet support variables*
+| Variable | Availabe option | Description |
+| -------- | --------------- | ----------- |
 | PCIE     | - Y<br />- N | Include the PCIE or not |
+| FREQ     | - 50<br />- 75<br />- 100<br />- 125<br />- 150 | Select frequency (in MHz) for the system bus |
 
 ### (ii) Build FPGA (make bitstream)
 
@@ -88,11 +92,18 @@ Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-
 
 ### (iii) Notes
 
+#### About the program & debug
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
+#### About the BOOTSRC
 VC707 doesn't have enough GPIOs for QSPI, so the **BOOTSRC** variable in VC707 demo always point to the BOOTROM.
 
-32-bit Boom doesn't support FPU, so the **ISACONF**=RV32GC/RV32IMAFC will become **ISACONF**=RV32IMAC for Boom configurations.
+In the **BOOTSRC**=BOOTROM scenario, the ZSBL is stored in the BootROM inside the FPGA, the FSBL & BBL are stored outside in the SD-card (by different partitions).
+
+In the **BOOTSRC**=QSPI scenario, the ZSBL is stored in the Flash (via QSPI) outside the FPGA, the BootROM inside the FPGA now contains just a simple jump instruction that jumps directly to the Flash outside. And the FSBL & BBL are still stored in the SD-card as same as before.
+
+#### About the 32-bit Boom
+32-bit Boom doesn't support FPU, so the **ISACONF**=RV32GC/RV32IMAFC will become **ISACONF**=RV32IMAC for Boom core configurations.
 
 ## I. b) Use with Idea IntelliJ
 
@@ -174,6 +185,10 @@ After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.b
 	where the X4 is the 4th partition of the USB device
 
 ## II. c) If using QSPI (Flash)
+
+If you're using the QSPI option in the DE4 & TR4 demos (VC707 demo doesn't support QSPI), then you have to copy the ZSBL to the Flash outside. Below is the instruction of how to program the Flash via QSPI.
+
+
 
 ## II. d) Boot on & run the test
 
