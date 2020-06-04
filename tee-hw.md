@@ -190,7 +190,7 @@ After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.b
 If you're using the QSPI option in the DE4 & TR4 demos (VC707 demo doesn't support QSPI), then you have to copy the ZSBL to the Flash outside. Below is the instruction of how to program the Flash via QSPI.
 
 We are going to program the Flash via JTAG by using the RISC-V CPU itself:
-- Turn on the board, connect the JTAG & UART as usual, also remember to connect the Flash to the board.
+- Turn on & program the board, connect the JTAG & UART as usual, also remember to connect the Flash to the board.
 - On a terminal, run the OpenOCD:
 ```
 $ cd to your riscv-openocd/ folder
@@ -199,10 +199,8 @@ $ openocd -f openocd.cfg
 - If the debugger connection is success, then open a new terminal for GDB:
 ```
 $ cd <your tee-hardware folder>/software/freedom-u540-c000-bootloader
-
 # export the toolchain to PATH if it's not there yet (choose whatever toolchain that fits you)
 $ export PATH=/opt/gcc9/riscv64gc/bin/:$PATH
-
 # program the FPGAzsbl.elf to the flash
 $ riscv64-unknown-elf-gdb FPGAzsbl.elf
 $ target extended-remote localhost:3333
