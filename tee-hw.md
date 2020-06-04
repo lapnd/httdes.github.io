@@ -193,12 +193,13 @@ We are going to program the Flash via JTAG by using the RISC-V CPU itself:
 - Turn on & program the board, connect the JTAG & UART as usual, also remember to connect the Flash to the board.
 - On a terminal, run the OpenOCD:
 ```
-$ cd to your riscv-openocd/ folder
+$ cd <your riscv-openocd folder>
 $ openocd -f openocd.cfg
 ```
 - If the debugger connection is success, then open a new terminal for GDB:
 ```
-$ cd <your tee-hardware folder>/software/freedom-u540-c000-bootloader
+$ cd <your tee-hardware folder>
+$ cd software/freedom-u540-c000-bootloader	# go to bootloader folder
 $ export PATH=/opt/gcc9/riscv64gc/bin/:$PATH	# export toolchain if it's not there yet (choose the toolchain that you want)
 $ riscv64-unknown-elf-gdb FPGAzsbl.elf	# program the FPGAzsbl.elf to the flash
 $ target extended-remote localhost:3333
