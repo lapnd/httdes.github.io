@@ -199,10 +199,8 @@ $ openocd -f openocd.cfg
 - If the debugger connection is success, then open a new terminal for GDB:
 ```
 $ cd <your tee-hardware folder>/software/freedom-u540-c000-bootloader
-# export the toolchain to PATH if it's not there yet (choose whatever toolchain that fits you)
-$ export PATH=/opt/gcc9/riscv64gc/bin/:$PATH
-# program the FPGAzsbl.elf to the flash
-$ riscv64-unknown-elf-gdb FPGAzsbl.elf
+$ export PATH=/opt/gcc9/riscv64gc/bin/:$PATH	# export toolchain if it's not there yet (choose the toolchain that you want)
+$ riscv64-unknown-elf-gdb FPGAzsbl.elf	# program the FPGAzsbl.elf to the flash
 $ target extended-remote localhost:3333
 $ load	#after a while it will be done
 ```
