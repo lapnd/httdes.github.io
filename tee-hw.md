@@ -22,7 +22,7 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 	$ cd tee-hardware/
 	update with firesim:		$ . update.sh
 	update without firesim:		$ . update_nosim.sh
-	
+
 ### (i) Make verilog files
 
 Export appropriate toolchain to your PATH:
@@ -30,7 +30,7 @@ Export appropriate toolchain to your PATH:
 	check PATH:		$ echo ${PATH}		#check the toolchain is on the PATH or not	
 	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}
 	(export the toolchain that you wanted to use, for example, riscv64gc, riscv32gc, or riscv32imac, etc.)
-	
+
 To make the demo for each board:
 
 	$ cd <to your tee-hardware folder>
@@ -50,7 +50,7 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 | -------- | --------------- | ----------- |
 | ISACONF  | - RV64GC<br />- RV32GC<br />- RV32IMAFC<br />- RV32IMAC | Select the ISA |
 | BOOTSRC  | - BOOTROM<br />- QSPI | Select the boot sources |
-| HYBRID   | - Y<br />- N | Hybrid of BOOM/Rocket or not |
+| HYBRID   | - Rocket<br />- Boom<br />- RocketBoom<br />- BoomRocet | - Two Rocket cores<br />- Two Boom cores<br />- Rocket core 1st, Boom core 2nd<br />- Boom core 1st, Rocket core 2nd |
 | FREQ     | - 50<br />- 75<br />- 100<br />- 125 | Select frequency (in MHz) for the system bus |
 | PCIE     | - Y<br />- N | Include the PCIE or not |
 
@@ -90,11 +90,9 @@ Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-
 
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
-Note about variables in **fpga/Xilinx/VC707/Makefile**:
+VC707 doesn't have enough GPIOs for QSPI, so the **BOOTSRC** variable in VC707 demo always point to the BOOTROM.
 
-Note about variables in **fpga/Altera/DE4/Makefile**:
-
-Note about variables in **fpga/Altera/TR4/Makefile**:
+32-bit Boom doesn't support FPU, so the **ISACONF**=RV32GC/RV32IMAFC will become **ISACONF**=RV32IMAC for Boom configurations.
 
 ## I. b) Use with Idea IntelliJ
 
@@ -175,7 +173,9 @@ After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.b
 	$ sudo dd if=vc707fsbl.bin of=/dev/sdX4 bs=4096 conv=fsync
 	where the X4 is the 4th partition of the USB device
 
-## II. c) Boot on & run the test
+## II. c) If using QSPI (Flash)
+
+## II. d) Boot on & run the test
 
 Finally, put in the SD card to the board, program the board, then wait for the board to boot on. Communicate with the board via UART:
 
