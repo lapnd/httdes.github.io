@@ -53,6 +53,7 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 | HYBRID   | - Rocket<br />- Boom<br />- RocketBoom<br />- BoomRocet | - Two Rocket cores<br />- Two Boom cores<br />- Rocket core 1st, Boom core 2nd<br />- Boom core 1st, Rocket core 2nd |
 
 *Not yet support variables*
+
 | Variable | Availabe option | Description |
 | -------- | --------------- | ----------- |
 | PCIE     | - Y<br />- N | Include the PCIE or not |
