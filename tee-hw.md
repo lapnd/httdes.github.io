@@ -104,7 +104,7 @@ In the **BOOTSRC**=BOOTROM scenario, the ZSBL is stored in the BootROM inside th
 In the **BOOTSRC**=QSPI scenario, the ZSBL is stored in the Flash (via QSPI) outside the FPGA, the BootROM inside the FPGA now contains just a simple jump instruction that jumps directly to the Flash outside. And the FSBL & BBL are still stored in the SD-card as same as before.
 
 #### About the 32-bit Boom
-32-bit Boom doesn't support FPU, so the **ISACONF**=RV32GC/RV32IMAFC will become **ISACONF**=RV32IMAC for Boom core configurations.
+The 32-bit Boom doesn't support FPU, so the **ISACONF**=RV32GC/RV32IMAFC will become **ISACONF**=RV32IMAC for Boom core configurations.
 
 ## I. b) Use with Idea IntelliJ
 
@@ -189,7 +189,26 @@ After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.b
 
 If you're using the QSPI option in the DE4 & TR4 demos (VC707 demo doesn't support QSPI), then you have to copy the ZSBL to the Flash outside. Below is the instruction of how to program the Flash via QSPI.
 
+We are going to program the Flash via JTAG by using the RISC-V CPU itself:
+- Turn on the board, connect the JTAG & UART as usual, also remember to connect the Flash to the board.
+- On a terminal, run the OpenOCD:
+```
+$ cd to your riscv-openocd/ folder
+$ openocd -f openocd.cfg
+```
+- If the debugger connection is success, then open a new terminal for GDB:
+```
+$ cd <your tee-hardware folder>/software/freedom-u540-c000-bootloader
 
+# export the toolchain to PATH if it's not there yet (choose whatever toolchain that fits you)
+$ export PATH=/opt/gcc9/riscv64gc/bin/:$PATH
+
+# program the FPGAzsbl.elf to the flash
+$ riscv64-unknown-elf-gdb FPGAzsbl.elf
+$ target extended-remote localhost:3333
+$ load	#after a while it will be done
+```
+- Now the flash is programmed, you can quit the GDB/OpenOCD then hit reset on the board.
 
 ## II. d) Boot on & run the test
 
