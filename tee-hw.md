@@ -191,7 +191,7 @@ If you're using the QSPI option in the DE4 & TR4 demos (VC707 demo doesn't suppo
 
 We are going to program the Flash via JTAG by using the RISC-V CPU itself:
 - Turn on & program the board, connect the JTAG & UART as usual, also remember to connect the Flash to the board.
-- On a terminal, run the OpenOCD:
+- On a terminal, run the OpenOCD: *(guide on installing the OpenOCD is at [Initial Setup / II. g) OpenOCD](./init.md#ii-g-openocd))*
 ```
 $ cd <your riscv-openocd folder>
 $ openocd -f openocd.cfg
