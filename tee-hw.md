@@ -29,7 +29,6 @@ Export appropriate toolchain to your PATH:
 
 	check PATH:		$ echo ${PATH}		#check the toolchain is on the PATH or not	
 	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}
-	(export the toolchain that you wanted to use, for example, riscv64gc, riscv32gc, or riscv32imac, etc.)
 
 To make the demo for each board:
 
@@ -48,7 +47,7 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 
 | Variable | Availabe option | Description |
 | -------- | --------------- | ----------- |
-| ISACONF  | - RV64GC<br />- RV32GC<br />- RV32IMAFC<br />- RV32IMAC | Select the ISA |
+| ISACONF  | - RV64GC<br />- RV64IMAC<br />- RV32GC<br />- RV32IMAC | Select the ISA |
 | BOOTSRC  | - BOOTROM<br />- QSPI | Select the boot sources |
 | HYBRID   | - Rocket<br />- Boom<br />- RocketBoom<br />- BoomRocet | - Two Rocket cores<br />- Two Boom cores<br />- Rocket core 1st, Boom core 2nd<br />- Boom core 1st, Rocket core 2nd |
 
@@ -59,7 +58,21 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 | PCIE     | - Y<br />- N | Include the PCIE or not |
 | FREQ     | - 50<br />- 75<br />- 100<br />- 125<br />- 150 | Select frequency (in MHz) for the system bus |
 
-### (ii) Build FPGA (make bitstream)
+### (ii) Notes
+
+#### About the BOOTSRC
+VC707 doesn't have enough GPIOs for QSPI, so the **BOOTSRC** variable in VC707 demo always point to the BOOTROM even selected as QSPI.
+
+In the **BOOTSRC**=BOOTROM scenario, the ZSBL is stored in the BootROM inside the FPGA, the FSBL & BBL are stored outside in the SD-card (by different partitions).
+
+In the **BOOTSRC**=QSPI scenario, the ZSBL is stored in the Flash (via QSPI) outside the FPGA, the BootROM inside the FPGA now contains just a simple jump instruction that jumps directly to the Flash outside. And the FSBL & BBL are still stored in the SD-card as same as before.
+
+#### About the 32-bit Boom
+The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with Boom core is an invalid configuration.
+
+**TODO**: currently 32bit Boom got bug and cannot perform in FPGA, so please don't use 32bit Boom *(32/64bit Rocket and 64bit Boom are okay!)*
+
+### (iii) Build FPGA (make bitstream)
 
 #### For demo on VC707:
 - Open the Vivado tool, select the 'Open Project'
@@ -91,20 +104,8 @@ Built files are under 'tee-hardware/fpga/Xilinx/VC707/keystone-NEDOFPGA.runs/imp
 Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-hardware/fpga/Altera/TR4/output_files/' if TR4
 - .sof: bitstream file for direct programming
 
-### (iii) Notes
-
 #### About the program & debug
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
-
-#### About the BOOTSRC
-VC707 doesn't have enough GPIOs for QSPI, so the **BOOTSRC** variable in VC707 demo always point to the BOOTROM.
-
-In the **BOOTSRC**=BOOTROM scenario, the ZSBL is stored in the BootROM inside the FPGA, the FSBL & BBL are stored outside in the SD-card (by different partitions).
-
-In the **BOOTSRC**=QSPI scenario, the ZSBL is stored in the Flash (via QSPI) outside the FPGA, the BootROM inside the FPGA now contains just a simple jump instruction that jumps directly to the Flash outside. And the FSBL & BBL are still stored in the SD-card as same as before.
-
-#### About the 32-bit Boom
-The 32-bit Boom doesn't support FPU, so the **ISACONF**=RV32GC/RV32IMAFC will become **ISACONF**=RV32IMAC for Boom core configurations.
 
 ## I. b) Use with Idea IntelliJ
 
