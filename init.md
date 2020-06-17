@@ -292,31 +292,26 @@ Git clone the toolchain-making on github:
 
 The configuration command format:
 
-        $ ./configure --prefix=[path] --with-arch=[arch]
+        $ ./configure --prefix=[path] --with-arch=[arch] --with-abi=[abi]
 
 The **[path]** is where you want to store your generated toolchain.
 
 The **[arch]** is the RISC-V architecture that you want. To be specific:
 
  * **rv64** and **rv32** respectively specify the 64-bit and 32-bit instruction set options.
- * These characters **i**, **a**, **m**, **f**, **d**, **c**, and **g** are respectively stand for the instruction extensions of (*i*)nteger, (*a*)tomic, (*m*)ultiplication & division, (*f*)loating-point, (*d*)ouble floating-point, (*c*)ompress, and (*g*)eneral (general = *imafd*).
+ * These characters **i**, **a**, **m**, **f**, **d**, **c**, and **g** are respectively stand for the extensions of (*i*)nteger, (*a*)tomic, (*m*)ultiplication & division, (*f*)loating-point, (*d*)ouble floating-point, (*c*)ompress, and (*g*)eneral (general = *imafd*).
+ 
+ The **[abi]** is the ABI that specify the **compile** mode on the software. To be specific:
+ * For 32-bit, there are **ilp32** and **ilp32d** to pair with **rv32* using ***soft-float*** or ***hard-float***, respectively.
+ * For 64-bit, there are **lp64** and **lp64d** to pair with **rv64** using ***soft-float*** or ***hard-float***, respectively.
 
 For example, to generate toolchain for a general 64-bit RISC-V CPU, you can write like this:
 
-        $ ./configure --prefix=/opt/riscv64gc --with-arch=rv64gc
+        $ ./configure --prefix=/opt/riscv64gc --with-arch=rv64gc --with-abi=lp64d
 
 Or for a general 32-bit RISC-V CPU:
 
-        $ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc
-
-To adjust the using of soft-float or hard-float (default is hard-float), can specify the ABIs as follows:
-
-	$ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
-	
- * **ilp32** is for using soft-float; **ilp32d** is for using hard-float; **ilp32f** is for using single-precision in register and double-precision in memory. The default is **ilp32d**
- * **lp64**, **lp64d**, and **lp64f** are similar but for 64-bit instructions.
-
-*Note*: RocketChip uses 32/64-bit **gc** with hard-float; and VexRiscv uses 32-bit **i**, **im**, or **ima** with soft-float.
+        $ ./configure --prefix=/opt/riscv32gc --with-arch=rv32gc --with-abi=ilp32d
 
 ## III. c) Make
 
