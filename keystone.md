@@ -6,7 +6,7 @@ layout : default
 
 * * *
 
-# I. Make Keystone Project (RV64)
+# I. Make for RV64
 
 ## I. a) Keystone
 
@@ -66,12 +66,9 @@ To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
-***Note:*** keystone & keystone-demo in this tutorial use the prebuilt toolchain (kernel=4.13.x & gcc=7.2), and they won't be compatible with the current mainstream of riscv-gnu-toolchain (kernel=5.0.x & gcc=9.2). So please don't try to modify the keystone to match with the riscv-gnu-toolchain mainstream.
-
-***Further note:*** the mainstream keystone now can compatible with kernel 5.x and gcc 9.x. However, they moved from using Makefile to CMake, which is unfamiliar for me. So the task "make Keystone with native toolchain" is for the future work.
-
 * * *
-# II. Make Keystone Project (RV32)
+
+# II. Make for RV32
 
 ## II. a) Keystone
 
