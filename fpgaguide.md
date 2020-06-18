@@ -63,10 +63,11 @@ Then add this single line in the olimex-arm-usb-tiny-h.rules file:
 
 You need to prepare your riscv-openocd folder, guide is in [Initial Setup: II.g)](./init.md#ii-g-openocd).
 
-Copy this [file](./openocd.cfg) to your **riscv-openocd/** folder. Then:
+Then:
 
-	$ cd to your riscv-openocd/ folder
-	$ openocd -f openocd.cfg
+	$ cd <your riscv-openocd/ folder>
+	$ openocd -f riscv-openocd.cfg
+	or if you using flash: $ openocd -f riscv-openocd-flash.cfg
 
 If succeed, it will print something like this:
 
