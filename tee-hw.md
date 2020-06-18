@@ -195,18 +195,23 @@ We are going to program the Flash via JTAG by using the RISC-V CPU itself:
 - On a terminal, run the OpenOCD: *(guide on installing the OpenOCD is at [Initial Setup / II. g) OpenOCD](./init.md#ii-g-openocd))*
 ```
 $ cd <your riscv-openocd folder>
-$ openocd -f openocd.cfg
+$ openocd -f riscv-openocd-flash.cfg
 ```
 - If the debugger connection is success, then open a new terminal for GDB:
 ```
 $ cd <your tee-hardware folder>
 $ cd software/freedom-u540-c000-bootloader	# go to bootloader folder
 $ export PATH=/opt/gcc9/riscv64gc/bin/:$PATH	# export toolchain if it's not there yet (choose the toolchain that you want)
-$ riscv64-unknown-elf-gdb FPGAzsbl.elf	# program the FPGAzsbl.elf to the flash
+$ riscv64-unknown-elf-gdb FPGAzsbl.elf		# program the FPGAzsbl.elf to the flash
 $ target extended-remote localhost:3333
 $ load	#after a while it will be done
 ```
-- Now the flash is programmed, you can quit the GDB/OpenOCD then hit reset on the board.
+- Now the flash is programmed, you can:
+```
+$ monitor reset halt				# this will reset the CPUs
+$ c						# this will continue the CPUs
+```
+or just quit the GDB/OpenOCD then hit reset on the board.
 
 ## II. d) Boot on & run the test
 
