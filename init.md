@@ -187,6 +187,9 @@ To install & make OpenOCD:
 	$ make -j`nproc`
 	$ sudo make install -j`nproc`
 
+Configuration files for RISC-V CPU: [without Flash/QSPI](./riscv-openocd.cfg) and [with Flash/QSPI](./riscv-openocd-flash.cfg).
+You should download them and put them under the riscv-openocd/ folder.
+
 ## II. h) Vivado 2016.4
 
 (because the VC707 project now can compatible only with the 2016.4 version of Vivado)
