@@ -334,5 +334,5 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 | Next |
 | ---: |
-| [Keystone: TEE framework](./keystone.md) |
+| [Keystone: TEE framework (Makefile)](./keystone-makefile.md) |
 
