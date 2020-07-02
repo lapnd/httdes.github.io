@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# KEYSTONE: TEE FRAMEWORK
+# KEYSTONE: TEE FRAMEWORK (Using Makefile)
 
 * * *
 
@@ -10,61 +10,182 @@ layout : default
 
 ## I. a) Keystone
 
-	$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64
-	$ cd keystone-rv64/
-	$ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
-	(this is the commit right before upgrading to CMake)
-	
-	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ . source.sh
-	$ export KEYSTONE_DIR=`pwd`
-	
-	$ ./fast-setup.sh			#this will download the prebuilt toolchain (gcc-7.2) and set things up
-	$ make -j`nproc`
-	
-	$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
-	(this line is for FPGA board, because usually there is only 1GB of memory on the board)
-	
-	$ ./sdk/scripts/vault-sample.sh
-	$ ./tests/tests/vault.sh
-	$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
+### Using Their Prebuilt Toolchain (gcc-7.2)
+
+Git clone:
+```
+$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64
+$ cd keystone-rv64/
+$ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
+(this is the commit right before upgrading to CMake)
+```
+
+Check PATH:
+```
+$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+$ . source.sh
+$ export KEYSTONE_DIR=`pwd`
+```
+
+Download prebuilt toolchain & make:
+```
+$ ./fast-setup.sh			#this will download the prebuilt toolchain (gcc-7.2) and set things up
+$ make -j`nproc`
+```
+
+Build the keystone-test:
+```
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
+(this line is for FPGA board, because usually there is only 1GB of memory on the board)
+
+$ ./sdk/scripts/vault-sample.sh
+$ ./tests/tests/vault.sh
+$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
+```
+
+### Using Our Own Local Toolchain (gcc-8.3 in this example)
+
+Git clone:
+```
+$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64-local
+$ cd keystone-rv64-local/
+$ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
+(this is the commit right before upgrading to CMake)
+```
+
+Check PATH:
+```
+$ echo ${PATH}			#check if our toolchain is on the PATH or not
+$ export RISCV=/opt/GCC8/riscv64gc	#if not then export it to PATH
+$ export PATH=$RISCV/bin/:$PATH
+$ export KEYSTONE_DIR=`pwd`
+$ export KEYSTONE_SDK_DIR=`pwd`/sdk
+```
+
+Update submodule:
+```
+$ ./fast-setup.sh	#this time, it won't download the prebuilt toolchain, just update the submodule
+```
+
+We need to do some modifications before $ make:
+```
+$ vi hifive-conf/buildroot_initramfs_config
+Then change the "GCC_7=y" to "GCC_8=y"
+
+$ vi hifive-conf/buildroot_rootfs_config
+Then change "GCC_7=y" to "GCC_8=y"
+
+$ vi buildroot/support/scripts/check-kernel-headers.sh
+Then change the line "return 1" to "return 0"
+
+Finally,
+$ make -j`nproc`
+```
+
+Build the keystone-test:
+```
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
+(this line is for FPGA board, because usually there is only 1GB of memory on the board)
+
+$ ./sdk/scripts/vault-sample.sh
+$ ./tests/tests/vault.sh
+$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
+```
+
+### For Ethernet Driver & QEMU
 
 To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-usb--ethernet-drivers).
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
+*Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
+
 ## I. b) Keystone-demo
 
-	$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ cd <your keystone folder>		#go to your keystone folder
-	$ . source.sh
-	$ export KEYSTONE_DIR=`pwd`
-	
-	$ cd ../						#go back outside
-	$ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64
-	(branch master commit a25084ea on 18-Dec-2019)
-	
-	$ cd keystone-demo-rv64/
-	$ . source.sh
-	$ ./quick-start.sh				#type Y when asked
-	after this step, a new app is generated and coppied to the keystone directory
-	
-	cd back to the keystone directory and remake the image with the new keystone-demo app
-	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make image -j`nproc`			#and update the bbl.bin there
-	
-	However, it will be a false attestation. To update the new hash value, do the followings:
-	$ cd ../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
-	$ make getandsethash
-	$ rm trusted_client.riscv
-	$ make trusted_client.riscv
-	$ make copybins
-	after this step, the app is updated with the correct hash value and coppied to the keystone directory
+### Using Their Prebuilt Toolchain (gcc-7.2)
 
-	$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-	$ make image -j`nproc`			#and update the bbl.bin there
+Check PATH:
+```
+$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+$ cd keystone-rv64/		#go to your keystone folder
+$ . source.sh
+$ export KEYSTONE_DIR=`pwd`
+```
+
+Git clone:
+```
+$ cd ../						#go back outside
+$ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64
+(branch master commit a25084ea on 18-Dec-2019)
+```
+
+Make:
+```
+$ cd keystone-demo-rv64/
+$ . source.sh
+$ ./quick-start.sh				#type Y when asked
+after this step, a new app is generated and coppied to the keystone directory
+```
+
+Update keystone-demo to the keystone/ folder:
+```
+cd back to the keystone directory and remake the image with the new keystone-demo app
+$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+$ make image -j`nproc`			#and update the bbl.bin there
+```
+
+However, it will be a false attestation. To update the new hash value, do the followings:
+```
+$ cd ../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
+$ make getandsethash
+$ rm trusted_client.riscv
+$ make trusted_client.riscv
+$ make copybins
+after this step, the app is updated with the correct hash value and coppied to the keystone directory
+
+$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+$ make image -j`nproc`			#and update the bbl.bin there
+```
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
+
+*Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
+
+### Using Our Own Local Toolchain (gcc-8.3 in this example)
+
+Check PATH:
+```
+$ cd keystone-rv64-local/		#go to your keystone folder
+$ echo ${PATH}			#check if our toolchain is on the PATH or not
+$ export RISCV=/opt/GCC8/riscv64gc	#if not then export it to PATH
+$ export PATH=$RISCV/bin/:$PATH
+$ export KEYSTONE_DIR=`pwd`
+$ export KEYSTONE_SDK_DIR=`pwd`/sdk
+```
+
+Git clone:
+```
+$ cd ../						#go back outside
+$ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64-local
+(branch master commit a25084ea on 18-Dec-2019)
+```
+
+Make:
+```
+$ cd keystone-demo-rv64-local/
+$ . source.sh
+$ ./quick-start.sh				#type Y when asked
+after this step, a new app is generated and coppied to the keystone directory
+```
+
+Update keystone-demo to the keystone/ folder:
+```
+cd back to the keystone directory and remake the image with the new keystone-demo app
+$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+$ make image -j`nproc`			#and update the bbl.bin there
+```
+
+However, because the QEMU fail on using local toolchain, thus the **$ make getandsethash** can't be done on keystone-demo. This will be a TODO.
 
 * * *
 
