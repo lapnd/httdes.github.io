@@ -20,7 +20,9 @@ The guide in this tutorial has the following contents:
 
 <p style="text-align:center">SOFTWARE</p>
 
-- [Keystone: TEE framework](./keystone.md) *guides to 'make' the Keystone project*.
+- [Keystone: TEE framework](./keystone-makefile.md) *guides to 'make' the Keystone project* (Makefile).
+
+- [Keystone: TEE framework](./keystone-cmake.md) *guides to 'make' the Keystone project* (CMake).
 
 * * *
 
