@@ -358,8 +358,7 @@ Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
 - Make:
 ```
 $ make clean
-if keystone-rv64:	$ make image -j`nproc`
-if keystone-rv32:	$ make -j`nproc`
+$ make -j`nproc`
 ```
 
 ## III. d) Aftermath
