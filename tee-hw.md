@@ -76,7 +76,7 @@ The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with Boom core is 
 
 #### For demo on VC707:
 - Open the Vivado tool, select the 'Open Project'
-- Point to 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.xpr', then click 'OK'
+- Point to 'tee-hardware/fpga/Xilinx/VC707/VC707.xpr', then click 'OK'
 - Click the 'Run Synthesis' button or F11
 - When it's done, a dialog will appear, choose the 'Run Implementation', then 'OK' and wait
 - When it's done, another dialog will appear, choose the 'Generate Bitstream', then 'OK' and wait
@@ -85,17 +85,17 @@ The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with Boom core is 
 If you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. A new dialog will appear:
 - Format: select 'MCS'
 - On the 'Memory Part': browse to the one with the allias name of '28f00ag18f'
-- On the 'Filename': browse to 'tee-hardware/fpga/vc707/keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/' folder and name the file 'NEDOFPGA.mcs'
-- Tick the 'Load bitstream files': start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the 'keystone-NEDOFPGA/keystone-NEDOFPGA.runs/impl_1/NEDOFPGA.bit'
+- On the 'Filename': browse to 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/' folder and name the file 'FPGAVC707.mcs'
+- Tick the 'Load bitstream files': start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the 'VC707/VC707.runs/impl_1/FPGAVC707.bit'
 - Finally, click 'OK' to finish.
 
-Built files are under 'tee-hardware/fpga/Xilinx/VC707/keystone-NEDOFPGA.runs/impl_1/'
+Built files are under 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/'
 - .bit: bitstream file for direct programming
 - .mcs and .prm: two files for flash programming
 
 #### For demo on DE4 & TR4:
 - Open the Quartus tool, select 'File' then 'Open Project'
-- Point to 'tee-hardware/fpga/stratixIV/DE4/NEDOFPGAQuartus.qpf' if DE4; 'tee-hardware/fpga/stratixIV/TR4/TR4.qpf' if TR4. Then click 'Open'
+- Point to 'tee-hardware/fpga/Altera/DE4/DE4.qpf' if DE4; 'tee-hardware/fpga/Altera/TR4/TR4.qpf' if TR4. Then click 'Open'
 - Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
 - Click the 'Generate HDL' button then 'Generate', and wait for its done
 - When it's done, hit 'Close' then 'Finish' to close the Platform Designer's window
