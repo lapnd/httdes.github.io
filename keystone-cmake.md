@@ -2,36 +2,92 @@
 layout : default
 ---
 
-# KEYSTONE: TEE FRAMEWORK
+# KEYSTONE: TEE FRAMEWORK (Using CMake)
 
 * * *
 
-# I. Make for RV64
+# I. Install RUST
 
-## I. a) Keystone
+To enable security monitor written with RUST, llvm-9 and rust nightly toolchain are required:
+```
+$ sudo apt install llvm-9-dev clang-9 libclang-9-dev
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
 
-	$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64
-	$ cd keystone-rv64/
-	$ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
-	(this is the commit right before upgrading to CMake)
-	
-	$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-	$ . source.sh
-	$ export KEYSTONE_DIR=`pwd`
-	
-	$ ./fast-setup.sh			#this will download the prebuilt toolchain (gcc-7.2) and set things up
-	$ make -j`nproc`
-	
-	$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
-	(this line is for FPGA board, because usually there is only 1GB of memory on the board)
-	
-	$ ./sdk/scripts/vault-sample.sh
-	$ ./tests/tests/vault.sh
-	$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
+Answer the selection with 1 or simply enter key. Add $HOME/.cargo/bin to PATH as the script says.
+```
+$ export PATH=$HOME/.cargo/bin:$PATH
+```
+
+Better yet, add this to the **~/.bashrc** to make it persistent
+```
+$ sudo vi ~/.bashrc
+
+Then add this line to the end of the file:
+$ export PATH=$HOME/.cargo/bin:$PATH
+```
+
+To install and setup Rust:
+```
+$ rustup toolchain install nightly
+$ rustup +nightly component add rust-src
+$ rustup +nightly target add riscv64gc-unknown-none-elf
+$ cargo +nightly install cargo-xbuild
+```
+
+# II. Make for RV64
+
+## II. a) Keystone
+
+### Using Their Prebuilt Toolchain (gcc-7.2)
+
+Git clone:
+```
+$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64	#commit on 23-Nov-2019
+$ cd keystone-rv64/
+```
+
+Check PATH:
+```
+$ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+$ . source.sh
+$ export KEYSTONE_DIR=`pwd`
+```
+
+Download prebuilt toolchain & make:
+```
+$ ./fast-setup.sh			#this will download the prebuilt toolchain (gcc-7.2) and set things up
+
+$ mkdir build
+$ cd build/
+$ rustup update nightly
+$ cmake .. -DUSE_RUST_SM=y -DSM_CONFIGURE_ARGS="--enable-opt=0"
+$ make -j `nproc`
+$ make run-tests
+```
+The second SM_CONFIGURE_ARGS option is temporarily, see [PR#62](https://github.com/keystone-enclave/riscv-pk/pull/62).
+
+Build the keystone-test:
+```
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
+(this line is for FPGA board, because usually there is only 1GB of memory on the board)
+
+$ ./sdk/scripts/vault-sample.sh
+$ ./tests/tests/vault.sh
+$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
+```
+
+### Using Our Own Local Toolchain (gcc-8.3 in this example)
+
+
+
+### For Ethernet Driver & QEMU
 
 To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-usb--ethernet-drivers).
 
 To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
+
+*Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
 
 ## I. b) Keystone-demo
 
