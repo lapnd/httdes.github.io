@@ -6,11 +6,9 @@ layout : default
 
 * * *
 
-# I. Make for RV64
+# I. Keystone
 
-## I. a) Keystone
-
-### Using Their Prebuilt Toolchain (gcc-7.2)
+## I. a) Using their prebuilt toolchain (gcc-7.2)
 
 Git clone:
 ```
@@ -43,7 +41,7 @@ $ ./tests/tests/vault.sh
 $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
-### Using Our Own Local Toolchain (gcc-8.3 in this example)
+## I. b) Using our local toolchain (gcc-8.3 in this example)
 
 Git clone:
 ```
@@ -92,17 +90,35 @@ $ ./tests/tests/vault.sh
 $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
-### For Ethernet Driver & QEMU
-
-To turn on usb and ethernet drivers in the Linux kernel, see section [III](#iii-usb--ethernet-drivers).
-
-To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
+## I. c) Run Test on QEMU
 
 *Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
 
-## I. b) Keystone-demo
+Running QEMU on Keystone with local toolchain is a TODO.
 
-### Using Their Prebuilt Toolchain (gcc-7.2)
+```
+$ cd <keystone folder>			#go to your keystone folder
+$ ./scripts/run-qemu.sh
+Login by the id of 'root' and the password of 'sifive'.
+
+$ insmod keystone-driver.ko		#install driver
+
+To do the initial test:
+$ time ./tests/tests.ke			#ok if 'Attestation report SIGNATURE is valid' is printed
+
+To do the keystone-demo test:
+$ cd keystone-demo/			#go to the keystone-demo test
+$ ./enclave-host.riscv &			#run host in localhost
+$ ./trusted_client.riscv localhost	#connect to localhost and test
+okay if the 'Attestation signature and enclave hash are valid' is printed
+exit the Security Monitor by:	$ q
+
+exit QEMU by:	$ poweroff
+```
+
+# II. Keystone-demo
+
+## II. a) Using their prebuilt toolchain (gcc-7.2)
 
 Check PATH:
 ```
@@ -147,10 +163,6 @@ $ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
-To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
-
-*Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
-
 ### Using Our Own Local Toolchain (gcc-8.3 in this example)
 
 Check PATH:
@@ -185,7 +197,7 @@ $ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
-However, because the QEMU fail on using local toolchain, thus the **$ make getandsethash** can't be done on keystone-demo. This will be a TODO.
+However, because the QEMU fail on Keystone with local toolchain, thus the **$ make getandsethash** on the Keystone-demo can't be done. This is a TODO.
 
 * * *
 
@@ -264,28 +276,6 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
 	$ cd <your keystone folder>			#go to your keystone folder and update the bbl.bin there
 	if keystone-rv64:	$ make image -j`nproc`	
 	if keystone-rv32:	$ make -j`nproc`
-
-* * *
-
-# IV. Run Test on QEMU
-
-	$ cd <keystone folder>			#go to your keystone folder
-	$ ./scripts/run-qemu.sh
-	Login by the id of 'root' and the password of 'sifive'.
-
-	$ insmod keystone-driver.ko		#install driver
-
-	To do the initial test:
-	$ time ./tests/tests.ke			#ok if 'Attestation report SIGNATURE is valid' is printed
-
-	To do the keystone-demo test:
-	$ cd keystone-demo/			#go to the keystone-demo test
-	$ ./enclave-host.riscv &			#run host in localhost
-	$ ./trusted_client.riscv localhost	#connect to localhost and test
-	okay if the 'Attestation signature and enclave hash are valid' is printed
-	exit the Security Monitor by:	$ q
-
-	exit QEMU by:	$ poweroff
 
 * * *
 
