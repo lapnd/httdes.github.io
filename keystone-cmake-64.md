@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# KEYSTONE: TEE FRAMEWORK (Using CMake)
+# KEYSTONE: TEE FRAMEWORK (Using CMake) for RV64 Build
 
 * * *
 
@@ -310,4 +310,4 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
 
 | Back | Next |
 | :--- | ---: |
-| [Keystone: TEE framework (Makefile)](./keystone-makefile.md) | [SiFive Freedom](./vc707.md) |
+| [Keystone: TEE framework (using Makefile) for RV32 Build](./keystone-makefile-32.md) | [Keystone: TEE framework (using CMake) for RV32 Build](./keystone-cmake-32.md) |
