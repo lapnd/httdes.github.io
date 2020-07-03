@@ -8,12 +8,14 @@ layout : default
 
 # I. Keystone
 
-## I. a) Using their prebuilt toolchain (gcc-7.2)
+## I. a) RV64GC
+
+### Using their prebuilt toolchain (gcc-7.2)
 
 Git clone:
 ```
-$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64
-$ cd keystone-rv64/
+$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64gc
+$ cd keystone-rv64gc/
 $ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
 (this is the commit right before upgrading to CMake)
 ```
@@ -41,12 +43,12 @@ $ ./tests/tests/vault.sh
 $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
-## I. b) Using our local toolchain (gcc-8.3 in this example)
+### Using our local toolchain (gcc-8.3 in this example)
 
 Git clone:
 ```
-$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64-local
-$ cd keystone-rv64-local/
+$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64gc-local
+$ cd keystone-rv64gc-local/
 $ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
 (this is the commit right before upgrading to CMake)
 ```
@@ -90,30 +92,86 @@ $ ./tests/tests/vault.sh
 $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
-## I. c) Run Test on QEMU
+## I. b) RV64IMAC
 
-*Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
+Their prebuilt toolchain is RV64GC, so the only way to make the RV64IMAC is to use our local toolchain.
 
-Running QEMU on Keystone with local toolchain is a TODO.
+### Using our local toolchain (gcc-8.3 in this example)
 
+Git clone:
 ```
-$ cd <keystone folder>			#go to your keystone folder
-$ ./scripts/run-qemu.sh
-Login by the id of 'root' and the password of 'sifive'.
+$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64imac
+$ cd keystone-rv64-local/
+$ git checkout 276e14b6e53130fd5278f700ab1b99332ca143fd		#commit on 23-Nov-2019
+(this is the commit right before upgrading to CMake)
+```
 
-$ insmod keystone-driver.ko		#install driver
+Check PATH:
+```
+$ echo ${PATH}			#check if our toolchain is on the PATH or not
+$ export RISCV=/opt/GCC8/riscv64imac	#if not then export it to PATH
+$ export PATH=$RISCV/bin/:$PATH
+$ export KEYSTONE_DIR=`pwd`
+$ export KEYSTONE_SDK_DIR=`pwd`/sdk
+```
 
-To do the initial test:
-$ time ./tests/tests.ke			#ok if 'Attestation report SIGNATURE is valid' is printed
+Update submodule:
+```
+$ ./fast-setup.sh
+```
 
-To do the keystone-demo test:
-$ cd keystone-demo/			#go to the keystone-demo test
-$ ./enclave-host.riscv &			#run host in localhost
-$ ./trusted_client.riscv localhost	#connect to localhost and test
-okay if the 'Attestation signature and enclave hash are valid' is printed
-exit the Security Monitor by:	$ q
+Update the sdk Makefile:
+```
+$ vi sdk/rts/eyrie/Makefile
 
-exit QEMU by:	$ poweroff
+Add these 2 lines after the "LDFLAGS" line:
+	LIBGCC_PATH = $(shell $(CC) --print-libgcc-file-name)
+	RUNTIME_ADDEND_LINKFLAGS = -L$(dir $(LIBGCC_PATH)) -lgcc
+
+And change:
+From this:	$(LINK) $(LINKFLAGS) -o $@ $^ -T runtime.lds
+To this:		$(LINK) $(LINKFLAGS) -o $@ $^ -T runtime.lds $(RUNTIME_ADDEND_LINKFLAGS)
+```
+
+Then, remake the sdk:
+```
+$ make clean -C sdk
+$ make -C sdk
+```
+
+We need to do some modifications before make:
+```
+$ vi hifive-conf/buildroot_initramfs_config
+Then change:
+"BR2_RISCV_g=y" to "BR2_RISCV_g=n"
+"BR2_RISCV_ABI_LP64D=y" to "BR2_RISCV_ABI_LP64D=n"
+"GCC_7=y" to "GCC_8=y"
+And add this line to the top:
+BR2_GCC_TARGET_ABI="lp64"
+
+$ vi hifive-conf/buildroot_rootfs_config
+Then change "GCC_7=y" to "GCC_8=y"
+
+$ vi buildroot/support/scripts/check-kernel-headers.sh
+Then change the line "return 1" to "return 0"
+
+$ vi hifive.mk
+Then change:
+"ISA ?= rv64imafdc" to "ISA ?= rv64imac"
+"ABI ?= lp64d" to "ABI ?= lp64"
+
+Finally,
+$ make -j`nproc`
+```
+
+Build the keystone-test:
+```
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./tests/tests/test-runner.cpp
+(this line is for FPGA board, because usually there is only 1GB of memory on the board)
+
+$ ./sdk/scripts/vault-sample.sh
+$ ./tests/tests/vault.sh
+$ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
 # II. Keystone-demo
@@ -198,6 +256,32 @@ $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
 However, because the QEMU fail on Keystone with local toolchain, thus the **$ make getandsethash** on the Keystone-demo can't be done. This is a TODO.
+
+## I. c) Run Test on QEMU
+
+*Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
+
+Running QEMU on Keystone with local toolchain is a TODO.
+
+```
+$ cd <keystone folder>			#go to your keystone folder
+$ ./scripts/run-qemu.sh
+Login by the id of 'root' and the password of 'sifive'.
+
+$ insmod keystone-driver.ko		#install driver
+
+To do the initial test:
+$ time ./tests/tests.ke			#ok if 'Attestation report SIGNATURE is valid' is printed
+
+To do the keystone-demo test:
+$ cd keystone-demo/			#go to the keystone-demo test
+$ ./enclave-host.riscv &			#run host in localhost
+$ ./trusted_client.riscv localhost	#connect to localhost and test
+okay if the 'Attestation signature and enclave hash are valid' is printed
+exit the Security Monitor by:	$ q
+
+exit QEMU by:	$ poweroff
+```
 
 * * *
 
