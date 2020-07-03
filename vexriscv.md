@@ -87,7 +87,7 @@ On the second terminal, run OpenOCD:
 Finally, on the third terminal, run GDB:
 
 	$ echo $PATH											#check that if the riscv32im toolchain is on the PATH or not
-	$ export PATH=/opt/gcc9/riscv32im/bin/:$PATH				#if not, then export the riscv32im toolchain to the PATH
+	$ export PATH=/opt/riscv32im/bin/:$PATH				#if not, then export the riscv32im toolchain to the PATH
 	
 	$ cd VexRiscv/										#go to your VexRiscv folder
 	$ riscv32-unknown-elf-gdb src/test/resources/elf/uart.elf		#run the software with gdb tool
@@ -121,7 +121,7 @@ To run Linux you need a buildroot. First, prepare your vexriscv_buildroot folder
 ## II. b) Simulate on Verilator
 
 	$ echo ${PATH}							#check that if the riscv32im toolchain is on the PATH or not
-	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
+	$ export PATH=/opt/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
 	
 	$ echo ${PATH}							#check that if the vexriscv_buildroot is on the PATH or not
 	$ export BUILDROOT=/home/ubuntu/Projects/VexRiscv/vexriscv_buildroot	#if not, then export the vexriscv_buildroot to the PATH
@@ -141,7 +141,7 @@ After this, Linux should be booted on Verilator. After boot, login with **$ root
 ## II. c) Simulate with QEMU
 
 	$ echo ${PATH}							#check that if the riscv32im toolchain is on the PATH or not
-	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
+	$ export PATH=/opt/riscv32im/bin:$PATH	#if not, then export the riscv32im toolchain to the PATH
 	
 	$ echo ${PATH}							#check that if the vexriscv_buildroot is on the PATH or not
 	$ export BUILDROOT=/home/ubuntu/Projects/VexRiscv/vexriscv_buildroot		#if not, then export the vexriscv_buildroot to the PATH
@@ -202,7 +202,7 @@ To debug the Briey SoC with Verilator + OpenOCD + GDB:
 	Keep both Verilator and OpenOCD terminals running, open a third terminal to run GDB:
 	$ cd briey_software/							#cd to your briey_software/ folder
 	$ echo ${PATH}								#check that if the riscv32im toolchain is on the PATH or not
-	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH		#if not, then export the riscv32im toolchain to the PATH
+	$ export PATH=/opt/riscv32im/bin:$PATH		#if not, then export the riscv32im toolchain to the PATH
 	$ riscv32-unknown-elf-gdb test/build/briey.elf
 	$ target remote localhost:3333
 	$ monitor reset halt
@@ -290,7 +290,7 @@ where x is the number of connected USB-UART device
 Using GDB: *(open a new one, don't close the two terminals of OpenOCD & UART)*
 
 	$ echo ${PATH}								#check that if the riscv32im toolchain is on the PATH or not
-	$ export PATH=/opt/gcc9/riscv32im/bin:$PATH		#if not, then export the riscv32im toolchain to the PATH
+	$ export PATH=/opt/riscv32im/bin:$PATH		#if not, then export the riscv32im toolchain to the PATH
 	
 	$ cd software/									#go to the software folder inside the Quartus project folder
 	$ riscv32-unknown-elf-gdb build/briey.elf
