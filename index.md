@@ -30,6 +30,8 @@ The guide in this tutorial has the following contents:
   * [For RV64 Build](./keystone-cmake-64)
   * [For RV32 Build](./keystone-cmake-32)
 
+- [Turn on drivers in Keystone](./keystone-drivers)
+
 * * *
 
 <p style="text-align:center">HARDWARE</p>
