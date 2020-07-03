@@ -20,9 +20,15 @@ The guide in this tutorial has the following contents:
 
 <p style="text-align:center">SOFTWARE</p>
 
-- [Keystone: TEE framework](./keystone-makefile.md) *guides to 'make' the Keystone project* (Makefile).
+- Keystone: TEE framework *(using Makefile)*
 
-- [Keystone: TEE framework](./keystone-cmake.md) *guides to 'make' the Keystone project* (CMake).
+  * [For RV64 build](./keystone-makefile-64)
+  * [For RV32 build](./keystone-makefile-32)
+
+- Keystone: TEE framework *(using CMake)*
+
+  * [For RV64 build](./keystone-cmake-64)
+  * [For RV32 build](./keystone-cmake-32)
 
 * * *
 
