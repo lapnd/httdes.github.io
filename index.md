@@ -22,13 +22,13 @@ The guide in this tutorial has the following contents:
 
 - Keystone: TEE framework *(using Makefile)*
 
-  * [For RV64 build](./keystone-makefile-64)
-  * [For RV32 build](./keystone-makefile-32)
+  * [For RV64 Build](./keystone-makefile-64)
+  * [For RV32 Build](./keystone-makefile-32)
 
 - Keystone: TEE framework *(using CMake)*
 
-  * [For RV64 build](./keystone-cmake-64)
-  * [For RV32 build](./keystone-cmake-32)
+  * [For RV64 Build](./keystone-cmake-64)
+  * [For RV32 Build](./keystone-cmake-32)
 
 * * *
 
