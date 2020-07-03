@@ -28,7 +28,7 @@ The core processors can be configured to use [Rocket](https://github.com/chipsal
 Export appropriate toolchain to your PATH:
 
 	check PATH:		$ echo ${PATH}		#check the toolchain is on the PATH or not	
-	if not, then:		$ export PATH=/opt/gcc9/riscv64gc/bin/:${PATH}
+	if not, then:		$ export PATH=/opt/riscv64gc/bin/:${PATH}
 
 To make the demo for each board:
 
@@ -201,7 +201,7 @@ $ openocd -f riscv-openocd-flash.cfg
 ```
 $ cd <your tee-hardware folder>
 $ cd software/freedom-u540-c000-bootloader	# go to bootloader folder
-$ export PATH=/opt/gcc9/riscv64gc/bin/:$PATH	# export toolchain if it's not there yet (choose the toolchain that you want)
+$ export PATH=/opt/riscv64gc/bin/:$PATH		# export toolchain if it's not there yet (choose the toolchain that you want)
 $ riscv64-unknown-elf-gdb FPGAzsbl.elf		# program the FPGAzsbl.elf to the flash
 $ target extended-remote localhost:3333
 $ load	#after a while it will be done
