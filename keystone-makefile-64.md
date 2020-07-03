@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# KEYSTONE: TEE FRAMEWORK (Using Makefile)
+# KEYSTONE: TEE FRAMEWORK (Using Makefile) for RV64 Build
 
 * * *
 
@@ -405,4 +405,4 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
 
 | Back | Next |
 | :--- | ---: |
-| [Initial Setup](./init.md) | [Keystone: TEE framework (CMake)](./keystone-cmake.md) |
+| [Initial Setup](./init.md) | [Keystone: TEE framework (using Makefile) for RV43 Build](./keystone-makefile-32.md) |
