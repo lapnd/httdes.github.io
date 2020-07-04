@@ -47,11 +47,11 @@ $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/
 
 Git clone:
 ```
-If build for RV64GC:	$ git clone -b local-tc https://github.com/thuchoang90/keystone.git keystone-rv64gc-local
-					$ cd keystone-rv64gc-local/
+If build for RV64GC:		$ git clone -b local-tc https://github.com/thuchoang90/keystone.git keystone-rv64gc-local
+						$ cd keystone-rv64gc-local/
 
-If build for RV64IMAC:	$ git clone -b local-tc https://github.com/thuchoang90/keystone.git keystone-rv64imac
-					$ cd keystone-rv64imac/
+If build for RV64IMAC:		$ git clone -b local-tc https://github.com/thuchoang90/keystone.git keystone-rv64imac
+						$ cd keystone-rv64imac/
 ```
 
 Check PATH:
@@ -116,7 +116,7 @@ Make:
 ```
 $ cd keystone-demo-rv64/
 $ . source.sh
-$ ./quick-start.sh				#type Y when asked
+$ ./quick-start.sh		#type Y when asked
 after this step, a new app is generated and coppied to the keystone directory
 ```
 
@@ -149,9 +149,9 @@ $ cd keystone-rv64gc-local/
 Or: $ cd keystone-rv64imac/
 
 $ echo ${PATH}			#check if our toolchain is on the PATH or not
-#if not then export it to PATH
-If build for RV64GC:	$ export RISCV=/opt/GCC8/riscv64gc	#point to RV64GC toolchain
-If build for RV64IMAC:	$ export RISCV=/opt/GCC8/riscv64imac	#point to RV64IMAC toolchain
+# if not then export it to PATH
+If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc	#point to RV64GC toolchain
+If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac	#point to RV64IMAC toolchain
 
 $ export PATH=$RISCV/bin/:$PATH
 $ export KEYSTONE_DIR=`pwd`
@@ -160,7 +160,7 @@ $ export KEYSTONE_SDK_DIR=`pwd`/sdk
 
 Git clone:
 ```
-$ cd ../						#go back outside
+$ cd ../			#go back outside
 $ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64
 (branch master commit a25084ea on 18-Dec-2019)
 ```
@@ -169,7 +169,7 @@ Make:
 ```
 $ cd keystone-demo-rv64/
 $ . source.sh
-$ ./quick-start.sh				#type Y when asked
+$ ./quick-start.sh		#type Y when asked
 after this step, a new app is generated and coppied to the keystone directory
 ```
 
