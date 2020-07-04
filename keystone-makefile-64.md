@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# KEYSTONE: TEE FRAMEWORK (Using Makefile) for RV64 Build
+# KEYSTONE (using Makefile) for RV64 Build
 
 * * *
 
