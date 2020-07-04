@@ -95,6 +95,8 @@ $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/
 
 # II. Keystone-demo
 
+*Note: because their prebuilt toolchain is RV64GC, so for the RV64IMAC build please follow the guide in [II. b) Using our local toolchain](#ii-b-using-our-local-toolchain-gcc-83-in-this-example).*
+
 ## II. a) Using their prebuilt toolchain (gcc-7.2)
 
 Check PATH:
