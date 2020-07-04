@@ -13,15 +13,15 @@ layout : default
 Git clone:
 ```
 If build for RV32GC:		$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone.git keystone-rv32gc
-					$ cd keystone-rv32gc/
+						$ cd keystone-rv32gc/
 
 If build for RV32IMAC:		$ git clone -b dev-rv32 https://github.com/thuchoang90/keystone.git keystone-rv32imac
-					$ cd keystone-rv32imac/
+						$ cd keystone-rv32imac/
 ```
 
 Check PATH:
 ```
-$ echo ${PATH}					#check if our toolchain is on the PATH or not
+$ echo ${PATH}			#check if our toolchain is on the PATH or not
 
 # if not then export it to PATH
 If build for RV32GC:		$ export RISCV=/opt/GCC8/riscv32gc
@@ -51,7 +51,7 @@ $ make -C sdk
 $ cd sdk/
 $ export EYRIE_DIR=`pwd`/rts/eyrie
 $ ./scripts/init.sh --runtime eyrie --force
-$ cd ../	#go back outside
+$ cd ../		#go back outside
 ```
 
 Build the keystone-test:
@@ -61,7 +61,7 @@ $ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024
 
 $ ./sdk/scripts/vault-sample.sh
 $ ./sdk/examples/tests/vault.sh
-$ make -j`nproc`					#after this, a bbl.bin file is generated in hifive-work/bbl.bin
+$ make -j`nproc`				#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
 *Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
@@ -74,9 +74,9 @@ Check PATH:
 $ cd keystone-rv32gc/
 Or: $ cd keystone-rv32imac/
 
-$ echo ${PATH}					check if our toolchain is on the PATH or not
+$ echo ${PATH}			#check if our toolchain is on the PATH or not
 # if not then export it to PATH
-If build for RV32GC:		$ export RISCV=/opt/GCC8/riscv32gc		#point to RV32GC toolchain
+If build for RV32GC:		$ export RISCV=/opt/GCC8/riscv32gc			#point to RV32GC toolchain
 If build for RV32IMAC:		$ export RISCV=/opt/GCC8/riscv32imac		#point to RV32IMAC toolchain
 
 $ export PATH=$RISCV/bin:$PATH
@@ -86,7 +86,7 @@ $ export KEYSTONE_SDK_DIR=`pwd`/sdk
 
 Git clone:
 ```
-$ cd ../							#go back outside
+$ cd ../			#go back outside
 $ git clone -b dev-rv32 https://github.com/thuchoang90/keystone-demo.git keystone-demo-rv32
 ```
 
@@ -94,7 +94,7 @@ Make:
 ```
 $ cd keystone-demo-rv32/
 $ . source.sh
-$ ./quick-start.sh					#type Y when asked
+$ ./quick-start.sh			#type Y when asked
 after this step, a new app is generated and coppied to the keystone directory
 ```
 
