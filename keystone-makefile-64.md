@@ -8,9 +8,9 @@ layout : default
 
 # I. Keystone
 
-## I. a) RV64GC
+## I. a) Using their prebuilt toolchain (gcc-7.2)
 
-### Using their prebuilt toolchain (gcc-7.2)
+*Note: because their prebuilt toolchain is RV64GC, so for the RV64IMAC-build please follow the guide in [I. b) Using our local toolchain](#i-b-using-our-local-toolchain-gcc-83-in-this-example).*
 
 Git clone:
 ```
@@ -43,7 +43,7 @@ $ ./tests/tests/vault.sh
 $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
-### Using our local toolchain (gcc-8.3 in this example)
+## I. b) Using our local toolchain (gcc-8.3 in this example)
 
 Git clone:
 ```
@@ -94,7 +94,7 @@ $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/
 
 ## I. b) RV64IMAC
 
-Their prebuilt toolchain is RV64GC, so the only way to make the RV64IMAC is to use our local toolchain.
+
 
 ### Using our local toolchain (gcc-8.3 in this example)
 
