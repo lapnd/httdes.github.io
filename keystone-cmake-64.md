@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# KEYSTONE: TEE FRAMEWORK (Using CMake) for RV64 Build
+# KEYSTONE (using CMake) for RV64 Build
 
 * * *
 
