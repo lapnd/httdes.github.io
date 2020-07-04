@@ -2,7 +2,7 @@
 layout : default
 ---
 
-# KEYSTONE: TEE FRAMEWORK (Using CMake) for RV32 Build
+# KEYSTONE (using CMake) for RV32 Build
 
 * * *
 
