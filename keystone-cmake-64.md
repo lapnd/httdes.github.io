@@ -17,7 +17,6 @@ $ sudo apt install llvm-9-dev clang-9 libclang-9-dev
 Then check if llvm-9 is on the PATH or not, if not then find out where is the llvm-9 is installed:
 ```
 $ whereis llvm-9
-
 For example, it printed like this:
 llvm-9: /usr/lib/llvm-9 /usr/include/llvm-9
 ```
@@ -25,7 +24,6 @@ llvm-9: /usr/lib/llvm-9 /usr/include/llvm-9
 Then, add the llvm-9 installed path to the **~/.bashrc**:
 ```
 $ sudo vi ~/.bashrc
-
 And add this line to the end of the file:
 export PATH=/usr/lib/llvm-9/bin/:$PATH
 ```
@@ -40,7 +38,6 @@ Answer the selection with 1 or simply enter
 Then add $HOME/.cargo/bin to the PATH as the script said. Or better yet, add this to the **~/.bashrc** to make it persistent:
 ```
 $ sudo vi ~/.bashrc
-
 Then add this line to the end of the file:
 $ export PATH=$HOME/.cargo/bin:$PATH
 ```
@@ -109,18 +106,18 @@ $ make run-tests	#after this, a bbl.bin file is generated
 Git clone:
 ```
 If build for RV64GC:	$ git clone -b local-tc-cmake https://github.com/thuchoang90/keystone.git keystone-rv64gc-local
-			$ cd keystone-rv64gc-local/
+					$ cd keystone-rv64gc-local/
 
 If build for RV64IMAC:	$ git clone -b local-tc-cmake https://github.com/thuchoang90/keystone.git keystone-rv64imac
-			$ cd keystone-rv64imac/
+					$ cd keystone-rv64imac/
 ```
 
 Check PATH:
 ```
 $ echo ${PATH}			#check if our toolchain is on the PATH or not
 # if not then export it to PATH
-If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc		#point to RV64GC toolchain
-If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac	#point to RV64IMAC toolchain
+If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc			#point to RV64GC toolchain
+If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac		#point to RV64IMAC toolchain
 
 $ export PATH=$RISCV/bin/:$PATH
 $ export KEYSTONE_DIR=`pwd`
@@ -168,6 +165,7 @@ $ make run-tests		#after this, a bbl.bin file is generated
 
 Check PATH:
 - Pair with the prebuilt-toolchain of Keystone: *(Note: prebuilt-toolchain is RV64GC, so if you want to build for RV64IMAC please follow the local-built-toolchain)*
+
 ```
 $ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 $ cd keystone-rv64gc/				#go to your keystone folder
@@ -175,7 +173,9 @@ $ . source.sh
 $ export KEYSTONE_DIR=`pwd`
 $ export KEYSTONE_BUILD_DIR=`pwd`/build		#point to the build folder
 ```
+
 - Pair with the local-built-toolchain of Keystone:
+
 ```
 #go to your keystone folder
 $ cd keystone-rv64gc-local/
