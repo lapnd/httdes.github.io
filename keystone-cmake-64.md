@@ -214,7 +214,7 @@ $ make image -j`nproc`					#and update the bbl.bin there
 
 However, it will be a false attestation. To update the new hash value, do the followings:
 ```
-$ cd ../../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
+$ cd ../../keystone-demo-rv64/			#first, cd back to the keystone-demo directory
 $ make getandsethash
 $ rm trusted_client.riscv
 $ make trusted_client.riscv
@@ -222,7 +222,7 @@ $ make copybins
 after this step, the app is updated with the correct hash value and coppied to the keystone directory
 
 $ cd ${KEYSTONE_BUILD_DIR}		#now go back to the keystone folder
-$ make image -j`nproc`			#and update the bbl.bin there
+$ make image -j`nproc`					#and update the bbl.bin there
 ```
 
 * * *
