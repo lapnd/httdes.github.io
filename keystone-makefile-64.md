@@ -58,7 +58,7 @@ Check PATH:
 ```
 $ echo ${PATH}			#check if our toolchain is on the PATH or not
 # if not then export it to PATH
-If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc		#point to RV64GC toolchain
+If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc			#point to RV64GC toolchain
 If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac	#point to RV64IMAC toolchain
 
 $ export PATH=$RISCV/bin/:$PATH
@@ -143,7 +143,7 @@ $ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
-**Note on local-built-toolchain:** because the QEMU fail on Keystone with local toolchain, thus the **$ make getandsethash** bellow can't run on local-built-toolchain. This is a TODO. The following step is for prebuilt-toolchain.
+**Note on local-built-toolchain:** because the QEMU fail on Keystone with local toolchain, thus the **$ make getandsethash** below can't run on local-built-toolchain. This is a TODO. The following step is for prebuilt-toolchain.
 
 To update the new hash value, do the followings:
 ```
