@@ -124,7 +124,6 @@ after this step, a new app is generated and coppied to the keystone directory
 
 Update keystone-demo to the keystone/ folder:
 ```
-cd back to the keystone directory and remake the image with the new keystone-demo app
 $ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
