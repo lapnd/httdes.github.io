@@ -114,8 +114,8 @@ Or: $ cd keystone-rv64imac/
 
 $ echo ${PATH}			#check if our toolchain is on the PATH or not
 # if not then export it to PATH
-If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc	#point to RV64GC toolchain
-If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac	#point to RV64IMAC toolchain
+If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc		#point to RV64GC toolchain
+If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac		#point to RV64IMAC toolchain
 
 $ export PATH=$RISCV/bin/:$PATH
 $ export KEYSTONE_DIR=`pwd`
