@@ -50,6 +50,8 @@ $ rustup +nightly target add riscv64gc-unknown-none-elf
 $ cargo +nightly install cargo-xbuild
 ```
 
+* * *
+
 # II. Keystone
 
 ## II. a) Using their prebuilt toolchain (gcc-7.2)
@@ -160,6 +162,8 @@ $ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024
 (this line is for FPGA board, because usually there is only 1GB of memory on the board)
 $ make run-tests		#after this, a bbl.bin file is generated
 ```
+
+* * *
 
 # III. Keystone-demo
 
