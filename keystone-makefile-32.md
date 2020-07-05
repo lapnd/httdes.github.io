@@ -48,10 +48,8 @@ $ make -j`nproc`
 
 # make sdk
 $ make -C sdk
-$ cd sdk/
-$ export EYRIE_DIR=`pwd`/rts/eyrie
-$ ./scripts/init.sh --runtime eyrie --force
-$ cd ../		#go back outside
+$ export EYRIE_DIR=`pwd`/sdk/rts/eyrie
+$ ./sdk/scripts/init.sh --runtime eyrie --force
 ```
 
 Build the keystone-test:
