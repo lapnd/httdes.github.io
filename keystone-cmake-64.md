@@ -181,7 +181,7 @@ $ export KEYSTONE_BUILD_DIR=`pwd`/build		#point to the build folder
 $ cd keystone-rv64gc-local/
 Or: $ cd keystone-rv64imac/
 
-$ echo ${PATH}				#check if our toolchain is on the PATH or not
+$ echo ${PATH}			#check if our toolchain is on the PATH or not
 # if not then export it to PATH
 If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc			#point to RV64GC toolchain
 If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac		#point to RV64IMAC toolchain
@@ -209,7 +209,7 @@ after this step, a new app is generated and coppied to the keystone directory
 Update keystone-demo to keystone build folder:
 ```
 $ cd ${KEYSTONE_BUILD_DIR}		#now go back to the keystone folder
-$ make image -j`nproc`			#and update the bbl.bin there
+$ make image -j`nproc`					#and update the bbl.bin there
 ```
 
 However, it will be a false attestation. To update the new hash value, do the followings:
