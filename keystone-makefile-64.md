@@ -95,55 +95,15 @@ $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/
 
 # II. Keystone-demo
 
-*Note: because their prebuilt toolchain is RV64GC, so for the RV64IMAC build please follow the guide in [II. b) Using our local toolchain](#ii-b-using-our-local-toolchain-gcc-83-in-this-example).*
-
-## II. a) Using their prebuilt toolchain (gcc-7.2)
-
 Check PATH:
+- Pair with the prebuilt-toolchain of Keystone: *(Note: prebuilt-toolchain is RV64GC, so if you want to build for RV64IMAC please follow the local-built-toolchain)*
 ```
 $ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 $ cd keystone-rv64gc/		#go to your keystone folder
 $ . source.sh
 $ export KEYSTONE_DIR=`pwd`
 ```
-
-Git clone:
-```
-$ cd ../			#go back outside
-$ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64
-(branch master commit a25084ea on 18-Dec-2019)
-```
-
-Make:
-```
-$ cd keystone-demo-rv64/
-$ . source.sh
-$ ./quick-start.sh		#type Y when asked
-after this step, a new app is generated and coppied to the keystone directory
-```
-
-Update keystone-demo to the keystone/ folder:
-```
-$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-$ make image -j`nproc`			#and update the bbl.bin there
-```
-
-However, it will be a false attestation. To update the new hash value, do the followings:
-```
-$ cd ../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
-$ make getandsethash
-$ rm trusted_client.riscv
-$ make trusted_client.riscv
-$ make copybins
-after this step, the app is updated with the correct hash value and coppied to the keystone directory
-
-$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
-$ make image -j`nproc`			#and update the bbl.bin there
-```
-
-## II. b) Using our local toolchain (gcc-8.3 in this example)
-
-Check PATH:
+- Pair with the local-built-toolchain of Keystone:
 ```
 #go to your keystone folder
 $ cd keystone-rv64gc-local/
@@ -180,7 +140,20 @@ $ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
-However, because the QEMU fail on Keystone with local toolchain, thus the **$ make getandsethash** on the Keystone-demo can't be done. This is a TODO.
+**Note on local-built-toolchain:** because the QEMU fail on Keystone with local toolchain, thus the **$ make getandsethash** bellow can't run on local-built-toolchain. This is a TODO. The following step is for prebuilt-toolchain.
+
+To update the new hash value, do the followings:
+```
+$ cd ../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
+$ make getandsethash
+$ rm trusted_client.riscv
+$ make trusted_client.riscv
+$ make copybins
+after this step, the app is updated with the correct hash value and coppied to the keystone directory
+
+$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+$ make image -j`nproc`			#and update the bbl.bin there
+```
 
 # III. Run Test on QEMU
 
