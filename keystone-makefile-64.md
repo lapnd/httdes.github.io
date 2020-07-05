@@ -97,6 +97,7 @@ $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/
 
 Check PATH:
 - Pair with the prebuilt-toolchain of Keystone: *(Note: prebuilt-toolchain is RV64GC, so if you want to build for RV64IMAC please follow the local-built-toolchain)*
+
 ```
 $ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 $ cd keystone-rv64gc/		#go to your keystone folder
@@ -105,6 +106,7 @@ $ export KEYSTONE_DIR=`pwd`
 ```
 
 - Pair with the local-built-toolchain of Keystone:
+
 ```
 #go to your keystone folder
 $ cd keystone-rv64gc-local/
