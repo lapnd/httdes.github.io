@@ -17,10 +17,8 @@ $ sudo apt install llvm-9-dev clang-9 libclang-9-dev
 Then check if llvm-9 is on the PATH or not, if not then find out where is the llvm-9 is installed:
 ```
 $ whereis llvm-9
-```
 
 For example, it printed like this:
-```
 llvm-9: /usr/lib/llvm-9 /usr/include/llvm-9
 ```
 
@@ -85,19 +83,19 @@ $ mkdir build
 $ cd build/
 ```
 
-To build with Rust's secure-monitor:
+To make: *(Rust-build currently has issue, so please follow the normal-build)*
+- Normal-build:
+```
+$ cmake ..
+$ make -j`nproc`
+```
+- Rust-build:
 ```
 $ rustup update nightly
 $ cmake .. -DUSE_RUST_SM=y -DSM_CONFIGURE_ARGS="--enable-opt=0"
 $ make -j`nproc`
 ```
 The second SM_CONFIGURE_ARGS option is temporarily, see [PR#62](https://github.com/keystone-enclave/riscv-pk/pull/62).
-
-However, Rust-build currently has issue, so we'll go for a normal-build:
-```
-$ cmake ..
-$ make -j`nproc`
-```
 
 Build the keystone-test:
 ```
@@ -145,19 +143,19 @@ $ mkdir build
 $ cd build/
 ```
 
-To build with Rust's secure-monitor:
+To make: *(Rust-build currently has issue, so please follow the normal-build)*
+- Normal-build:
+```
+$ cmake ..
+$ make -j`nproc`
+```
+- Rust-build:
 ```
 $ rustup update nightly
 $ cmake .. -DUSE_RUST_SM=y -DSM_CONFIGURE_ARGS="--enable-opt=0"
 $ make -j`nproc`
 ```
 The second SM_CONFIGURE_ARGS option is temporarily, see [PR#62](https://github.com/keystone-enclave/riscv-pk/pull/62).
-
-However, Rust-build currently has issue, so we'll go for a normal-build:
-```
-$ cmake ..
-$ make -j`nproc`
-```
 
 Build the keystone-test:
 ```
@@ -168,23 +166,36 @@ $ make run-tests		#after this, a bbl.bin file is generated
 
 # III. Keystone-demo
 
-Note: because their prebuilt toolchain is RV64GC, so for the RV64IMAC build please follow the guide in [III. b) Using our local toolchain](#iii-b-using-our-local-toolchain-gcc-83-in-this-example).
-
-## III. a) Using their prebuilt toolchain (gcc-7.2)
-
 Check PATH:
+- Pair with the prebuilt-toolchain of Keystone: *(Note: prebuilt-toolchain is RV64GC, so if you want to build for RV64IMAC please follow the local-built-toolchain)*
 ```
-$ echo ${PATH}				#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
-$ cd keystone-rv64gc/			#go to your keystone folder
+$ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
+$ cd keystone-rv64gc/				#go to your keystone folder
 $ . source.sh
 $ export KEYSTONE_DIR=`pwd`
+$ export KEYSTONE_BUILD_DIR=`pwd`/build		#point to the build folder
+```
+- Pair with the local-built-toolchain of Keystone:
+```
+#go to your keystone folder
+$ cd keystone-rv64gc-local/
+Or: $ cd keystone-rv64imac/
+
+$ echo ${PATH}					#check if our toolchain is on the PATH or not
+# if not then export it to PATH
+If build for RV64GC:		$ export RISCV=/opt/GCC8/riscv64gc	#point to RV64GC toolchain
+If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac	#point to RV64IMAC toolchain
+
+$ export PATH=$RISCV/bin/:$PATH
+$ export KEYSTONE_DIR=`pwd`
+$ export KEYSTONE_SDK_DIR=`pwd`/sdk
+$ export KEYSTONE_BUILD_DIR=`pwd`/build		#point to the build folder
 ```
 
 Git clone:
 ```
 $ cd ../			#go back outside
-$ git clone https://github.com/keystone-enclave/keystone-demo.git keystone-demo-rv64
-(branch master commit a25084ea on 18-Dec-2019)
+$ git clone -b cmake https://github.com/thuchoang90/keystone-demo.git keystone-demo-rv64
 ```
 
 Make:
@@ -195,23 +206,22 @@ $ ./quick-start.sh				#type Y when asked
 after this step, a new app is generated and coppied to the keystone directory
 ```
 
-Update keystone-demo to keystone/ folder:
+Update keystone-demo to keystone build folder:
 ```
-cd back to the keystone directory and remake the image with the new keystone-demo app
-$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+$ cd ${KEYSTONE_BUILD_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
 However, it will be a false attestation. To update the new hash value, do the followings:
 ```
-$ cd ../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
+$ cd ../../keystone-demo-rv64/		#first, cd back to the keystone-demo directory
 $ make getandsethash
 $ rm trusted_client.riscv
 $ make trusted_client.riscv
 $ make copybins
 after this step, the app is updated with the correct hash value and coppied to the keystone directory
 
-$ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
+$ cd ${KEYSTONE_BUILD_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
