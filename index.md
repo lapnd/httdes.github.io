@@ -25,7 +25,7 @@ The guide in this tutorial has the following contents:
   * [For RV64 Build](./keystone-makefile-64.md)
   * [For RV32 Build](./keystone-makefile-32.md)
 
-- Keystone: TEE framework *(using CMake)*
+- Keystone: TEE framework *(using CMake)* *(\*newer\*)*
 
   * [For RV64 Build](./keystone-cmake-64.md)
   * [For RV32 Build](./keystone-cmake-32.md)
