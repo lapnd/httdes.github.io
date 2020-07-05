@@ -231,14 +231,14 @@ $ make image -j`nproc`					#and update the bbl.bin there
 
 ```
 $ cd <keystone folder>			#go to your keystone folder
-$ cd build/				#go to build folder
+$ cd build/					#go to build folder
 $ ./scripts/run-qemu.sh
 Login by the id of 'root' and the password of 'sifive'.
 
 $ insmod keystone-driver.ko		#install driver
 
 To do the initial test:
-$ time ./tests.ke			#ok if 'Attestation report SIGNATURE is valid' is printed
+$ time ./tests.ke				#ok if 'Attestation report SIGNATURE is valid' is printed
 
 To do the keystone-demo test:
 $ cd keystone-demo/			#go to the keystone-demo test
@@ -250,7 +250,7 @@ exit the Security Monitor by:	$ q
 exit QEMU by:	$ poweroff
 ```
 
-Note: sometimes ***./scripts/run-qemu.sh** encountered a problem like this:
+***Note:*** sometimes ***./scripts/run-qemu.sh** encountered a problem like this:
 ```
 **** Running QEMU SSH on port 5291 ****
 overriding secure boot ROM (file: /home/ubuntu/Projects/Keystone/CMake/keystone-rv64gc-local/build/bootrom.build/bootrom.bin)
