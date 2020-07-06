@@ -56,8 +56,6 @@ Build the keystone-test:
 ```
 $ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ./sdk/examples/tests/test-runner.cpp
 (this line is for FPGA board, because usually there is only 1GB of memory on the board)
-
-$ ./sdk/scripts/vault-sample.sh
 $ ./sdk/examples/tests/vault.sh
 $ make -j`nproc`				#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
