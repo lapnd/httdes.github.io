@@ -147,4 +147,4 @@ exit QEMU by:	$ poweroff
 
 | Back | Next |
 | :--- | ---: |
-| [Keystone: TEE framework (using Makefile) for RV64 Build](./keystone-makefile-64.md) | [Keystone: TEE framework (using CMake) for RV64 Build](./keystone-cmake-64.md) |
+| [Keystone (using Makefile) for RV64 Build](./keystone-makefile-64.md) | [Keystone (using CMake) for RV64 Build](./keystone-cmake-64.md) |
