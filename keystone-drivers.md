@@ -81,4 +81,4 @@ So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have 
 
 | Back | Next |
 | :--- | ---: |
-| [Keystone: TEE framework (using CMake) for RV32 Build](./keystone-cmake-32.md) | [SiFive Freedom](./vc707.md) |
+| [Keystone (using CMake) for RV64 Build](./keystone-cmake-64.md) | [SiFive Freedom](./vc707.md) |
