@@ -230,4 +230,4 @@ $ ./scripts/run-qemu.sh
 
 | Back | Next |
 | :--- | ---: |
-| [Keystone: TEE framework (using Makefile) for RV32 Build](./keystone-makefile-32.md) | [Keystone: TEE framework (using CMake) for RV32 Build](./keystone-cmake-32.md) |
+| [Keystone (using Makefile) for RV32 Build](./keystone-makefile-32.md) | [Turn on drivers in Keystone](./keystone-drivers.md) |
