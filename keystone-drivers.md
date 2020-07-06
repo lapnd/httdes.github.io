@@ -65,11 +65,11 @@ $ make clean
 $ make -j`nproc`
 ```
 
-## I. c) Remake after changes
+## I. c) Keystone-demo: remember to update hash
 
-After your changes on the kernel, the hash value of the **bbl.bin** file is different now.
+After your changes on the kernel, the hash value of the **bbl.bin** is different now.
 
-So if you want to use the keystone-demo ([I. b)](#i-b-keystone-demo)), you have to do the followings to reapply the hashes to the image file of **bbl.bin**:
+So if you want to use the keystone-demo, you have to reapply the hashes to the **bbl.bin** image file:
 ```
 $ cd <your keystone-demo folder>	#go to your keystone-demo folder
 $ make getandsethash
