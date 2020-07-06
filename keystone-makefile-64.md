@@ -190,4 +190,4 @@ exit QEMU by:	$ poweroff
 
 | Back | Next |
 | :--- | ---: |
-| [Initial Setup](./init.md) | [Keystone: TEE framework (using Makefile) for RV32 Build](./keystone-makefile-32.md) |
+| [Initial Setup](./init.md) | [Keystone (using Makefile) for RV32 Build](./keystone-makefile-32.md) |
