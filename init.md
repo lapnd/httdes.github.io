@@ -334,5 +334,5 @@ After install the dependencies, clone the toolchain-making folder, and set the c
 
 | Next |
 | ---: |
-| [Keystone: TEE framework (using Makefile) for RV64 Build](./keystone-makefile-64.md) |
+| [Keystone (using Makefile) for RV64 Build](./keystone-makefile-64.md) |
 
