@@ -8,7 +8,9 @@ layout : default
 
 **ISSUE: cmake-32 has a lot of problems, so the branch dev-rv32-cmake just keep there as reference, but nothing works.**
 
-**Trouble with generating image and build the test.ke, also the path for overlay/root/ folder is messed up. And the keystone-demo wasn't touched yet.**
+**Trouble with generating image and build the test.ke, also the path for overlay/root/ folder is messed up.**
+
+**The IMAC version wasn't touched yet, and the keystone-demo also wasn't touched yet.**
 
 * * *
 
@@ -47,30 +49,17 @@ $ export EYRIE_DIR=`pwd`/sdk/rts/eyrie
 $ ./sdk/scripts/init.sh --runtime eyrie --force
 ```
 
-Do the following if build for RV32IMAC, skip if build for RV32GC:
-```
-$ ./patches/imac-patch.sh
-```
-
 Create build folder:
 ```
 $ mkdir build
 $ cd build/
 ```
 
-To make: *(Rust-build currently has issue, so please follow the normal-build)*
-- Normal-build:
+Make:
 ```
 $ cmake .. -DRISCV32=y
 $ make -j`nproc`
 ```
-- Rust-build:
-```
-$ rustup update nightly
-$ cmake .. -DRISCV32=y -DUSE_RUST_SM=y -DSM_CONFIGURE_ARGS="--enable-opt=0"
-$ make -j`nproc`
-```
-The second SM_CONFIGURE_ARGS option is temporarily, see [PR#62](https://github.com/keystone-enclave/riscv-pk/pull/62).
 
 Build the keystone-test:
 ```
