@@ -53,11 +53,11 @@ $ make run-tests	#after this, a bbl.bin file is generated
 
 Git clone:
 ```
-If build for RV64GC:	$ git clone -b local-tc-cmake https://github.com/thuchoang90/keystone.git keystone-rv64gc-local
-					$ cd keystone-rv64gc-local/
+If build for RV64GC:		$ git clone -b local-tc-cmake https://github.com/thuchoang90/keystone.git keystone-rv64gc-local
+						$ cd keystone-rv64gc-local/
 
-If build for RV64IMAC:	$ git clone -b local-tc-cmake https://github.com/thuchoang90/keystone.git keystone-rv64imac
-					$ cd keystone-rv64imac/
+If build for RV64IMAC:		$ git clone -b local-tc-cmake https://github.com/thuchoang90/keystone.git keystone-rv64imac
+						$ cd keystone-rv64imac/
 ```
 
 Check PATH:
