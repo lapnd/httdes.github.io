@@ -28,7 +28,6 @@ The guide in this tutorial has the following contents:
 - Keystone: TEE framework *(using CMake)* *(\*newer\*)*
 
   * [For RV64 Build](./keystone-cmake-64.md)
-  * [For RV32 Build](./keystone-cmake-32.md)
 
 - [Turn on drivers in Keystone](./keystone-drivers.md)
 
