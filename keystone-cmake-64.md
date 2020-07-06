@@ -36,19 +36,11 @@ $ mkdir build
 $ cd build/
 ```
 
-To make: *(Rust-build currently has issue, so please follow the normal-build)*
-- Normal-build:
+Make:
 ```
 $ cmake ..
 $ make -j`nproc`
 ```
-- Rust-build:
-```
-$ rustup update nightly
-$ cmake .. -DUSE_RUST_SM=y -DSM_CONFIGURE_ARGS="--enable-opt=0"
-$ make -j`nproc`
-```
-The second SM_CONFIGURE_ARGS option is temporarily, see [PR#62](https://github.com/keystone-enclave/riscv-pk/pull/62).
 
 Build the keystone-test:
 ```
@@ -96,19 +88,11 @@ $ mkdir build
 $ cd build/
 ```
 
-To make: *(Rust-build currently has issue, so please follow the normal-build)*
-- Normal-build:
+Make:
 ```
 $ cmake ..
 $ make -j`nproc`
 ```
-- Rust-build:
-```
-$ rustup update nightly
-$ cmake .. -DUSE_RUST_SM=y -DSM_CONFIGURE_ARGS="--enable-opt=0"
-$ make -j`nproc`
-```
-The second SM_CONFIGURE_ARGS option is temporarily, see [PR#62](https://github.com/keystone-enclave/riscv-pk/pull/62).
 
 Build the keystone-test:
 ```
