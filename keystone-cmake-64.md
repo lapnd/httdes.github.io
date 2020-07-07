@@ -44,7 +44,7 @@ $ make -j`nproc`
 
 Build the keystone-test:
 ```
-$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../tests/tests/test-runner.cpp
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../sdk/examples/tests/test-runner.cpp
 (this line is for FPGA board, because usually there is only 1GB of memory on the board)
 $ make run-tests	#after this, a bbl.bin file is generated
 ```
@@ -96,7 +96,7 @@ $ make -j`nproc`
 
 Build the keystone-test:
 ```
-$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../tests/tests/test-runner.cpp
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../sdk/examples/tests/test-runner.cpp
 (this line is for FPGA board, because usually there is only 1GB of memory on the board)
 $ make run-tests		#after this, a bbl.bin file is generated
 ```
