@@ -6,6 +6,8 @@ layout : default
 
 * * *
 
+**NOTE: right now CMake doesn't work on FPGA (although it worked perfectly on QEMU)**
+
 # I. Keystone
 
 ## I. a) Using their prebuilt toolchain (gcc-7.2)
