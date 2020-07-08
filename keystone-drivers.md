@@ -57,7 +57,7 @@ So, the bottom line of the 'formal' way above is just to creating a new **linux_
 
 Then, I give you [THE FILE](./linux_cma_conf), you know what to do:
 - Copy the **linux_cma_conf** file to your <keystone folder>/hifive-conf/linux_cma_conf
-- Check the PATH things at III. a)
+- Check the PATH things
 - Make:
 
 ```
