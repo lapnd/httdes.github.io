@@ -10,7 +10,7 @@ layout : default
 
 There are two ways of doing this, the 'formal' way, and the shortcut.
 
-### But first, check the PATH things:
+**But first, check the PATH things:**
 ```
 $ echo ${PATH}					#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
 $ cd <your keystone folder>			#go to your keystone folder
