@@ -79,7 +79,7 @@ The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with Boom core is 
 
 ## I. c) Build FPGA (make .bit or .sof)
 
-### For demo on VC707:
+#### For demo on VC707:
 - Open the Vivado tool, select the 'Open Project'
 - Point to 'tee-hardware/fpga/Xilinx/VC707/VC707.xpr', then click 'OK'
 - Click the 'Run Synthesis' button or F11
@@ -98,7 +98,7 @@ Built files are under 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/'
 - .bit: bitstream file for direct programming
 - .mcs and .prm: two files for flash programming
 
-### For demo on DE4 & TR4:
+#### For demo on DE4 & TR4:
 - Open the Quartus tool, select 'File' then 'Open Project'
 - Point to 'tee-hardware/fpga/Altera/DE4/DE4.qpf' if DE4; 'tee-hardware/fpga/Altera/TR4/TR4.qpf' if TR4. Then click 'Open'
 - Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
@@ -109,7 +109,7 @@ Built files are under 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/'
 Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-hardware/fpga/Altera/TR4/output_files/' if TR4
 - .sof: bitstream file for direct programming
 
-### About the program & debug
+#### About the program & debug
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
 # II. Hardware: Simulate with Verilator
