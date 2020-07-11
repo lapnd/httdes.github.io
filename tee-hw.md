@@ -6,42 +6,45 @@ layout : default
 
 * * *
 
-# I. Hardware
-
 Based on the [Chipyard](https://github.com/ucb-bar/chipyard), this hardware dedicates to accelerating the Trusted Execution Environment (TEE). Original [repo](https://github.com/ckdur/tee-hardware).
 
 The TEE-HW has demos on VC707, DE4, and TR4 FPGA boards.
 
 The core processors can be configured to use [Rocket](https://github.com/chipsalliance/rocket-chip) cores with RV64 or RV32, or a hybrid system of Rocket & [BOOM](https://github.com/riscv-boom/riscv-boom) cores.
 
-## I. a) Build
+# I. Hardware: Make & Build FPGA
 
 **Git clone:**
+```
+$ git clone -b dev-thuc https://github.com/ckdur/tee-hardware.git
+$ cd tee-hardware/
+update with firesim:		$ . update.sh
+update without firesim:		$ . update_nosim.sh
+```
 
-	$ git clone -b dev-thuc https://github.com/ckdur/tee-hardware.git
-	$ cd tee-hardware/
-	update with firesim:		$ . update.sh
-	update without firesim:		$ . update_nosim.sh
-
-### (i) Make verilog files
+## I. a) Make (verilog sources)
 
 Export appropriate toolchain to your PATH:
+```
+check PATH:		$ echo ${PATH}		#check the toolchain is on the PATH or not	
+if not, then:		$ export PATH=/opt/riscv64gc/bin/:${PATH}
+```
 
-	check PATH:		$ echo ${PATH}		#check the toolchain is on the PATH or not	
-	if not, then:		$ export PATH=/opt/riscv64gc/bin/:${PATH}
+To make for each demo:
+```
+$ cd <to your tee-hardware folder>
 
-To make the demo for each board:
+for VC707:	$ cd fpga/Xilinx/VC707/
+			$ make
+				
+for DE4:		$ cd fpga/Altera/DE4/
+			$ make
+				
+for TR4:		$ cd fpga/Altera/TR4/
+			$ make
+```
 
-	$ cd <to your tee-hardware folder>
-	
-	for VC707:	$ cd fpga/Xilinx/VC707/
-				$ make
-					
-	for DE4:		$ cd fpga/Altera/DE4/
-				$ make
-					
-	for TR4:		$ cd fpga/Altera/TR4/
-				$ make
+## I. b) Makefile variables
 
 In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**, and **fpga/Altera/TR4**), these options are availabe:
 
@@ -58,23 +61,25 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 | PCIE     | - Y<br />- N | Include the PCIE or not |
 | FREQ     | - 50<br />- 75<br />- 100<br />- 125<br />- 150 | Select frequency (in MHz) for the system bus |
 
-### (ii) Notes
-
 #### About the BOOTSRC
-VC707 doesn't have enough GPIOs for QSPI, so the **BOOTSRC** variable in VC707 demo always point to the BOOTROM even selected as QSPI.
-
 In the **BOOTSRC**=BOOTROM scenario, the ZSBL is stored in the BootROM inside the FPGA, the FSBL & BBL are stored outside in the SD-card (by different partitions).
 
 In the **BOOTSRC**=QSPI scenario, the ZSBL is stored in the Flash (via QSPI) outside the FPGA, the BootROM inside the FPGA now contains just a simple jump instruction that jumps directly to the Flash outside. And the FSBL & BBL are still stored in the SD-card as same as before.
+
+#### About VC707 demo
+VC707 doesn't have enough GPIOs for QSPI and USB1.1, so the **BOOTSRC** variable always equal BOOTROM even selected as QSPI, and the USB1.1 module is deactivated in the VC707 demo.
+
+#### About DE4 & TR4 demos
+Currently, DE4 and TR4 demos aren't support PCIE. So in DE4 and TR4 demos, the **PCIE** variable always point to without PCIE.
 
 #### About the 32-bit Boom
 The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with Boom core is an invalid configuration.
 
 **TODO**: currently 32bit Boom got bug and cannot perform in FPGA, so please don't use 32bit Boom *(32/64bit Rocket and 64bit Boom are okay!)*
 
-### (iii) Build FPGA (make bitstream)
+## I. c) Build FPGA (make .bit or .sof)
 
-#### For demo on VC707:
+### For demo on VC707:
 - Open the Vivado tool, select the 'Open Project'
 - Point to 'tee-hardware/fpga/Xilinx/VC707/VC707.xpr', then click 'OK'
 - Click the 'Run Synthesis' button or F11
@@ -93,7 +98,7 @@ Built files are under 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/'
 - .bit: bitstream file for direct programming
 - .mcs and .prm: two files for flash programming
 
-#### For demo on DE4 & TR4:
+### For demo on DE4 & TR4:
 - Open the Quartus tool, select 'File' then 'Open Project'
 - Point to 'tee-hardware/fpga/Altera/DE4/DE4.qpf' if DE4; 'tee-hardware/fpga/Altera/TR4/TR4.qpf' if TR4. Then click 'Open'
 - Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
@@ -104,12 +109,18 @@ Built files are under 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/'
 Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-hardware/fpga/Altera/TR4/output_files/' if TR4
 - .sof: bitstream file for direct programming
 
-#### About the program & debug
+### About the program & debug
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
-## I. b) Use with Idea IntelliJ
+# II. Hardware: Simulate with Verilator
+
+
+
+# III. Hardware: Use with Idea IntelliJ
 
 Guide to install Idea IntelliJ is in [Initial Setup: II.e)](./init.md#ii-e-idea-intellij).
+
+## III. a) To import project
 
 To import the tee-hardware folder to the **Idea IntelliJ** tool:
 
@@ -126,6 +137,8 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
  - Tick the '*for imports*' and '*for builds*' options in the ***Use sbt shell*** then hit '*Finish*'
  - Wait for it to sync for the first time.
 
+## III. b) To debug project
+
 To debug with the **Idea IntelliJ** tool:
 
  - Click the ***Add Configuration...*** button right next to the build button (at the top-bar to the right). Then hit the ***+*** button to add a new configuration, and choose the ***JAR Application*** setting
@@ -139,54 +152,65 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
    
    Everything else just leave as they are, then click '*Apply*' and '*OK*'. Now you can debug with freedom folder.
 
-# II. Software (with Keystone)
+# IV. Software (with Keystone)
 
 Ref [link](https://github.com/keystone-enclave/keystone) for the KeyStone project.
 
-## II. a) Prepare the SD card
+## IV. a) Prepare the SD card
 
 Use the **gptfdisk** tool to create 4 partitions in the SD card.
 
 If you don't have the **gptfdisk tool**, then do the followings to install it:
+```
+$ git clone https://github.com/tmagik/gptfdisk.git	#branch master commit 3d6a1587 on 9-Dec-2018
+$ cd gptfdisk/
+$ make -j`nproc`
+```
 
-	$ git clone https://github.com/tmagik/gptfdisk.git	#branch master commit 3d6a1587 on 9-Dec-2018
-	$ cd gptfdisk/
-	$ make -j`nproc`
+To use gptfdisk:
+```
+$ cd gptfdisk/	#go to gptfdisk folder
+$ sudo ./gdisk /dev/sd?	#point to the sd-card
 
-Copy the [mksd-sifive.sh](./mksd-sifive.sh) file to your **gptfdisk** directory, then do this to partition your SD card:
+Some commands:
+$ p	# print partitions information
+$ d	# delete partition
+$ n	# create new partition
+$ w	# write partition
+```
 
-	$ ./mksd-sifive.sh /dev/sdX 8G
-	where X is the number of the USB device, and you can change the 8G to 16G if your SD card is 16G
-	
-The partitions after created:
+The sd-card after created:
+```
+Number	Start (sector)	End (sector)	Size			Code	Name
+1		2048		67583		32.0 MiB		5202	SiFive bare-metal (...
+2		264192		15759326	7.4 GiB		8300	Linux filesystem
+4		67584		67839		128.0 KiB	5201	SiFive FSBL (first-...
+```
 
-	Number	Start (sector)	End (sector)	Size			Code	Name
-	1		2048		67583		32.0 MiB		5202	SiFive bare-metal (...
-	2		264192		15759326	7.4 GiB		8300	Linux filesystem
-	4		67584		67839		128.0 KiB	5201	SiFive FSBL (first-...
-
-## II. b) Prepare BBL & FSBL
+## IV. b) Prepare BBL & FSBL
 
 #### For the bbl.bin:
 
-Follow the [instruction](./keystone.md) to make the **bbl.bin** of the Keystone & Keystone demo.
+Follow the instruction of [Keystone RV64](./keystone-makefile-64.md) or [Keystone RV32](./keystone-makefile-32.md) to make the **bbl.bin** of the Keystone & Keystone-demo.
 
 The **bbl.bin** is for the 1st partition of the SD card:
+```
+$ cd <keystone folder>				#cd to your keystone folder
+$ sudo dd if=hifive-work/bbl.bin of=/dev/sdX1 bs=4096 conv=fsync
+where the X1 is the 1st partition of the USB device
+```
 
-	$ cd <keystone folder>				#cd to your keystone folder
-	$ sudo dd if=hifive-work/bbl.bin of=/dev/sdX1 bs=4096 conv=fsync
-	where the X1 is the 1st partition of the USB device
-	
 #### For the fsbl.bin:
 
 After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.bin** file inside the folder **software/freedom-u540-c000-bootloader/**. That file is for the 4th partition of the SD card:
+```
+$ cd <your tee-hardware folder>
+$ cd software/freedom-u540-c000-bootloader/
+$ sudo dd if=vc707fsbl.bin of=/dev/sdX4 bs=4096 conv=fsync
+where the X4 is the 4th partition of the USB device
+```
 
-	$ cd <your tee-hardware folder>
-	$ cd software/freedom-u540-c000-bootloader/
-	$ sudo dd if=vc707fsbl.bin of=/dev/sdX4 bs=4096 conv=fsync
-	where the X4 is the 4th partition of the USB device
-
-## II. c) If using QSPI (Flash)
+## IV. c) If using QSPI (Flash)
 
 If you're using the QSPI option in the DE4 & TR4 demos (VC707 demo doesn't support QSPI), then you have to copy the ZSBL to the Flash outside. Below is the instruction of how to program the Flash via QSPI.
 
@@ -213,22 +237,24 @@ $ c						# this will continue the CPUs
 ```
 or just quit the GDB/OpenOCD then hit reset on the board.
 
-## II. d) Boot on & run the test
+## IV. d) Boot on & run the test
 
 Finally, put in the SD card to the board, program the board, then wait for the board to boot on. Communicate with the board via UART:
-
-	$ sudo minicom -b 115200 -D /dev/ttyUSBx
-	where x is the number of connected USB-UART
-	Login by the id of 'root' and the password of 'sifive'.
+```
+$ sudo minicom -b 115200 -D /dev/ttyUSBx
+where x is the number of connected USB-UART
+Login by the id of 'root' and the password of 'sifive'.
+```
 
 To run the keystone test:
-
-	$ insmod keystone-driver.ko		#install driver
-	$ time ./tests/tests.ke 			#okay if the 'Attestation report SIGNATURE is valid' is printed
-	$ cd keystone-demo/			#go to the keystone-demo test
-	$ ./enclave-host.riscv &			#run host in localhost
-	$ ./trusted_client.riscv localhost	#connect to localhost and test
-	okay if the 'Attestation signature and enclave hash are valid' is printed
+```
+$ insmod keystone-driver.ko		#install driver
+$ time ./tests/tests.ke 			#okay if the 'Attestation report SIGNATURE is valid' is printed
+$ cd keystone-demo/			#go to the keystone-demo test
+$ ./enclave-host.riscv &			#run host in localhost
+$ ./trusted_client.riscv localhost	#connect to localhost and test
+okay if the 'Attestation signature and enclave hash are valid' is printed
+```
 
 * * *
 
