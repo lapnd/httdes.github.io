@@ -112,15 +112,11 @@ Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-
 #### About the program & debug
 Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
 
-# II. Hardware: Simulate with Verilator
-
-
-
-# III. Hardware: Use with Idea IntelliJ
+# II. Hardware: Use with Idea IntelliJ
 
 Guide to install Idea IntelliJ is in [Initial Setup: II.e)](./init.md#ii-e-idea-intellij).
 
-## III. a) To import project
+## II. a) To import project
 
 To import the tee-hardware folder to the **Idea IntelliJ** tool:
 
@@ -137,7 +133,7 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
  - Tick the '*for imports*' and '*for builds*' options in the ***Use sbt shell*** then hit '*Finish*'
  - Wait for it to sync for the first time.
 
-## III. b) To debug project
+## II. b) To debug project
 
 To debug with the **Idea IntelliJ** tool:
 
@@ -152,11 +148,11 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
    
    Everything else just leave as they are, then click '*Apply*' and '*OK*'. Now you can debug with freedom folder.
 
-# IV. Software (with Keystone)
+# III. Software (with Keystone)
 
 Ref [link](https://github.com/keystone-enclave/keystone) for the KeyStone project.
 
-## IV. a) Prepare the SD card
+## III. a) Prepare the SD card
 
 Use the **gptfdisk** tool to create 4 partitions in the SD card.
 
@@ -187,7 +183,7 @@ Number	Start (sector)	End (sector)	Size			Code	Name
 4		67584		67839		128.0 KiB	5201	SiFive FSBL (first-...
 ```
 
-## IV. b) Prepare BBL & FSBL
+## III. b) Prepare BBL & FSBL
 
 #### For the bbl.bin:
 
@@ -210,7 +206,7 @@ $ sudo dd if=vc707fsbl.bin of=/dev/sdX4 bs=4096 conv=fsync
 where the X4 is the 4th partition of the USB device
 ```
 
-## IV. c) If using QSPI (Flash)
+## III. c) If using QSPI (Flash)
 
 If you're using the QSPI option in the DE4 & TR4 demos (VC707 demo doesn't support QSPI), then you have to copy the ZSBL to the Flash outside. Below is the instruction of how to program the Flash via QSPI.
 
@@ -237,7 +233,7 @@ $ c						# this will continue the CPUs
 ```
 or just quit the GDB/OpenOCD then hit reset on the board.
 
-## IV. d) Boot on & run the test
+## III. d) Boot on & run the test
 
 Finally, put in the SD card to the board, program the board, then wait for the board to boot on. Communicate with the board via UART:
 ```
