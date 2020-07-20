@@ -52,8 +52,8 @@ OpenOCD tool that custom-made by the SpinalHDL group for this VexRiscv CPU.
 	$ git submodule update --init --recursive
 	$ ./bootstrap
 	$ ./configure --enable-ftdi --enable-dummy
-	$ make -j`nproc`
-	$ sudo make install -j`nproc`
+	$ make
+	$ sudo make install
 
 ## I. d) Regression test
 
