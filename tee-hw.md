@@ -98,6 +98,8 @@ Built files are under 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/'
 - .bit: bitstream file for direct programming
 - .mcs and .prm: two files for flash programming
 
+**Tip:** you can set multithread for Vivado by go to the Tcl Console and type $ set_param general.maxThread <no. of cores>
+
 #### For demo on DE4 & TR4:
 - Open the Quartus tool, select 'File' then 'Open Project'
 - Point to 'tee-hardware/fpga/Altera/DE4/DE4.qpf' if DE4; 'tee-hardware/fpga/Altera/TR4/TR4.qpf' if TR4. Then click 'Open'
