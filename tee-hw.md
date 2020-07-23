@@ -66,47 +66,45 @@ In the **BOOTSRC**=QSPI scenario, the ZSBL is stored in the Flash (via QSPI) out
 VC707 doesn't have enough GPIOs for QSPI and USB1.1, so the **BOOTSRC** variable always equal BOOTROM even selected as QSPI, and the USB1.1 module is deactivated in the VC707 demo.
 
 #### About DE4 & TR4 demos
-Currently, DE4 and TR4 demos aren't support PCIE. So in DE4 and TR4 demos, the **PCIE** variable always point to without PCIE.
+Currently, DE4 and TR4 demos don't support PCIE. So in DE4 and TR4 demos, the **PCIE** variable always point to without PCIE.
 
 #### About the 32-bit Boom
 The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with Boom core is an invalid configuration.
 
-**TODO**: currently 32bit Boom got bug and cannot perform in FPGA, so please don't use 32bit Boom *(32/64bit Rocket and 64bit Boom are okay!)*
+Furthermore, 32bit Boom currently got bug and cannot perform in FPGA, so please don't use 32bit Boom *(32/64bit Rocket and 64bit Boom are okay!)*
 
 ## I. c) Build FPGA (make .bit or .sof)
 
 #### For demo on VC707:
-- Open the Vivado tool, select the 'Open Project'
-- Point to 'tee-hardware/fpga/Xilinx/VC707/VC707.xpr', then click 'OK'
-- Click the 'Run Synthesis' button or F11
-- When it's done, a dialog will appear, choose the 'Run Implementation', then 'OK' and wait
-- When it's done, another dialog will appear, choose the 'Generate Bitstream', then 'OK' and wait
-- When it's done, another dialog will appear, if you don't want to generate the files for flash programming, skip this then you're done
+- Open the Vivado tool, select the '*Open Project*'
+- Point to '*tee-hardware/fpga/Xilinx/VC707/VC707.xpr*', then click '*OK*'
+- From the top-menu or in the Flow Navigation on the left, click the '*Generate Bitstream*' (at 1st time run, it will pop-up dialog and ask about synthesys & implementation -> just tick '*Don't show this dialog again*' and hit Yes)
+- It will build sysnthesys, then implementation, then generate bitstream sequentially. When it's done, another dialog will appear and ask about '*Generate Memory Configuration*'. If you don't want to generate the files for flash programming, just skip this then you're done.
 
-If you want to program the flash, then choose the 'Generate Memory Configuration File' then click 'OK'. A new dialog will appear:
-- Format: select 'MCS'
-- On the 'Memory Part': browse to the one with the allias name of '28f00ag18f'
-- On the 'Filename': browse to 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/' folder and name the file 'FPGAVC707.mcs'
-- Tick the 'Load bitstream files': start address keep at 0x0, direction is 'up', and the 'Bitfile' browse to the 'VC707/VC707.runs/impl_1/FPGAVC707.bit'
-- Finally, click 'OK' to finish.
+But if you do want to program the flash, then choose the '*Generate Memory Configuration File*' then click '*OK*'. A new dialog will appear:
+- Format: select '*MCS*'
+- On the '*Memory Part*': browse to the one with the allias name of '*28f00ag18f*' (scroll down from the top, it is the first item on the list that has an alias name)
+- On the '*Filename*': browse to '*tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/*' folder and name the file '*FPGAVC707.mcs*'
+- Tick the '*Load bitstream files*': start address keep at 0x0, direction is '*up*', and the '*Bitfile*' browse to the '*VC707/VC707.runs/impl_1/FPGAVC707.bit*'
+- Finally, click '*OK*' to finish.
 
-Built files are under 'tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/'
+Built files are under '*tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/*'
 - .bit: bitstream file for direct programming
 - .mcs and .prm: two files for flash programming
 
-**Tip:** you can set multithread for Vivado by:
-- 1. Go to the **Tcl Console** tab (usually at the bottom) and type **$ set_param general.maxThreads 18** (set for 18 cores for example)
-- 2. Open the **Settings** (from Flow Navigator or in the Tools -> Settings) -> in the **Project Settings** choose the **Implementation** -> in the **Settings** scroll down to the **Route Design (route_design)** -> at the **More Options** type this in and Enter: **-ultrathreads**
+**Tip:** when build Vivado, you can set multithread by:
+- 1. Go to the '*Tcl Console*' tab (usually at the bottom) and type '*$ set_param general.maxThreads 18*' (set for 18 cores for example)
+- 2. Open the '*Settings*' (from Flow Navigator or in the Tools -> Settings) -> in the '*Project Settings*' on the left choose the '*Implementation*' -> in the '*Settings*' on the right scroll down to the '*Route Design (route_design)*' -> at the '*More Options*' type this in : *-ultrathreads*
 
 #### For demo on DE4 & TR4:
-- Open the Quartus tool, select 'File' then 'Open Project'
-- Point to 'tee-hardware/fpga/Altera/DE4/DE4.qpf' if DE4; 'tee-hardware/fpga/Altera/TR4/TR4.qpf' if TR4. Then click 'Open'
-- Click the 'Tools' then 'Platform Designer', choose the 'main.qsys' then 'Open'
-- Click the 'Generate HDL' button then 'Generate', and wait for its done
-- When it's done, hit 'Close' then 'Finish' to close the Platform Designer's window
-- On the Quartus's window, click the 'Compilation' button or Ctrl+L, and wait for it to finish.
+- Open the Quartus tool, select '*File*' then '*Open Project*'
+- Point to '*tee-hardware/fpga/Altera/DE4/DE4.qpf*' if DE4; '*tee-hardware/fpga/Altera/TR4/TR4.qpf*' if TR4. Then click '*Open*'
+- Click the '*Tools*' then '*Platform Designer*', choose the '*main.qsys*' then '*Open*'
+- Click the '*Generate HDL*' button then '*Generate*', and wait for its done
+- When it's done, hit '*Close*' then '*Finish*' to close the Platform Designer's window
+- On the Quartus's window, click the '*Compilation*' button or *Ctrl+L*, and wait for it to finish.
 
-Built files are under 'tee-hardware/fpga/Altera/DE4/output_files/' if DE4; 'tee-hardware/fpga/Altera/TR4/output_files/' if TR4
+Built files are under '*tee-hardware/fpga/Altera/DE4/output_files/*' if DE4; '*tee-hardware/fpga/Altera/TR4/output_files/*' if TR4
 - .sof: bitstream file for direct programming
 
 #### About the program & debug
