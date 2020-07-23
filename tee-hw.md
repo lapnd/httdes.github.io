@@ -53,9 +53,9 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 | ISACONF  | - RV64GC<br />- RV64IMAC<br />- RV32GC<br />- RV32IMAC | Select the ISA |
 | MBUS     | - MBus64<br />- MBus32 | Select the memory bus width |
 | BOOTSRC  | - BOOTROM<br />- QSPI | Select the boot sources |
-| PCIE     | - WPCIe<br />- WoPCIe | - Enable PCIe<br />- Disable PCIe |
+| PCIE     | - WPCIe<br />- WoPCIe | Enable/Disable PCIe |
 | DDRCLK   | - WSepaDDRClk<br />- WoSepaDDRClk | - Separate system-clock and DDR-clock<br />- Not separate, using the same system-clock |
-| HYBRID   | - Rocket<br />- Boom<br />- RocketBoom<br />- BoomRocet | - Two Rocket cores<br />- Two Boom cores<br />- Rocket core 1st, Boom core 2nd<br />- Boom core 1st, Rocket core 2nd |
+| HYBRID   | - Rocket<br />- Boom<br />- RocketBoom<br />- BoomRocet | - Dual-core Rocket<br />- Dual-core BOOM<br />- Dual-core hybrid: Rocket 1st, BOOM 2nd<br />- Dual-core hybrid: BOOM 1st, Rocket 2nd |
 
 #### About the BOOTSRC
 In the **BOOTSRC**=BOOTROM scenario, the ZSBL is stored in the BootROM inside the FPGA, the FSBL & BBL are stored outside in the SD-card (by different partitions).
