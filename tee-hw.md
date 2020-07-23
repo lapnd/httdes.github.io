@@ -93,8 +93,8 @@ Built files are under '*tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/*'
 - .mcs and .prm: two files for flash programming
 
 **Tip:** when build Vivado, you can set multithread by:
-- 1. Go to the '*Tcl Console*' tab (usually at the bottom) and type '*$ set_param general.maxThreads 18*' (set for 18 cores for example)
-- 2. Open the '*Settings*' (from Flow Navigator or in the Tools -> Settings) -> in the '*Project Settings*' on the left choose the '*Implementation*' -> in the '*Settings*' on the right scroll down to the '*Route Design (route_design)*' -> at the '*More Options*' type this in : *-ultrathreads*
+- Go to the '*Tcl Console*' tab (usually at the bottom) and type '*$ set_param general.maxThreads 18*' (set for 18 cores for example)
+- Open the '*Settings*' (from Flow Navigator or in the Tools -> Settings) -> in the '*Project Settings*' on the left choose the '*Implementation*' -> in the '*Settings*' on the right scroll down to the '*Route Design (route_design)*' -> at the '*More Options*' type this in : *-ultrathreads*
 
 #### For demo on DE4 & TR4:
 - Open the Quartus tool, select '*File*' then '*Open Project*'
