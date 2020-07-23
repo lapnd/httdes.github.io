@@ -96,6 +96,11 @@ Built files are under '*tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/*'
 - Go to the '*Tcl Console*' tab (usually at the bottom) and type '*$ set_param general.maxThreads 18*' (set for 18 cores for example)
 - Open the '*Settings*' (from Flow Navigator or in the Tools -> Settings) -> in the '*Project Settings*' on the left choose the '*Implementation*' -> in the '*Settings*' on the right scroll down to the '*Route Design (route_design)*' -> at the '*More Options*' type this in : *-ultrathreads*
 
+**Tip:** sometimes Vivado build gets stuck at **\[Phase 4.0 Global Route Iteration 0\]** *(and eventually it will fail)* due to congestion error. Then you can set these settings: *(Vivado will take longer time but the build will success)*
+- Open the '*Settings*' (from Flow Navigator or in the Tools -> Settings) -> in the '*Project Settings*' on the left choose the '*Synthesis*' -> in the '*Settings*' on the right, at the '*Strategy*' option, choose '*Flow_AlternateRoutability*'
+- Then on the '*Project Settings*' on the left, now choose '*Implementation*' -> in the '*Settings*' on the right, at the '*Strategy*' option, choose '*Congestion_SpreadLogic_high*'
+- '*Apply*' then '*OK*'. Now you can re-build the Vivado again.
+
 #### For demo on DE4 & TR4:
 - Open the Quartus tool, select '*File*' then '*Open Project*'
 - Point to '*tee-hardware/fpga/Altera/DE4/DE4.qpf*' if DE4; '*tee-hardware/fpga/Altera/TR4/TR4.qpf*' if TR4. Then click '*Open*'
