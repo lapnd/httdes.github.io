@@ -204,7 +204,7 @@ where the X1 is the 1st partition of the USB device
 
 #### For the fsbl.bin:
 
-After the hardware make (section [I. a)](#i-a-build) above), there is a **fsbl.bin** file inside the folder **software/freedom-u540-c000-bootloader/**. That file is for the 4th partition of the SD card:
+After the hardware make (section [I. a)](#i-a-make-verilog-sources) above), there is a **fsbl.bin** file inside the folder **software/freedom-u540-c000-bootloader/**. That file is for the 4th partition of the SD card:
 ```
 $ cd <your tee-hardware folder>
 $ cd software/freedom-u540-c000-bootloader/
