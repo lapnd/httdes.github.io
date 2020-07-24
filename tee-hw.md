@@ -10,7 +10,7 @@ Based on the [Chipyard](https://github.com/ucb-bar/chipyard), this hardware dedi
 
 The TEE-HW has demos on VC707, DE4, and TR4 FPGA boards.
 
-The core processors can be configured to use [Rocket](https://github.com/chipsalliance/rocket-chip) cores with RV64 or RV32, or a hybrid system of Rocket & [BOOM](https://github.com/riscv-boom/riscv-boom) cores.
+The core processors can be configured to use [Rocket](https://github.com/chipsalliance/rocket-chip) cores, [BOOM](https://github.com/riscv-boom/riscv-boom) cores, or a hybrid system of them.
 
 # I. Hardware: Make & Build FPGA
 
@@ -51,7 +51,6 @@ In the Makefile of each folder (i.e., **fpga/Xilinx/VC707**, **fpga/Altera/DE4**
 | Variable | Availabe option | Description |
 | -------- | --------------- | ----------- |
 | ISACONF  | - RV64GC<br />- RV64IMAC<br />- RV32GC<br />- RV32IMAC | Select the ISA |
-| MBUS     | - MBus64<br />- MBus32 | Select the memory bus width |
 | BOOTSRC  | - BOOTROM<br />- QSPI | Select the boot sources |
 | PCIE     | - WPCIe<br />- WoPCIe | Enable/Disable PCIe |
 | DDRCLK   | - WSepaDDRClk<br />- WoSepaDDRClk | - Separate system-clock and DDR-clock<br />- Not separate, using the same system-clock |
@@ -69,7 +68,7 @@ VC707 doesn't have enough GPIOs for QSPI and USB1.1, so the **BOOTSRC** variable
 Currently, DE4 and TR4 demos don't support PCIE. So in DE4 and TR4 demos, the **PCIE** variable always point to without PCIE.
 
 #### About the 32-bit Boom
-The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with Boom core is an invalid configuration.
+The 32bit Boom doesn't support FPU, so the **ISACONF**=RV32GC with **HYBRID**=\*Boom\* is an invalid configuration.
 
 Furthermore, 32bit Boom currently got bug and cannot perform in FPGA, so please don't use 32bit Boom *(32/64bit Rocket and 64bit Boom are okay!)*
 
@@ -96,7 +95,7 @@ Built files are under '*tee-hardware/fpga/Xilinx/VC707/VC707.runs/impl_1/*'
 - Go to the '*Tcl Console*' tab (usually at the bottom) and type '*$ set_param general.maxThreads 18*' (set for 18 cores for example)
 - Open the '*Settings*' (from Flow Navigator or in the Tools -> Settings) -> in the '*Project Settings*' on the left choose the '*Implementation*' -> in the '*Settings*' on the right scroll down to the '*Route Design (route_design)*' -> at the '*More Options*' type this in : *-ultrathreads*
 
-**Tip:** sometimes Vivado build gets stuck at **\[Phase 4.0 Global Route Iteration 0\]** *(and eventually it will fail)* due to congestion error. Then you can set these settings: *(Vivado will take longer time but the build will success)*
+**Tip:** sometimes Vivado build gets stuck at **\[Phase 4.0 Global Route Iteration 0\]** *(and eventually it will fail)* due to congestion error. Then you can set these settings *(Vivado will take longer time but the build will success)*:
 - Open the '*Settings*' (from Flow Navigator or in the Tools -> Settings) -> in the '*Project Settings*' on the left choose the '*Synthesis*' -> in the '*Settings*' on the right, at the '*Strategy*' option, choose '*Flow_AlternateRoutability*'
 - Then on the '*Project Settings*' on the left, now choose '*Implementation*' -> in the '*Settings*' on the right, at the '*Strategy*' option, choose '*Congestion_SpreadLogic_high*'
 - '*Apply*' then '*OK*'. Now you can re-build the Vivado again.
@@ -113,7 +112,7 @@ Built files are under '*tee-hardware/fpga/Altera/DE4/output_files/*' if DE4; '*t
 - .sof: bitstream file for direct programming
 
 #### About the program & debug
-Guide for program & debug on VC707, DE4, and TR4 can be found [here](./fpgaguide.md).
+Guide for program & debug on VC707, DE4, and TR4 can be found here: [FPGA Program & Debug Guide](./fpgaguide.md).
 
 # II. Hardware: Use with Idea IntelliJ
 
