@@ -60,6 +60,8 @@ $ ./sdk/examples/tests/vault.sh
 $ make -j`nproc`				#after this, a bbl.bin file is generated in hifive-work/bbl.bin
 ```
 
+* * *
+
 # II. Keystone-demo
 
 Check PATH:
