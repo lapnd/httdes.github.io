@@ -8,7 +8,7 @@ layout : default
 
 # I. Keystone
 
-*Note: because their prebuilt toolchain is RV64GC, so for the RV32GC/RV32IMAC build we'll using our local toolchain.*
+*Note: because their prebuilt toolchain is RV64GC, so for the RV32GC/RV32IMAC build we'll using our local-toolchain.*
 
 Git clone:
 ```
@@ -110,8 +110,6 @@ after this step, the app is updated with the correct hash value and coppied to t
 $ cd ${KEYSTONE_DIR}			#now go back to the keystone folder
 $ make -j`nproc`					#and update the bbl.bin there
 ```
-
-To run the test with QEMU, see section [IV](#iv-run-test-on-qemu).
 
 * * *
 
