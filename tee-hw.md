@@ -114,6 +114,8 @@ Built files are under '*tee-hardware/fpga/Altera/DE4/output_files/*' if DE4; '*t
 #### About the program & debug
 Guide for program & debug on VC707, DE4, and TR4 can be found here: [FPGA Program & Debug Guide](./fpgaguide.md).
 
+* * *
+
 # II. Hardware: Use with Idea IntelliJ
 
 Guide to install Idea IntelliJ is in [Initial Setup: II.e)](./init.md#ii-e-idea-intellij).
@@ -149,6 +151,8 @@ cd /home/ubuntu/Projects/TEE-HW/tee-hardware && java -Xmx8G -Xss8M -XX:MaxPermSi
    The ***++2.12.4 "project teehardware" "runMain uec.teehardware.exampletop.Generator /home/ubuntu/Projects/TEE-HW/tee-hardware/fpga/Altera/DE4/src uec.teehardware FPGADE4 uec.teehardware DE4ConfigRV64GC"*** part will go to the ***Program arguments:***
    
    Everything else just leave as they are, then click '*Apply*' and '*OK*'. Now you can debug with freedom folder.
+
+* * *
 
 # III. Software (with Keystone)
 
