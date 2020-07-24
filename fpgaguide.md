@@ -44,6 +44,8 @@ Power on the board, plugin the cable, then open Quartus and click on the 'Progra
 	c. Double-click on the <none> in the tab 'File' and browse to the .sof file
 	d. Tick on the 'Program/Configure' then hit 'Start' to program the board, and wait for it to finish
 
+* * *
+
 # II. Debug with GDB via JTAG
 
 Using the Olimex JTAG debugger. Ref [link](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-TINY-H/).
@@ -114,6 +116,8 @@ Some useful tips for debugging the RISC-V CPU:
 	Write to address:		$ set *0x...=0x...
 	Read from address:		$ print/x *0x...
 	Reset CPU:			$ monitor reset halt
+
+* * *
 
 # III. Connections
 
