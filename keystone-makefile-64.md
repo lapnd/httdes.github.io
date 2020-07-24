@@ -10,7 +10,7 @@ layout : default
 
 ## I. a) Using their prebuilt toolchain (gcc-7.2)
 
-*Note: because their prebuilt toolchain is RV64GC, so for the RV64IMAC build please follow the guide in [I. b) Using our local toolchain](#i-b-using-our-local-toolchain-gcc-83-in-this-example).*
+*Note: because their prebuilt toolchain is RV64GC, so for the RV64IMAC-build please follow the guide in [I. b) Using our local toolchain](#i-b-using-our-local-toolchain-gcc-83-in-this-example).*
 
 Git clone:
 ```
@@ -92,7 +92,7 @@ $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/
 # II. Keystone-demo
 
 Check PATH:
-- Pair with the prebuilt-toolchain of Keystone: *(Note: prebuilt-toolchain is RV64GC, so if you want to build for RV64IMAC please follow the local-built-toolchain)*
+- For prebuilt-toolchain Keystone:
 
 ```
 $ echo ${PATH}			#and MAKE SURE that NO ANY TOOLCHAIN is on the PATH
@@ -101,7 +101,7 @@ $ . source.sh
 $ export KEYSTONE_DIR=`pwd`
 ```
 
-- Pair with the local-built-toolchain of Keystone:
+- For local-toolchain Keystone:
 
 ```
 #go to your keystone folder
@@ -139,7 +139,7 @@ $ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
 
-**Note on local-built-toolchain:** because the QEMU fail on Keystone with local toolchain, thus the **$ make getandsethash** below can't run on local-built-toolchain. This is a TODO. The following step is for prebuilt-toolchain.
+**Note on local-toolchain:** because the QEMU fail on Keystone with local-toolchain, thus the **$ make getandsethash** below can't run on local-toolchain. This is a TODO. The following step is for prebuilt-toolchain only.
 
 To update the new hash value, do the followings:
 ```
@@ -156,9 +156,7 @@ $ make image -j`nproc`			#and update the bbl.bin there
 
 # III. Run Test on QEMU
 
-*Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
-
-Running QEMU on Keystone with local toolchain is a TODO.
+*Note: Keystone with local-toolchain has trouble on running QEMU (but totally fine with FPGA), so this is for prebuilt-toolchain only.*
 
 ```
 $ cd <keystone folder>			#go to your keystone folder
