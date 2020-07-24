@@ -89,6 +89,8 @@ $ make image -j`nproc`		#after this, a bbl.bin file is generated in hifive-work/
 
 *Note: using local toolchain cause trouble on running QEMU, but totally fine with FPGA.*
 
+* * *
+
 # II. Keystone-demo
 
 Check PATH:
@@ -153,6 +155,8 @@ after this step, the app is updated with the correct hash value and coppied to t
 $ cd ${KEYSTONE_DIR}		#now go back to the keystone folder
 $ make image -j`nproc`			#and update the bbl.bin there
 ```
+
+* * *
 
 # III. Run Test on QEMU
 
