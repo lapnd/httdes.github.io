@@ -92,7 +92,6 @@ Do the following if build for RV64IMAC, skip if build for RV64GC:
 $ ./patches/imac-patch.sh
 ```
 
-
 Build SDK:
 ```
 $ cd sdk/
@@ -117,7 +116,7 @@ Build the keystone-test:
 ```
 $ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../sdk/examples/tests/test-runner.cpp
 (this line is for FPGA board, because usually there is only 1GB of memory on the board)
-$ make run-tests	#remake the tests
+$ make run-tests
 $ make image		#after this, a new bbl.bin is generated
 ```
 
