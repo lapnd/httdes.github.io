@@ -16,7 +16,7 @@ Note: because their prebuilt toolchain is RV64GC, so for the RV64IMAC build plea
 
 Git clone:
 ```
-$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64gc	#commit be61c6e3 on 6-May-2020
+$ git clone https://github.com/keystone-enclave/keystone.git keystone-rv64gc	#commit 21c77189 on 30-Aug-2020
 $ cd keystone-rv64gc/
 ```
 
@@ -32,23 +32,32 @@ Download prebuilt toolchain:
 $ ./fast-setup.sh			#this will download the prebuilt toolchain (gcc-7.2) and set things up
 ```
 
-Create build folder:
+Build SDK:
+```
+$ cd sdk/
+$ mkdir build
+$ cd build/
+$ export KEYSTONE_SDK_DIR=`pwd`
+$ cmake ..
+$ make
+$ make install
+$ cd ../../		#go back outside after make
+```
+
+Create build folder & make:
 ```
 $ mkdir build
 $ cd build/
-```
-
-Make:
-```
 $ cmake ..
 $ make -j`nproc`
 ```
 
 Build the keystone-test:
 ```
-$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../tests/tests/test-runner.cpp
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../sdk/examples/tests/test-runner.cpp
 (this line is for FPGA board, because usually there is only 1GB of memory on the board)
-$ make run-tests	#after this, a bbl.bin file is generated
+$ make run-tests	#remake the tests
+$ make image		#after this, a new bbl.bin is generated
 ```
 
 ## I. b) Using our local toolchain (gcc-8.3 in this example)
@@ -71,7 +80,6 @@ If build for RV64IMAC:		$ export RISCV=/opt/GCC8/riscv64imac		#point to RV64IMAC
 
 $ export PATH=$RISCV/bin/:$PATH
 $ export KEYSTONE_DIR=`pwd`
-$ export KEYSTONE_SDK_DIR=`pwd`/sdk
 ```
 
 Update submodule:
@@ -84,23 +92,33 @@ Do the following if build for RV64IMAC, skip if build for RV64GC:
 $ ./patches/imac-patch.sh
 ```
 
-Create build folder:
+
+Build SDK:
+```
+$ cd sdk/
+$ mkdir build
+$ cd build/
+$ export KEYSTONE_SDK_DIR=`pwd`
+$ cmake ..
+$ make
+$ make install
+$ cd ../../		#go back outside after make
+```
+
+Create build folder & make:
 ```
 $ mkdir build
 $ cd build/
-```
-
-Make:
-```
 $ cmake ..
 $ make -j`nproc`
 ```
 
 Build the keystone-test:
 ```
-$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../tests/tests/test-runner.cpp
+$ sed -i 's/size_t\sfreemem_size\s=\s48\*1024\*1024/size_t freemem_size = 2*1024*1024/g' ../sdk/examples/tests/test-runner.cpp
 (this line is for FPGA board, because usually there is only 1GB of memory on the board)
-$ make run-tests		#after this, a bbl.bin file is generated
+$ make run-tests	#remake the tests
+$ make image		#after this, a new bbl.bin is generated
 ```
 
 * * *
