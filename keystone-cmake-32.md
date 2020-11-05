@@ -6,14 +6,6 @@ layout : default
 
 * * *
 
-**ISSUE: cmake-32 has a lot of problems, so the branch dev-rv32-cmake just keep there as reference, but nothing works.**
-
-**Trouble with generating image and build the test.ke, also the path for overlay/root/ folder is messed up.**
-
-**The IMAC version wasn't touched yet, and the keystone-demo also wasn't touched yet.**
-
-* * *
-
 # I. Keystone
 
 Note: because their prebuilt toolchain is RV64GC, so for the RV32GC/RV32IMAC build we'll using our local toolchain.
