@@ -179,6 +179,26 @@ $ cd ${KEYSTONE_BUILD_DIR}		#now go back to the keystone folder
 $ make image							#and update the bbl.bin there
 ```
 
+***Note:*** sometimes ***./scripts/get_attestation.sh ./include*** encountered a problem like this:
+```
+spawn ./scripts/run-qemu.sh
+**** Running QEMU SSH on port 3000 ****
+qemu-system-riscv64: Could not set up host forwarding rule 'tcp::3000-:22'
+expect: spawn id exp4 not open
+    while executing
+"expect "*?assword" { send "sifive\r" }"
+Could not extract the SM_HASH!
+```
+
+Then just change the SSH port in **${KEYSTONE_BUILD_DIR}/scripts/get_attestation.sh** from:
+```
+HOST_PORT=${HOST_PORT:="$((3000 + RANDOM % 3000))"};
+```
+To any fix number like this for example:
+```
+HOST_PORT=${HOST_PORT:="$((3222))"};
+```
+
 * * *
 
 # III. Run Test on QEMU
@@ -204,7 +224,7 @@ exit the Security Monitor by:	$ q
 exit QEMU by:	$ poweroff
 ```
 
-***Note:*** sometimes ***./scripts/run-qemu.sh** encountered a problem like this:
+***Note:*** sometimes ***./scripts/run-qemu.sh*** encountered a problem like this:
 ```
 **** Running QEMU SSH on port 5291 ****
 overriding secure boot ROM (file: /home/ubuntu/Projects/Keystone/CMake/keystone-rv64gc-local/build/bootrom.build/bootrom.bin)
