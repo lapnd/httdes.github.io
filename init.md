@@ -188,7 +188,7 @@ Open OCD (OCD: On-Chip Debugger) is a tool to control a CPU via a debugger, thus
 
 To install & make OpenOCD:
 ```
-$ git clone https://github.com/riscv/riscv-openocd.git			#branch riscv commit 54e5d253 on 5-Mar-2020
+$ git clone https://github.com/riscv/riscv-openocd.git			#branch riscv commit 9aa8bab6 on 27-Jul-2021
 $ cd riscv-openocd/
 $ git submodule update --init --recursive
 $ ./bootstrap
